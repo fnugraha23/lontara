@@ -13,17 +13,24 @@
     <link rel="stylesheet" href="../css/components.css" />
     <link rel="stylesheet" href="../css/main.css" />
     <style>
+      /* --- PERBAIKAN CSS DIMULAI --- */
       .service-header {
         padding: 120px 0 80px;
         background: var(--bg-main);
         border-bottom: 1px solid var(--border);
       }
-      .service-content {
+
+      .service-section-wrapper {
+        padding: 80px 0;
+        background-color: #fff;
+      }
+
+      .service-grid-layout {
         display: grid;
         grid-template-columns: 2fr 1fr;
         gap: 50px;
-        padding: 80px 0;
       }
+
       .sidebar-box {
         background: var(--bg-light);
         border: 1px solid var(--border);
@@ -41,11 +48,16 @@
         border-bottom: 1px solid var(--border);
         font-size: 0.95rem;
       }
+
       @media (max-width: 900px) {
-        .service-content {
+        .service-grid-layout {
           grid-template-columns: 1fr;
         }
+        .service-section-wrapper {
+          padding: 40px 0;
+        }
       }
+      /* --- PERBAIKAN CSS SELESAI --- */
     </style>
   </head>
   <body>
@@ -141,67 +153,71 @@
       </div>
     </section>
 
-    <section class="container service-content">
-      <div class="main-text">
-        <h2 style="margin-bottom: 20px">
-          Keputusan Presisi Berbasis Parameter Tanah
-        </h2>
-        <p style="margin-bottom: 20px; color: var(--text-muted)">
-          Evaluasi kesesuaian lahan tradisional sering kali memakan waktu dan
-          rentan bias. Di Lontara, kami mendigitalkan kerangka pencocokan lahan
-          (*land matching*) melalui aplikasi dan algoritma evaluasi kustom yang
-          mempercepat pemrosesan data profil tanah, iklim, dan topografi.
-        </p>
+    <section class="service-section-wrapper">
+      <div class="container">
+        <div class="service-grid-layout">
+          
+          <div class="main-text">
+            <h2 style="margin-bottom: 20px">
+              Keputusan Presisi Berbasis Parameter Tanah
+            </h2>
+            <p style="margin-bottom: 20px; color: var(--text-muted)">
+              Evaluasi kesesuaian lahan tradisional sering kali memakan waktu dan
+              rentan bias. Di Lontara, kami mendigitalkan kerangka pencocokan lahan
+              (*land matching*) melalui aplikasi dan algoritma evaluasi kustom yang
+              mempercepat pemrosesan data profil tanah, iklim, dan topografi.
+            </p>
 
-        <h3 style="margin: 40px 0 15px">Integrasi Teknologi Modern</h3>
-        <p style="margin-bottom: 20px; color: var(--text-muted)">
-          Kami membangun alur kerja pemrosesan (*pipeline*) spasial yang cerdas:
-        </p>
-        <ul
-          style="
-            margin-bottom: 30px;
-            color: var(--text-muted);
-            padding-left: 20px;
-          "
-        >
-          <li style="margin-bottom: 10px">
-            <b>Python-Powered Analysis:</b> Mengotomatiskan penilaian kelas
-            kesesuaian lahan (S1, S2, S3, N) pada hamparan data spasial yang
-            masif.
-          </li>
-          <li style="margin-bottom: 10px">
-            <b>Machine Learning dalam Agrikultur:</b> Menerapkan model prediktif
-            untuk memetakan tren penurunan kualitas lahan dan rekomendasi
-            optimasi (*precision agriculture*).
-          </li>
-          <li style="margin-bottom: 10px">
-            <b>Alternatif Komoditas (Termasuk Hidroponik):</b> Memberikan
-            penilaian komparatif untuk sistem pertanian tanah dan non-tanah
-            berbasis kondisi *site-specific*.
-          </li>
-        </ul>
-      </div>
+            <h3 style="margin: 40px 0 15px">Integrasi Teknologi Modern</h3>
+            <p style="margin-bottom: 20px; color: var(--text-muted)">
+              Kami membangun alur kerja pemrosesan (*pipeline*) spasial yang cerdas:
+            </p>
+            <ul
+              style="
+                margin-bottom: 30px;
+                color: var(--text-muted);
+                padding-left: 20px;
+              "
+            >
+              <li style="margin-bottom: 10px">
+                <b>Python-Powered Analysis:</b> Mengotomatiskan penilaian kelas
+                kesesuaian lahan (S1, S2, S3, N) pada hamparan data spasial yang
+                masif.
+              </li>
+              <li style="margin-bottom: 10px">
+                <b>Machine Learning dalam Agrikultur:</b> Menerapkan model prediktif
+                untuk memetakan tren penurunan kualitas lahan dan rekomendasi
+                optimasi (*precision agriculture*).
+              </li>
+              <li style="margin-bottom: 10px">
+                <b>Alternatif Komoditas (Termasuk Hidroponik):</b> Memberikan
+                penilaian komparatif untuk sistem pertanian tanah dan non-tanah
+                berbasis kondisi *site-specific*.
+              </li>
+            </ul>
+          </div>
 
-      <div class="sidebar">
-        <div class="sidebar-box">
-          <h3 style="font-size: 1.2rem; color: var(--primary)">
-            Output Layanan
-          </h3>
-          <ul>
-            <li>Aplikasi Evaluasi Kesesuaian Kustom</li>
-            <li>Peta Kesesuaian Komoditas Spesifik</li>
-            <li>Rekomendasi Manajemen Lahan</li>
-            <li>Model *Machine Learning* Spasial</li>
-          </ul>
-          <a
-            href="../contact/index.html"
-            class="btn-primary"
-            style="width: 100%; text-align: center; margin-top: 30px"
-            >Mulai Proyek</a
-          >
-        </div>
-      </div>
-    </section>
+          <div class="sidebar">
+            <div class="sidebar-box">
+              <h3 style="font-size: 1.2rem; color: var(--primary)">
+                Output Layanan
+              </h3>
+              <ul>
+                <li>Aplikasi Evaluasi Kesesuaian Kustom</li>
+                <li>Peta Kesesuaian Komoditas Spesifik</li>
+                <li>Rekomendasi Manajemen Lahan</li>
+                <li>Model *Machine Learning* Spasial</li>
+              </ul>
+              <a
+                href="../contact/index.html"
+                class="btn-primary"
+                style="width: 100%; text-align: center; margin-top: 30px; display: block;"
+                >Mulai Proyek</a
+              >
+            </div>
+          </div>
+
+        </div> </div> </section>
 
     <footer class="footer">
       <div class="container footer-container">
