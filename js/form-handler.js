@@ -1,6 +1,5 @@
 /* ======================================================
-   LONTARA — FORM HANDLER (EMAILJS INTEGRATION)
-   Mengirim pesan otomatis di latar belakang
+   LONTARA — FORM HANDLER (FIXED DATA INTEGRATION)
 ====================================================== */
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -10,19 +9,16 @@ document.addEventListener("DOMContentLoaded", function () {
   const contactForm = document.getElementById("contact-form");
   const gatedForm = document.getElementById("gated-access-form");
 
-  // 2. Masukkan Service ID dan Template ID Lontara
+  // 2. Kredensial Lontara
   const serviceID = "service_1gevel5";
   const templateID = "template_n753lnf"; 
 
-  /* ====================================================
-     1. GENERAL CONTACT FORM HANDLER 
-  ==================================================== */
+  /* --- 1. GENERAL CONTACT FORM HANDLER --- */
   if (contactForm) {
     contactForm.addEventListener("submit", function (e) {
-      e.preventDefault(); // Mencegah halaman refresh
+      e.preventDefault();
 
-      // Feedback visual pada tombol saat loading
-      const btn = contactForm.querySelector("button[type='submit']") || contactForm.querySelector("button");
+      const btn = contactForm.querySelector("button[type='submit']");
       const originalText = btn ? btn.innerText : "Kirim Pesan";
 
       if (btn) {
@@ -30,11 +26,10 @@ document.addEventListener("DOMContentLoaded", function () {
         btn.disabled = true;
       }
 
-      // Mengirim data form via EmailJS
-      // Menggunakan 'e.target' untuk memastikan semua input dengan atribut 'name' terbaca akurat
-      emailjs.sendForm(serviceID, templateID, e.target)
+      // PERBAIKAN: Menggunakan selector string '#contact-form' 
+      // agar EmailJS menarik ulang semua atribut 'name' dari DOM secara paksa.
+      emailjs.sendForm(serviceID, templateID, '#contact-form')
         .then(function() {
-            // Jika Berhasil
             alert("Sukses! Pesan Anda telah terkirim ke tim Lontara.");
             contactForm.reset();
             if (btn) {
@@ -42,7 +37,6 @@ document.addEventListener("DOMContentLoaded", function () {
               btn.disabled = false;
             }
         }, function(error) {
-            // Jika Gagal
             alert("Gagal mengirim pesan. Error: " + JSON.stringify(error));
             if (btn) {
               btn.innerText = originalText;
@@ -52,14 +46,12 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  /* ====================================================
-     2. GATED CONTENT HANDLER (Premium Downloads) 
-  ==================================================== */
+  /* --- 2. GATED CONTENT HANDLER --- */
   if (gatedForm) {
     gatedForm.addEventListener("submit", function (e) {
       e.preventDefault();
 
-      const btn = gatedForm.querySelector("button[type='submit']") || gatedForm.querySelector("button");
+      const btn = gatedForm.querySelector("button[type='submit']");
       const originalText = btn ? btn.innerText : "Kirim Permintaan";
       
       if (btn) {
@@ -67,10 +59,8 @@ document.addEventListener("DOMContentLoaded", function () {
         btn.disabled = true;
       }
 
-      // Mengirim data form premium via EmailJS
-      // Catatan: Jika form premium ini butuh format email yang berbeda dari form kontak, 
-      // Anda bisa membuat Template baru di EmailJS dan mengganti variabel templateID di bawah ini.
-      emailjs.sendForm(serviceID, templateID, e.target)
+      // Menggunakan selector string '#gated-access-form'.
+      emailjs.sendForm(serviceID, templateID, '#gated-access-form')
         .then(function() {
             alert("Sukses! Permintaan akses toolkit Anda telah kami terima.");
             gatedForm.reset();
