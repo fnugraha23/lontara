@@ -13,17 +13,24 @@
     <link rel="stylesheet" href="../css/components.css" />
     <link rel="stylesheet" href="../css/main.css" />
     <style>
+      /* --- PERBAIKAN CSS DIMULAI --- */
       .service-header {
         padding: 120px 0 80px;
         background: var(--bg-main);
         border-bottom: 1px solid var(--border);
       }
-      .service-content {
+
+      .service-section-wrapper {
+        padding: 80px 0;
+        background-color: #fff;
+      }
+
+      .service-grid-layout {
         display: grid;
         grid-template-columns: 2fr 1fr;
         gap: 50px;
-        padding: 80px 0;
       }
+
       .sidebar-box {
         background: var(--bg-light);
         border: 1px solid var(--border);
@@ -41,11 +48,16 @@
         border-bottom: 1px solid var(--border);
         font-size: 0.95rem;
       }
+
       @media (max-width: 900px) {
-        .service-content {
+        .service-grid-layout {
           grid-template-columns: 1fr;
         }
+        .service-section-wrapper {
+          padding: 40px 0;
+        }
       }
+      /* --- PERBAIKAN CSS SELESAI --- */
     </style>
   </head>
   <body>
@@ -141,71 +153,75 @@
       </div>
     </section>
 
-    <section class="container service-content">
-      <div class="main-text">
-        <h2 style="margin-bottom: 20px">
-          Mata Digital untuk Aset Lingkungan Anda
-        </h2>
-        <p style="margin-bottom: 20px; color: var(--text-muted)">
-          Memantau area konsesi, hutan lindung, atau area restorasi yang luas
-          tidak lagi membutuhkan patroli darat yang mahal setiap saat. Lontara
-          menyediakan layanan *Remote Sensing* canggih yang memproses citra
-          satelit (optik dan radar) menjadi laporan analitik yang mudah
-          dipahami.
-        </p>
+    <section class="service-section-wrapper">
+      <div class="container">
+        <div class="service-grid-layout">
+          
+          <div class="main-text">
+            <h2 style="margin-bottom: 20px">
+              Mata Digital untuk Aset Lingkungan Anda
+            </h2>
+            <p style="margin-bottom: 20px; color: var(--text-muted)">
+              Memantau area konsesi, hutan lindung, atau area restorasi yang luas
+              tidak lagi membutuhkan patroli darat yang mahal setiap saat. Lontara
+              menyediakan layanan *Remote Sensing* canggih yang memproses citra
+              satelit (optik dan radar) menjadi laporan analitik yang mudah
+              dipahami.
+            </p>
 
-        <h3 style="margin: 40px 0 15px">Fokus Analitik Pemantauan</h3>
-        <p style="margin-bottom: 20px; color: var(--text-muted)">
-          Layanan ini berfokus pada analisis deret waktu (*time-series
-          analysis*) untuk mendeteksi anomali dan tren:
-        </p>
-        <ul
-          style="
-            margin-bottom: 30px;
-            color: var(--text-muted);
-            padding-left: 20px;
-          "
-        >
-          <li style="margin-bottom: 10px">
-            <b>Kesehatan Vegetasi (NDVI/EVI):</b> Evaluasi stres tanaman,
-            deforestasi ilegal, dan keberhasilan reboisasi.
-          </li>
-          <li style="margin-bottom: 10px">
-            <b>Dinamika Tutupan Lahan:</b> Analisis transisi penggunaan lahan
-            dari tahun ke tahun.
-          </li>
-          <li style="margin-bottom: 10px">
-            <b>Pemantauan Titik Panas (*Hotspot*):</b> Deteksi dini potensi
-            kebakaran hutan dan lahan.
-          </li>
-          <li style="margin-bottom: 10px">
-            <b>Integrasi Sensor IoT:</b> Menggabungkan data satelit dengan
-            sensor kelembapan tanah dan stasiun cuaca lokal untuk akurasi
-            maksimal.
-          </li>
-        </ul>
-      </div>
+            <h3 style="margin: 40px 0 15px">Fokus Analitik Pemantauan</h3>
+            <p style="margin-bottom: 20px; color: var(--text-muted)">
+              Layanan ini berfokus pada analisis deret waktu (*time-series
+              analysis*) untuk mendeteksi anomali dan tren:
+            </p>
+            <ul
+              style="
+                margin-bottom: 30px;
+                color: var(--text-muted);
+                padding-left: 20px;
+              "
+            >
+              <li style="margin-bottom: 10px">
+                <b>Kesehatan Vegetasi (NDVI/EVI):</b> Evaluasi stres tanaman,
+                deforestasi ilegal, dan keberhasilan reboisasi.
+              </li>
+              <li style="margin-bottom: 10px">
+                <b>Dinamika Tutupan Lahan:</b> Analisis transisi penggunaan lahan
+                dari tahun ke tahun.
+              </li>
+              <li style="margin-bottom: 10px">
+                <b>Pemantauan Titik Panas (*Hotspot*):</b> Deteksi dini potensi
+                kebakaran hutan dan lahan.
+              </li>
+              <li style="margin-bottom: 10px">
+                <b>Integrasi Sensor IoT:</b> Menggabungkan data satelit dengan
+                sensor kelembapan tanah dan stasiun cuaca lokal untuk akurasi
+                maksimal.
+              </li>
+            </ul>
+          </div>
 
-      <div class="sidebar">
-        <div class="sidebar-box">
-          <h3 style="font-size: 1.2rem; color: var(--primary)">
-            Output Layanan
-          </h3>
-          <ul>
-            <li>Laporan Tren Deforestasi & Restorasi</li>
-            <li>Dasbor *Monitoring* Kustom</li>
-            <li>Sistem Peringatan Dini (*Early Warning*)</li>
-            <li>Peta Indeks Ekologis Berkala</li>
-          </ul>
-          <a
-            href="../contact/index.html"
-            class="btn-primary"
-            style="width: 100%; text-align: center; margin-top: 30px"
-            >Konsultasikan Area Anda</a
-          >
-        </div>
-      </div>
-    </section>
+          <div class="sidebar">
+            <div class="sidebar-box">
+              <h3 style="font-size: 1.2rem; color: var(--primary)">
+                Output Layanan
+              </h3>
+              <ul>
+                <li>Laporan Tren Deforestasi & Restorasi</li>
+                <li>Dasbor *Monitoring* Kustom</li>
+                <li>Sistem Peringatan Dini (*Early Warning*)</li>
+                <li>Peta Indeks Ekologis Berkala</li>
+              </ul>
+              <a
+                href="../contact/index.html"
+                class="btn-primary"
+                style="width: 100%; text-align: center; margin-top: 30px; display: block;"
+                >Konsultasikan Area Anda</a
+              >
+            </div>
+          </div>
+
+        </div> </div> </section>
 
     <footer class="footer">
       <div class="container footer-container">
