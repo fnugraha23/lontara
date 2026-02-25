@@ -12,25 +12,38 @@
     <link rel="stylesheet" href="../css/layout.css" />
     <link rel="stylesheet" href="../css/components.css" />
     <link rel="stylesheet" href="../css/main.css" />
+
     <style>
+      /* --- PERBAIKAN CSS DIMULAI --- */
+      
+      /* 1. Header Halaman (Background abu/putih di atas) */
       .service-header {
         padding: 120px 0 80px;
         background: var(--bg-main);
         border-bottom: 1px solid var(--border);
       }
-      .service-content {
-        display: grid;
-        grid-template-columns: 2fr 1fr;
-        gap: 50px;
-        padding: 80px 0;
+
+      /* 2. Wrapper Utama Konten (Memberi jarak vertikal) */
+      .service-section-wrapper {
+        padding: 80px 0; /* Jarak atas bawah konten */
+        background-color: #fff; /* Pastikan background putih */
       }
+
+      /* 3. Grid Layout (Hanya mengatur pembagian kolom) */
+      .service-grid-layout {
+        display: grid;
+        grid-template-columns: 2fr 1fr; /* Kiri besar, Kanan kecil */
+        gap: 50px;
+      }
+
+      /* Sidebar Styling */
       .sidebar-box {
         background: var(--bg-light);
         border: 1px solid var(--border);
         border-radius: var(--radius);
         padding: 30px;
         position: sticky;
-        top: 100px;
+        top: 100px; /* Agar sidebar ikut turun saat di-scroll */
       }
       .sidebar-box ul {
         list-style: none;
@@ -41,11 +54,17 @@
         border-bottom: 1px solid var(--border);
         font-size: 0.95rem;
       }
+
+      /* Responsif untuk Mobile/Tablet */
       @media (max-width: 900px) {
-        .service-content {
-          grid-template-columns: 1fr;
+        .service-grid-layout {
+          grid-template-columns: 1fr; /* Jadi 1 kolom di layar kecil */
+        }
+        .service-section-wrapper {
+          padding: 40px 0; /* Kurangi jarak di HP */
         }
       }
+      /* --- PERBAIKAN CSS SELESAI --- */
     </style>
   </head>
   <body>
@@ -53,21 +72,22 @@
       <div class="progress-bar" id="progress-bar"></div>
       <div class="container nav-container">
         <div class="logo">
-          <a href="../index.html"
-            ><img
+          <a href="../index.html">
+            <img
               src="../assets/images/logo.png"
               alt="Lontara Logo"
               width="120"
               height="38"
-          /></a>
+            />
+          </a>
         </div>
         <nav class="nav" id="nav-menu">
           <div class="nav-item">
             <a href="index.html" class="active">Solutions</a>
           </div>
           <div class="nav-item has-dropdown">
-            <a href="../platform/index.html" class="nav-link-dropdown"
-              >Platform
+            <a href="../platform/index.html" class="nav-link-dropdown">
+              Platform
               <svg
                 class="arrow-icon"
                 width="10"
@@ -86,13 +106,9 @@
               </svg>
             </a>
             <div class="dropdown">
-              <a href="../platform/environmental-dashboard.html"
-                >Environmental Dashboard</a
-              >
+              <a href="../platform/environmental-dashboard.html">Environmental Dashboard</a>
               <a href="../platform/spatial-ml-engine.html">Spatial ML Engine</a>
-              <a href="../platform/data-engineering-tools.html"
-                >Data Engineering Tools</a
-              >
+              <a href="../platform/data-engineering-tools.html">Data Engineering Tools</a>
             </div>
           </div>
           <div class="nav-item">
@@ -141,65 +157,70 @@
       </div>
     </section>
 
-    <section class="container service-content">
-      <div class="main-text">
-        <h2 style="margin-bottom: 20px">
-          Memahami Dinamika Air dan Bentang Lahan
-        </h2>
-        <p style="margin-bottom: 20px; color: var(--text-muted)">
-          Perubahan tata guna lahan memberikan dampak langsung terhadap siklus
-          hidrologi. Lontara menggabungkan prinsip keilmuan konservasi tanah dan
-          air dengan teknologi geospasial mutakhir (ArcGIS/QGIS dan otomatisasi
-          Python) untuk memodelkan skenario ekologis secara presisi.
-        </p>
+    <section class="service-section-wrapper">
+      <div class="container">
+        
+        <div class="service-grid-layout">
+          
+          <div class="main-text">
+            <h2 style="margin-bottom: 20px">
+              Memahami Dinamika Air dan Bentang Lahan
+            </h2>
+            <p style="margin-bottom: 20px; color: var(--text-muted)">
+              Perubahan tata guna lahan memberikan dampak langsung terhadap siklus
+              hidrologi. Lontara menggabungkan prinsip keilmuan konservasi tanah dan
+              air dengan teknologi geospasial mutakhir (ArcGIS/QGIS dan otomatisasi
+              Python) untuk memodelkan skenario ekologis secara presisi.
+            </p>
 
-        <h3 style="margin: 40px 0 15px">Pendekatan Metodologi Kami</h3>
-        <p style="margin-bottom: 20px; color: var(--text-muted)">
-          Alih-alih sekadar menggunakan alat *default*, kami membangun *script*
-          analitik yang disesuaikan untuk mengukur parameter hidrologi seperti:
-        </p>
-        <ul
-          style="
-            margin-bottom: 30px;
-            color: var(--text-muted);
-            padding-left: 20px;
-          "
-        >
-          <li style="margin-bottom: 10px">
-            <b>Estimasi Limpasan Permukaan (Runoff):</b> Menggunakan integrasi
-            data curah hujan dan karakteristik tanah.
-          </li>
-          <li style="margin-bottom: 10px">
-            <b>Kinerja DAS:</b> Evaluasi daya dukung lingkungan untuk menentukan
-            prioritas rehabilitasi lahan kritis.
-          </li>
-          <li style="margin-bottom: 10px">
-            <b>Pemodelan Risiko Banjir:</b> Identifikasi zona akumulasi aliran
-            berbasis *Digital Elevation Model* (DEM) resolusi tinggi.
-          </li>
-        </ul>
-      </div>
+            <h3 style="margin: 40px 0 15px">Pendekatan Metodologi Kami</h3>
+            <p style="margin-bottom: 20px; color: var(--text-muted)">
+              Alih-alih sekadar menggunakan alat *default*, kami membangun *script*
+              analitik yang disesuaikan untuk mengukur parameter hidrologi seperti:
+            </p>
+            <ul
+              style="
+                margin-bottom: 30px;
+                color: var(--text-muted);
+                padding-left: 20px;
+              "
+            >
+              <li style="margin-bottom: 10px">
+                <b>Estimasi Limpasan Permukaan (Runoff):</b> Menggunakan integrasi
+                data curah hujan dan karakteristik tanah.
+              </li>
+              <li style="margin-bottom: 10px">
+                <b>Kinerja DAS:</b> Evaluasi daya dukung lingkungan untuk menentukan
+                prioritas rehabilitasi lahan kritis.
+              </li>
+              <li style="margin-bottom: 10px">
+                <b>Pemodelan Risiko Banjir:</b> Identifikasi zona akumulasi aliran
+                berbasis *Digital Elevation Model* (DEM) resolusi tinggi.
+              </li>
+            </ul>
+          </div>
 
-      <div class="sidebar">
-        <div class="sidebar-box">
-          <h3 style="font-size: 1.2rem; color: var(--primary)">
-            Output Layanan
-          </h3>
-          <ul>
-            <li>Peta Risiko dan Kinerja DAS</li>
-            <li>Rekomendasi Konservasi Tanah & Air</li>
-            <li>Database Spasial Hidrologi</li>
-            <li>Laporan Teknis Komprehensif</li>
-          </ul>
-          <a
-            href="../contact/index.html"
-            class="btn-primary"
-            style="width: 100%; text-align: center; margin-top: 30px"
-            >Mulai Proyek</a
-          >
-        </div>
-      </div>
-    </section>
+          <div class="sidebar">
+            <div class="sidebar-box">
+              <h3 style="font-size: 1.2rem; color: var(--primary)">
+                Output Layanan
+              </h3>
+              <ul>
+                <li>Peta Risiko dan Kinerja DAS</li>
+                <li>Rekomendasi Konservasi Tanah & Air</li>
+                <li>Database Spasial Hidrologi</li>
+                <li>Laporan Teknis Komprehensif</li>
+              </ul>
+              <a
+                href="../contact/index.html"
+                class="btn-primary"
+                style="width: 100%; text-align: center; margin-top: 30px; display: block;"
+                >Mulai Proyek</a
+              >
+            </div>
+          </div>
+
+        </div> </div> </section>
 
     <footer class="footer">
       <div class="container footer-container">
