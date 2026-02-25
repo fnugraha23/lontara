@@ -210,7 +210,7 @@
                 >Terhubung di LinkedIn &rarr;</a
               >
             </div>
-                        <div class="info-block" style="margin-top: 40px">
+            <div class="info-block" style="margin-top: 40px">
               <a
                 href="https://www.instagram.com/lontara.ai/"
                 target="_blank"
@@ -227,6 +227,7 @@
                 <input
                   type="text"
                   id="name"
+                  name="nama"
                   required
                   placeholder="Cth: Budi Santoso"
                 />
@@ -236,13 +237,14 @@
                 <input
                   type="email"
                   id="email"
+                  name="email"
                   required
                   placeholder="Cth: budi@instansi.go.id"
                 />
               </div>
               <div class="form-group">
                 <label for="service">Ketertarikan Layanan</label>
-                <select id="service" required>
+                <select id="service" name="layanan" required>
                   <option value="">-- Pilih Layanan --</option>
                   <option value="Pemodelan Hidrologi & DAS">
                     Pemodelan Hidrologi & DAS
@@ -265,12 +267,13 @@
                 <label for="message">Pesan / Deskripsi Proyek</label>
                 <textarea
                   id="message"
+                  name="pesan"
                   required
                   placeholder="Ceritakan secara singkat masalah atau kebutuhan spasial yang ingin Anda selesaikan..."
                 ></textarea>
               </div>
               <button type="submit" class="btn-primary" style="width: 100%">
-                Kirim Pesan via Gmail
+                Kirim Pesan
               </button>
             </form>
           </div>
@@ -294,8 +297,3 @@
     <script src="../js/main.js"></script>
   </body>
 </html>
-
-
-
-
-
