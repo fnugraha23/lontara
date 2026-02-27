@@ -9,43 +9,63 @@ document.addEventListener("DOMContentLoaded", function () {
   =============================== */
   const navToggle = document.getElementById("nav-toggle");
   const navMenu = document.getElementById("nav-menu");
+  const navClose = document.getElementById("nav-close");
+  
+  // 1. Sinkronisasi Overlay
+  // Mengecek apakah overlay sudah ada di HTML, jika tidak maka buat secara dinamis
+  let overlay = document.getElementById("nav-overlay");
+  if (!overlay) {
+    overlay = document.createElement("div");
+    overlay.id = "nav-overlay";
+    overlay.classList.add("nav-overlay");
+    document.body.appendChild(overlay);
+  }
 
-  // Create Overlay secara dinamis untuk efek blur/gelap saat menu buka
-  const overlay = document.createElement("div");
-  overlay.classList.add("nav-overlay");
-  document.body.appendChild(overlay);
-
+  // 2. Fungsi Buka Menu
   if (navToggle) {
-    // Toggle Menu
     navToggle.addEventListener("click", () => {
-      navToggle.classList.toggle("active");
-      navMenu.classList.toggle("show");
-      overlay.classList.toggle("active");
-    });
-
-    // Close on Overlay Click
-    overlay.addEventListener("click", () => {
-      closeMobileMenu();
+      navMenu.classList.add("show");
+      overlay.classList.add("active");
+      document.body.style.overflow = "hidden"; // Mencegah scroll saat menu buka
     });
   }
 
-  function closeMobileMenu() {
-    if (navToggle) navToggle.classList.remove("active");
-    if (navMenu) navMenu.classList.remove("show");
+  // 3. Fungsi Tutup Menu (Lewat Tombol X, Overlay, atau Link)
+  const closeMobileMenu = () => {
+    navMenu.classList.remove("show");
     overlay.classList.remove("active");
-  }
+    document.body.style.overflow = "auto"; // Mengembalikan fungsi scroll
+    
+    // Reset state dropdown proyek saat menu ditutup
+    document.querySelectorAll(".has-dropdown").forEach(item => {
+      item.classList.remove("active");
+    });
+  };
+
+  if (navClose) navClose.addEventListener("click", closeMobileMenu);
+  if (overlay) overlay.addEventListener("click", closeMobileMenu);
 
   /* ===============================
       MOBILE DROPDOWN ACCORDION
   =============================== */
+  // Memperbaiki susunan sub-menu agar tidak amburadul di layar kecil
   const dropdownLinks = document.querySelectorAll(".has-dropdown > a");
 
   dropdownLinks.forEach((link) => {
     link.addEventListener("click", function (e) {
-      // Logic khusus Mobile (< 768px) agar dropdown bisa diklik
       if (window.innerWidth <= 768) {
         e.preventDefault();
-        this.parentElement.classList.toggle("active");
+        const parent = this.parentElement;
+        
+        // Toggle class active untuk membuka sub-menu (Proyek) secara vertikal
+        parent.classList.toggle("active");
+        
+        // Menutup dropdown lain jika ada yang terbuka (Accordion style)
+        document.querySelectorAll(".has-dropdown").forEach(otherItem => {
+          if (otherItem !== parent) {
+            otherItem.classList.remove("active");
+          }
+        });
       }
     });
   });
@@ -57,9 +77,15 @@ document.addEventListener("DOMContentLoaded", function () {
   const navLinks = document.querySelectorAll(".nav a");
 
   navLinks.forEach((link) => {
-    // Memberikan class active jika URL cocok dengan link
+    // Memberikan class active jika URL cocok untuk indikator halaman saat ini
     if (link.href === currentURL) {
       link.classList.add("active");
+      
+      // Jika link berada di dalam dropdown, pastikan parent tetap terlihat aktif
+      const parentDropdown = link.closest(".has-dropdown");
+      if (parentDropdown) {
+        parentDropdown.querySelector(".nav-link-dropdown").classList.add("active");
+      }
     }
   });
 
@@ -79,7 +105,7 @@ document.addEventListener("DOMContentLoaded", function () {
           block: "start",
         });
 
-        // Tutup menu mobile jika link anchor diklik
+        // Otomatis tutup menu mobile jika anchor diklik
         if (navMenu && navMenu.classList.contains("show")) {
           closeMobileMenu();
         }
@@ -90,9 +116,9 @@ document.addEventListener("DOMContentLoaded", function () {
   /* ===============================
       SCROLL REVEAL ORCHESTRATOR
   =============================== */
-  // Mendaftarkan elemen, termasuk kontainer WebGIS agar muncul dengan animasi
+  // Memastikan Visi & Misi dan elemen lainnya muncul dengan animasi
   const revealElements = document.querySelectorAll(
-    ".section, .card, .hero-content, .reveal-init, .webgis-container",
+    ".section, .card, .hero-content, .reveal-init, .webgis-container, .vm-card"
   );
 
   const observerOptions = {
@@ -104,14 +130,13 @@ document.addEventListener("DOMContentLoaded", function () {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add("reveal-active");
-        // Berhenti mengobservasi setelah elemen muncul (opsional)
-        // observer.unobserve(entry.target);
+        // Hapus unobserve jika ingin animasi berulang saat scroll balik
+        // observer.unobserve(entry.target); 
       }
     });
   }, observerOptions);
 
   revealElements.forEach((el) => {
-    // Tambahkan class awal reveal-init jika belum ada di HTML
     if (!el.classList.contains("reveal-init")) {
       el.classList.add("reveal-init");
     }
