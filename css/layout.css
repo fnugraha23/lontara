@@ -10,12 +10,12 @@
   max-width: var(--container);
   margin: 0 auto;
   padding: 0 28px;
-  width: 100%; /* Memastikan container tetap fleksibel */
+  width: 100%;
 }
 
 .section {
   padding: 110px 0;
-  width: 100%; /* Background section membentang penuh */
+  width: 100%;
   position: relative;
   overflow: hidden;
 }
@@ -44,7 +44,6 @@
    (Fix: Bidang Putih & Crop Gambar)
 ========================= */
 
-/* Kontainer Gambar Profil agar tidak terpotong di layar besar */
 .founder-image-container {
   width: 100%;
   max-width: 480px;
@@ -57,12 +56,11 @@
 
 .founder-image-container img {
   width: 100%;
-  height: auto; /* Kunci agar gambar tidak tercrop */
+  height: auto; 
   display: block;
   object-fit: contain;
 }
 
-/* Kartu Form agar ramping dan tidak memanjang ke bawah */
 .contact-form-card {
   background: white;
   border: 1px solid var(--border);
@@ -73,8 +71,6 @@
   padding: 40px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
   transition: var(--transition);
-  
-  /* Mencegah kartu memanjang mengikuti tinggi kolom sebelah */
   height: fit-content; 
   align-self: flex-start;
 }
@@ -101,12 +97,10 @@
   gap: 40px;
 }
 
-/* Utilitas untuk meratakan elemen grid ke atas */
 .align-start {
   align-items: start !important;
 }
 
-/* Responsive Grid */
 @media (max-width: 1100px) {
   .grid-4, .grid-3 {
     grid-template-columns: repeat(2, 1fr);
@@ -121,7 +115,7 @@
   
   .founder-image-container {
     max-width: 380px;
-    order: 1; /* Foto muncul di atas teks pada mobile */
+    order: 1; 
   }
 
   .founder-text {
@@ -136,7 +130,7 @@
   
   .contact-form-card {
     padding: 25px;
-    align-self: stretch; /* Melebar normal di mobile */
+    align-self: stretch;
   }
 }
 
@@ -290,6 +284,7 @@
 }
 
 @media (max-width: 768px) {
+  /* Fix: Hamburger menu item alignment */
   .nav {
     position: fixed;
     top: 0;
@@ -302,25 +297,59 @@
     gap: 28px;
     box-shadow: -10px 0 30px rgba(0, 0, 0, 0.05);
     transition: 0.4s ease;
+    align-items: center; /* Mengetengahkan semua item menu */
+    text-align: center;
   }
   
   .nav.show { right: 0; }
   .nav-toggle { display: flex; }
   
+  .nav-item {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Fix: Proyek menu alignment in mobile */
+  .nav-link-dropdown {
+    justify-content: center;
+    width: 100%;
+  }
+
+  /* Fix: Sub-menu (dropdown) alignment and structure */
   .dropdown {
     position: static;
+    display: flex;
+    flex-direction: column; /* Menyusun rapi ke bawah */
+    align-items: center;    /* Teks sub-menu rata tengah */
+    width: 100%;
     max-height: 0;
     overflow: hidden;
     opacity: 0;
     visibility: hidden;
+    background: transparent;
+    box-shadow: none;
+    border: none;
+    padding: 0;
     transition: all 0.4s ease-in-out;
   }
   
   .has-dropdown.active .dropdown {
-    max-height: 300px;
+    max-height: 500px;
     opacity: 1;
     visibility: visible;
     margin-top: 15px;
+  }
+
+  .dropdown a {
+    width: 100%;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+  }
+  
+  .dropdown a:last-child {
+    border-bottom: none;
   }
 }
 
