@@ -1,46 +1,162 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="id">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>404 — Lontara</title>
+    <title>404 — Data Luar Jangkauan | Lontara</title>
+    
+    <link rel="icon" type="image/png" href="assets/images/icon.png" />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/components.css" />
     <link rel="stylesheet" href="css/main.css" />
+
+    <style>
+      .error-page {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--bg-light);
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Efek Radar Modern (Identitas Spasial) */
+      .radar-bg {
+        position: absolute;
+        width: 600px;
+        height: 600px;
+        border: 2px solid rgba(0, 184, 169, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 0;
+      }
+
+      .radar-bg::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background: conic-gradient(from 0deg, transparent, rgba(0, 184, 169, 0.2));
+        animation: scan 4s linear infinite;
+      }
+
+      @keyframes scan {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+
+      .error-content {
+        position: relative;
+        z-index: 10;
+        text-align: center;
+        max-width: 650px;
+        padding: 40px;
+      }
+
+      .error-code {
+        font-size: 10rem;
+        font-weight: 800;
+        line-height: 1;
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 20px;
+        letter-spacing: -5px;
+      }
+
+      .error-content h2 {
+        font-size: 1.8rem;
+        color: var(--text-main);
+        margin-bottom: 15px;
+      }
+
+      .error-content p {
+        color: var(--text-muted);
+        font-size: 1.1rem;
+        margin-bottom: 40px;
+        line-height: 1.6;
+      }
+
+      .btn-container {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      @media (max-width: 768px) {
+        .error-code { font-size: 7rem; }
+        .radar-bg { width: 400px; height: 400px; }
+      }
+    </style>
   </head>
   <body>
-    <section
-      class="hero"
-      style="min-height: 100vh; display: flex; align-items: center"
-    >
-      <div
-        class="container hero-content"
-        style="text-align: center; max-width: 700px; margin: auto"
-      >
-        <h1 style="font-size: 5rem; margin-bottom: 20px">404</h1>
+    <div class="nav-overlay" id="nav-overlay"></div>
 
-        <h2 style="margin-bottom: 20px">
-          The requested spatial route could not be located.
-        </h2>
-
-        <p style="margin-bottom: 40px; color: var(--text-muted)">
-          The page you are looking for may have been moved, renamed, or is
-          currently unavailable within our environmental intelligence system.
-        </p>
-
-        <div
-          style="
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-          "
-        >
-          <a href="index.html" class="btn-primary"> Return to Homepage </a>
-
-          <a href="solutions/index.html" class="btn-secondary">
-            Explore Solutions
+    <header class="header">
+      <div class="container nav-container">
+        <div class="logo">
+          <a href="index.html">
+            <img src="assets/images/logo.png" alt="Lontara Logo" width="120" height="38" />
           </a>
         </div>
+        
+        <nav class="nav" id="nav-menu">
+          <button class="nav-close" id="nav-close">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+          <div class="nav-item"><a href="solutions/index.html">Jasa</a></div>
+          <div class="nav-item"><a href="platform/index.html">Proyek</a></div>
+          <a href="contact/index.html" class="nav-cta">Kontak</a>
+        </nav>
+
+        <button class="nav-toggle" id="nav-toggle">
+          <span></span><span></span><span></span>
+        </button>
       </div>
-    </section>
+    </header>
+
+    <main class="error-page">
+      <div class="radar-bg"></div>
+
+      <div class="container error-content">
+        <div class="error-code reveal-init">404</div>
+        
+        <h2 class="reveal-init">Koordinat Tidak Ditemukan</h2>
+        
+        <p class="reveal-init">
+          Rute spasial yang Anda minta berada di luar jangkauan sensor kami. 
+          Halaman ini mungkin telah dipindahkan atau dihapus dari sistem intelijen lingkungan Lontara.
+        </p>
+
+        <div class="btn-container reveal-init">
+          <a href="index.html" class="btn-primary">Kembali ke Beranda</a>
+          <a href="solutions/index.html" class="btn-secondary">Lihat Layanan</a>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="container" style="text-align: center;">
+        <p style="font-size: 0.9rem; color: var(--text-muted);">&copy; 2026 Lontara. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script src="js/utils.js"></script>
+    <script src="js/animation.js"></script>
+    <script src="js/main.js"></script>
   </body>
 </html>
