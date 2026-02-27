@@ -51,14 +51,14 @@
         margin-top: -40px;
       }
 
-      /* PERBAIKAN: Membuat semua konten di dalam kartu menjadi tengah */
+      /* Membuat konten visi misi rata tengah */
       .vm-card {
         background: white;
         padding: 50px;
         border-radius: var(--radius);
         box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04);
         border: 1px solid var(--border);
-        text-align: center; /* Meratakan judul dan teks deskripsi ke tengah */
+        text-align: center; /* Rata tengah untuk judul dan isi */
       }
       .vm-card h2 {
         color: var(--accent);
@@ -86,13 +86,14 @@
         border-radius: var(--radius);
         overflow: hidden;
         box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        background: var(--border);
       }
 
       .founder-image-container img {
         width: 100%;
         height: auto; 
         display: block;
-        object-fit: contain; 
+        object-fit: contain; /* Mencegah gambar terpotong */
       }
 
       .founder-badge {
@@ -108,21 +109,6 @@
         margin-bottom: 15px;
       }
 
-      /* DNA Teknologi Grid */
-      .expertise-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 30px;
-        margin-top: 50px;
-      }
-      .expertise-item {
-        text-align: center;
-        padding: 30px;
-        background: white;
-        border: 1px solid var(--border);
-        border-radius: var(--radius);
-      }
-
       @media (max-width: 992px) {
         .vision-mission,
         .founder-section {
@@ -130,21 +116,20 @@
           gap: 40px;
         }
         .founder-image-container {
-          order: 1;
+          order: 1; /* Gambar tetap di atas pada mobile */
           max-width: 320px;
         }
         .founder-text {
           order: 2;
           text-align: center;
         }
-        .expertise-grid {
-          grid-template-columns: repeat(2, 1fr);
-        }
       }
     </style>
   </head>
 
   <body>
+    <div class="nav-overlay" id="nav-overlay"></div>
+
     <header class="header" id="header">
       <div class="progress-bar" id="progress-bar"></div>
       <div class="container nav-container">
@@ -155,6 +140,13 @@
         </div>
 
         <nav class="nav" id="nav-menu">
+          <button class="nav-close" id="nav-close" aria-label="Close Menu">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+
           <div class="nav-item"><a href="../solutions/index.html">Jasa</a></div>
           <div class="nav-item has-dropdown">
             <a href="../platform/index.html" class="nav-link-dropdown">
@@ -198,16 +190,16 @@
         <div class="vm-card reveal-init">
           <h2>Visi Kami</h2>
           <p>
-            Menjadi pelopor infrastruktur data spasial dan kecerdasan buatan
-            <i>(Artificial Intelligence)</i> dalam sektor lingkungan hidup di Asia Tenggara, 
+            Menjadi pelopor infrastruktur data spasial dan kecerdasan buatan 
+            (Artificial Intelligence) dalam sektor lingkungan hidup di Asia Tenggara, 
             memastikan setiap keputusan penggunaan lahan didasarkan pada perhitungan ekologis yang presisi.
           </p>
         </div>
         <div class="vm-card reveal-init">
           <h2>Misi Kami</h2>
           <p>
-            Menyediakan alat rekayasa data, dasbor <b>WebGIS</b>, dan mesin pemodelan
-            spasial yang transparan dan dapat diandalkan untuk mengatasi kompleksitas evaluasi 
+            Menyediakan alat rekayasa data, dasbor WebGIS, dan mesin pemodelan spasial 
+            yang transparan dan dapat diandalkan untuk mengatasi kompleksitas evaluasi 
             kesesuaian lahan dan mitigasi perubahan iklim.
           </p>
         </div>
@@ -226,45 +218,17 @@
             <h2 style="font-size: 2.2rem; margin-bottom: 20px">Fajar Nugraha</h2>
             <p style="color: var(--text-muted); margin-bottom: 15px">
               Lontara didirikan dari pemahaman mendalam bahwa sains lingkungan membutuhkan 
-              rekayasa perangkat lunak untuk menjadi <i>Decision Support Systems</i> yang nyata.
+              rekayasa perangkat lunak untuk menjadi Decision Support Systems yang nyata.
             </p>
             <p style="color: var(--text-muted); margin-bottom: 15px">
               Dengan latar belakang Ilmu Tanah dari Universitas Hasanuddin dan studi pascasarjana di IPB, 
-              Fajar menggabungkan keahlian hidrologi dengan <i>Spatial Engineering</i>.
-            </p>
-            <p style="color: var(--text-muted); margin-bottom: 30px">
-              Fokus utamanya kini mengintegrasikan GIS, Python, dan <i>Machine Learning</i> untuk otomasi 
-              evaluasi kesesuaian lahan dan pemodelan lingkungan.
+              Fajar menggabungkan keahlian hidrologi dengan Spatial Engineering.
             </p>
             
             <div style="display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; margin-top: 30px;">
               <a href="../contact/index.html" class="btn-primary">Hubungi Saya</a>
               <a href="https://linkedin.com/in/fajar-nugraha23" target="_blank" class="btn-secondary">LinkedIn Profile</a>
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <h2 class="section-title" style="text-align: center">DNA Teknologi Kami</h2>
-        <div class="expertise-grid">
-          <div class="expertise-item reveal-init">
-            <h4>Geospatial Sciences</h4>
-            <p>QGIS, ArcGIS, Remote Sensing, dan Spatial Databases (PostGIS).</p>
-          </div>
-          <div class="expertise-item reveal-init">
-            <h4>Data Engineering</h4>
-            <p>Python, GeoPandas, Rasterio, dan otomasi ETL Pipeline.</p>
-          </div>
-          <div class="expertise-item reveal-init">
-            <h4>Machine Learning</h4>
-            <p>Random Forest & Neural Networks untuk klasifikasi LULC.</p>
-          </div>
-          <div class="expertise-item reveal-init">
-            <h4>Environmental Physics</h4>
-            <p>Hidrologi, Fisika Tanah, dan pemodelan limpasan <i>(runoff)</i>.</p>
           </div>
         </div>
       </div>
