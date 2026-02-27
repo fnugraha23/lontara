@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
   <head>
     <meta charset="UTF-8" />
@@ -9,7 +9,6 @@
     />
     <title>Data & Template | Lontara</title>
 
-    
     <link rel="icon" type="image/png" href="../assets/images/icon.png" />
     
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -41,25 +40,27 @@
         display: flex;
         align-items: center;
         gap: 15px;
-        margin-bottom: 30px;
+        margin-bottom: 40px;
         font-size: 1.8rem;
         color: var(--primary);
       }
+      
       .badge-free {
         background: rgba(0, 184, 169, 0.15);
         color: var(--accent);
         padding: 4px 12px;
         border-radius: 6px;
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         font-weight: 700;
         text-transform: uppercase;
       }
+      
       .badge-premium {
         background: #fff5e6;
         color: #d97706;
         padding: 4px 12px;
         border-radius: 6px;
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         font-weight: 700;
         text-transform: uppercase;
       }
@@ -73,123 +74,127 @@
         display: flex;
         flex-direction: column;
         height: 100%;
-        position: relative;
+        text-align: left; /* Konsisten dengan gaya konten teks */
       }
+      
       .resource-card.premium-card {
         border: 1px solid #ffe8c2;
         background: linear-gradient(to bottom right, #ffffff, #fffdfa);
       }
+      
       .resource-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
         border-color: var(--accent);
-      }
-      .resource-card.premium-card:hover {
-        border-color: #d97706;
       }
 
       .resource-card h3 {
-        font-size: 1.3rem;
-        margin-bottom: 12px;
-        color: var(--text-main);
+        font-size: 1.35rem;
+        margin-bottom: 15px;
+        color: var(--primary);
       }
+      
       .resource-card p {
         color: var(--text-muted);
         font-size: 0.95rem;
-        margin-bottom: 25px;
+        margin-bottom: 30px;
         flex-grow: 1;
+        line-height: 1.6;
       }
 
       .btn-download {
         display: inline-block;
-        padding: 10px 20px;
+        padding: 12px 20px;
         border-radius: 8px;
-        font-weight: 600;
+        font-weight: 700;
         text-align: center;
         transition: var(--transition);
+        font-size: 0.9rem;
       }
+      
       .btn-free {
-        background: var(--bg-main);
+        background: var(--bg-light);
         color: var(--primary);
         border: 1px solid var(--border);
       }
+      
       .btn-free:hover {
         background: var(--accent);
-        color: white;
+        color: white !important;
         border-color: var(--accent);
       }
+      
       .btn-locked {
         background: var(--primary);
-        color: white;
+        color: white !important;
       }
+      
       .btn-locked:hover {
         background: var(--primary-dark);
+      }
+
+      @media (max-width: 992px) {
+        .grid-3 {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .grid-3 {
+          grid-template-columns: 1fr;
+        }
+        .hero-resources h1 {
+          font-size: 2.2rem;
+        }
       }
     </style>
   </head>
   <body>
+    <div class="nav-overlay" id="nav-overlay"></div>
+
     <header class="header" id="header">
       <div class="progress-bar" id="progress-bar"></div>
       <div class="container nav-container">
         <div class="logo">
-          <a href="../index.html"
-            ><img
-              src="../assets/images/logo.png"
-              alt="Lontara Logo"
-              width="120"
-              height="38"
-          /></a>
+          <a href="../index.html">
+            <img src="../assets/images/logo.png" alt="Lontara Logo" width="120" height="38" />
+          </a>
         </div>
         <nav class="nav" id="nav-menu">
-          <div class="nav-item">
-            <a href="../solutions/index.html">Jasa</a>
-          </div>
+          <button class="nav-close" id="nav-close" aria-label="Close Menu">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+
+          <div class="nav-item"><a href="../solutions/index.html">Jasa</a></div>
           <div class="nav-item has-dropdown">
-            <a href="../platform/index.html" class="nav-link-dropdown"
-              >Proyek<svg
-                class="arrow-icon"
-                width="10"
-                height="6"
-                viewBox="0 0 10 6"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M1 1L5 5L9 1"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                /></svg
-            ></a>
+            <a href="../platform/index.html" class="nav-link-dropdown">
+              Proyek
+              <svg class="arrow-icon" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
             <div class="dropdown">
-              <a href="../platform/environmental-dashboard.html"
-                >WEBGIS Interaktif</a
-              >
-              <a href="../platform/spatial-ml-engine.html">Machine Learning untuk Spasial</a>
-              <a href="../platform/data-engineering-tools.html"
-                >Tools untuk Analisis Spasial</a
-              >
+              <a href="../platform/environmental-dashboard.html">WEBGIS Interaktif</a>
+              <a href="../platform/spatial-ml-engine.html">Machine Learning Spasial</a>
+              <a href="../platform/data-engineering-tools.html">Tools Analisis Spasial</a>
             </div>
           </div>
-          <div class="nav-item">
-            <a href="../case-studies/index.html">Studi Kasus</a>
-          </div>
-          <div class="nav-item">
-            <a href="../research/index.html">Penelitian</a>
-          </div>
+          <div class="nav-item"><a href="../case-studies/index.html">Studi Kasus</a></div>
+          <div class="nav-item"><a href="../research/index.html">Penelitian</a></div>
 
           <div class="nav-item">
             <a href="index.html" class="active">Data</a>
           </div>
 
-          <div class="nav-item">
-            <a href="../publications/index.html">Publikasi</a>
-          </div>
+          <div class="nav-item"><a href="../publications/index.html">Publikasi</a></div>
           <div class="nav-item"><a href="../about/index.html">Tentang</a></div>
           <a href="../contact/index.html" class="nav-cta">Kontak</a>
         </nav>
-        <button class="nav-toggle" id="nav-toggle">
+
+        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
           <span></span><span></span><span></span>
         </button>
       </div>
@@ -197,60 +202,36 @@
 
     <section class="hero-resources">
       <div class="container">
-        <h1>Pusat Sumber Daya Lontara</h1>
-        <p
-          style="
-            color: rgba(255, 255, 255, 0.8);
-            max-width: 650px;
-            margin: 0 auto;
-          "
-        >
-          Unduh kerangka kerja, skrip otomasi, dan *template* WebGIS yang kami
-          kembangkan untuk mempercepat proyek geospasial Anda.
+        <h1 class="reveal-init">Pusat Sumber Daya Lontara</h1>
+        <p class="reveal-init" style="color: rgba(255, 255, 255, 0.85); max-width: 650px; margin: 0 auto; font-size: 1.1rem;">
+          Unduh kerangka kerja, skrip otomasi, dan dataset spasial yang kami kembangkan untuk mendukung riset dan proyek geospasial Anda.
         </p>
       </div>
     </section>
 
     <section class="section">
       <div class="container">
-        <h2 class="resource-section-title">
+        <h2 class="resource-section-title reveal-init">
           Open Source <span class="badge-free">Gratis</span>
         </h2>
 
-        <div class="grid-3">
+        <div class="grid-3 align-start">
           <div class="resource-card reveal-init">
             <h3>WebGIS Basic Template</h3>
-            <p>
-              Kerangka kerja awal berbasis HTML, CSS, dan Leaflet.js yang siap
-              dihubungkan dengan data GeoJSON lokal Anda.
-            </p>
-            <a
-              href="free/webgis-basic-template.html"
-              class="btn-download btn-free"
-              >Lihat Template &rarr;</a
-            >
+            <p>Kerangka kerja awal berbasis HTML, CSS, dan Leaflet.js yang siap dihubungkan dengan data GeoJSON lokal Anda.</p>
+            <a href="free/webgis-basic-template.html" class="btn-download btn-free">Lihat Template &rarr;</a>
           </div>
 
           <div class="resource-card reveal-init">
             <h3>Sampel Dataset Spasial</h3>
-            <p>
-              Kumpulan data spasial vektor tersanitasi (Geologi & Tanah) area
-              simulasi untuk latihan tumpang susun (overlay).
-            </p>
-            <a href="free/spatial-data.html" class="btn-download btn-free"
-              >Unduh Data &rarr;</a
-            >
+            <p>Kumpulan data spasial vektor tersanitasi (Geologi & Tanah) area simulasi untuk latihan tumpang susun (overlay) GIS.</p>
+            <a href="free/spatial-data.html" class="btn-download btn-free">Unduh Data &rarr;</a>
           </div>
 
           <div class="resource-card reveal-init">
             <h3>ML Sample Workflow (.ipynb)</h3>
-            <p>
-              Jupyter Notebook sederhana berisi skrip ekstraksi nilai raster dan
-              klasifikasi dasar menggunakan Scikit-learn.
-            </p>
-            <a href="free/ml-sample-workflow.html" class="btn-download btn-free"
-              >Lihat Kode &rarr;</a
-            >
+            <p>Jupyter Notebook berisi skrip Python untuk ekstraksi nilai raster dan klasifikasi dasar menggunakan Scikit-learn.</p>
+            <a href="free/ml-sample-workflow.html" class="btn-download btn-free">Lihat Kode &rarr;</a>
           </div>
         </div>
       </div>
@@ -258,42 +239,27 @@
 
     <section class="section section-light">
       <div class="container">
-        <h2 class="resource-section-title">
+        <h2 class="resource-section-title reveal-init">
           Enterprise Toolkit <span class="badge-premium">Gated Access</span>
         </h2>
 
-        <div class="grid-3">
+        <div class="grid-3 align-start">
           <div class="resource-card premium-card reveal-init">
             <h3>Raster Automation Toolkit</h3>
-            <p>
-              Paket skrip Python tingkat lanjut untuk *batch processing* ratusan
-              file GeoTIFF secara multiprocessing.
-            </p>
-            <a href="premium/access.html" class="btn-download btn-locked"
-              >Dapatkan Akses (Email) &rarr;</a
-            >
+            <p>Paket skrip Python tingkat lanjut untuk batch processing ratusan file GeoTIFF secara multiprocessing yang efisien.</p>
+            <a href="premium/access.html" class="btn-download btn-locked">Minta Akses (Email) &rarr;</a>
           </div>
 
           <div class="resource-card premium-card reveal-init">
             <h3>Land Suitability ML Kit</h3>
-            <p>
-              Arsitektur algoritma *matching* lengkap beserta struktur
-              *database* yang siap di-*deploy* ke sistem Anda.
-            </p>
-            <a href="premium/access.html" class="btn-download btn-locked"
-              >Dapatkan Akses (Email) &rarr;</a
-            >
+            <p>Arsitektur algoritma matching lengkap beserta struktur database yang siap di-deploy ke sistem evaluasi lahan Anda.</p>
+            <a href="premium/access.html" class="btn-download btn-locked">Minta Akses (Email) &rarr;</a>
           </div>
 
           <div class="resource-card premium-card reveal-init">
             <h3>WebGIS Pro Architecture</h3>
-            <p>
-              Dokumentasi *Docker-compose* untuk menjalankan PostGIS, GeoServer,
-              dan Nginx dalam satu klik eksekusi.
-            </p>
-            <a href="premium/access.html" class="btn-download btn-locked"
-              >Dapatkan Akses (Email) &rarr;</a
-            >
+            <p>Dokumentasi Docker-compose untuk otomasi deployment PostGIS, GeoServer, dan portal WebGIS dalam satu klik.</p>
+            <a href="premium/access.html" class="btn-download btn-locked">Minta Akses (Email) &rarr;</a>
           </div>
         </div>
       </div>
@@ -302,18 +268,15 @@
     <footer class="footer">
       <div class="container footer-container">
         <div>
-          <h4>Lontara</h4>
-          <p>Environmental & Land Intelligence Studio.</p>
+          <h4 style="margin-bottom: 10px">Lontara</h4>
+          <p style="font-size: 0.9rem; color: var(--text-muted)">Environmental & Land Intelligence Studio.</p>
         </div>
-        <div><p>&copy; 2026 Lontara. Hak Cipta Dilindungi.</p></div>
+        <div><p style="font-size: 0.9rem; color: var(--text-muted)">&copy; 2026 Lontara. Hak Cipta Dilindungi.</p></div>
       </div>
     </footer>
+
     <script src="../js/utils.js"></script>
     <script src="../js/animation.js"></script>
     <script src="../js/main.js"></script>
   </body>
 </html>
-
-
-
-
