@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="../css/main.css" />
 
     <style>
-      /* Gayastyle Khusus Halaman Tentang */
+      /* Gaya Khusus Halaman Tentang */
       .hero-about {
         padding: 140px 0 100px;
         background-color: var(--bg-light);
@@ -57,12 +57,13 @@
         box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04);
         border: 1px solid var(--border);
       }
+      
       /* PERBAIKAN: Judul Visi & Misi menjadi tengah */
       .vm-card h2 {
         color: var(--accent);
         margin-bottom: 20px;
         font-size: 1.8rem;
-        text-align: center;
+        text-align: center; /* Teks judul ke tengah */
       }
       .vm-card p {
         color: var(--text-muted);
@@ -107,7 +108,7 @@
         margin-bottom: 15px;
       }
 
-      /* Tech & Expertise Grid */
+      /* DNA Teknologi Grid */
       .expertise-grid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
@@ -138,14 +139,6 @@
         }
         .expertise-grid {
           grid-template-columns: repeat(2, 1fr);
-        }
-        .hero-about h1 {
-          font-size: 2.2rem;
-        }
-      }
-      @media (max-width: 600px) {
-        .expertise-grid {
-          grid-template-columns: 1fr;
         }
       }
     </style>
