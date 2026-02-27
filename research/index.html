@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
   <head>
     <meta charset="UTF-8" />
@@ -30,6 +30,7 @@
         text-align: center;
         border-bottom: 1px solid var(--border);
       }
+      
       .article-card {
         background: white;
         border: 1px solid var(--border);
@@ -39,12 +40,15 @@
         display: flex;
         flex-direction: column;
         height: 100%;
+        text-align: left; /* Konsisten dengan gaya konten artikel */
       }
+
       .article-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.06);
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
         border-color: var(--accent);
       }
+
       .article-image {
         height: 200px;
         background: #f0f2f5;
@@ -54,110 +58,120 @@
         color: var(--text-muted);
         font-weight: 600;
         font-size: 0.9rem;
+        border-bottom: 1px solid var(--border);
       }
+
       .article-content {
         padding: 30px;
         flex-grow: 1;
         display: flex;
         flex-direction: column;
       }
+
       .article-meta {
-        font-size: 0.85rem;
-        color: var(--text-muted);
-        margin-bottom: 10px;
+        font-size: 0.8rem;
+        color: var(--accent);
+        margin-bottom: 12px;
         display: flex;
         justify-content: space-between;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
       }
+
       .article-content h3 {
-        font-size: 1.3rem;
+        font-size: 1.35rem;
         margin-bottom: 15px;
-        color: var(--text-main);
+        color: var(--primary);
         line-height: 1.4;
       }
+
       .article-content p {
         color: var(--text-muted);
         font-size: 0.95rem;
-        margin-bottom: 20px;
+        margin-bottom: 25px;
         flex-grow: 1;
+        line-height: 1.6;
       }
+
       .read-more {
         color: var(--primary);
-        font-weight: 600;
+        font-weight: 700;
         margin-top: auto;
         display: inline-flex;
         align-items: center;
-        gap: 5px;
+        gap: 8px;
+        transition: var(--transition);
+        font-size: 0.9rem;
       }
+
       .read-more:hover {
+        gap: 12px;
         color: var(--accent);
+      }
+
+      @media (max-width: 992px) {
+        .grid-3 {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .grid-3 {
+          grid-template-columns: 1fr;
+        }
+        .hero-research {
+          padding: 120px 0 60px;
+        }
       }
     </style>
   </head>
   <body>
+    <div class="nav-overlay" id="nav-overlay"></div>
+
     <header class="header" id="header">
       <div class="progress-bar" id="progress-bar"></div>
       <div class="container nav-container">
         <div class="logo">
-          <a href="../index.html"
-            ><img
-              src="../assets/images/logo.png"
-              alt="Lontara Logo"
-              width="120"
-              height="38"
-          /></a>
+          <a href="../index.html">
+            <img src="../assets/images/logo.png" alt="Lontara Logo" width="120" height="38" />
+          </a>
         </div>
         <nav class="nav" id="nav-menu">
-          <div class="nav-item">
-            <a href="../solutions/index.html">Jasa</a>
-          </div>
+          <button class="nav-close" id="nav-close" aria-label="Close Menu">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+
+          <div class="nav-item"><a href="../solutions/index.html">Jasa</a></div>
           <div class="nav-item has-dropdown">
-            <a href="../platform/index.html" class="nav-link-dropdown"
-              >Proyek
-              <svg
-                class="arrow-icon"
-                width="10"
-                height="6"
-                viewBox="0 0 10 6"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M1 1L5 5L9 1"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
+            <a href="../platform/index.html" class="nav-link-dropdown">
+              Proyek
+              <svg class="arrow-icon" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </a>
             <div class="dropdown">
-              <a href="../platform/environmental-dashboard.html"
-                >WEBGIS Interaktif</a
-              >
-              <a href="../platform/spatial-ml-engine.html">Machine Learning untuk Spasial</a>
-              <a href="../platform/data-engineering-tools.html"
-                >Tools untuk Analisis Spasial</a
-              >
+              <a href="../platform/environmental-dashboard.html">WEBGIS Interaktif</a>
+              <a href="../platform/spatial-ml-engine.html">Machine Learning Spasial</a>
+              <a href="../platform/data-engineering-tools.html">Tools Analisis Spasial</a>
             </div>
           </div>
-          <div class="nav-item">
-            <a href="../case-studies/index.html">Studi Kasus</a>
-          </div>
+          <div class="nav-item"><a href="../case-studies/index.html">Studi Kasus</a></div>
 
           <div class="nav-item">
             <a href="index.html" class="active">Penelitian</a>
           </div>
 
-          <div class="nav-item">
-            <a href="../resources/index.html">Data</a>
-          </div>
-          <div class="nav-item">
-            <a href="../publications/index.html">Publikasi</a>
-          </div>
+          <div class="nav-item"><a href="../resources/index.html">Data</a></div>
+          <div class="nav-item"><a href="../publications/index.html">Publikasi</a></div>
           <div class="nav-item"><a href="../about/index.html">Tentang</a></div>
           <a href="../contact/index.html" class="nav-cta">Kontak</a>
         </nav>
-        <button class="nav-toggle" id="nav-toggle">
+
+        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
           <span></span><span></span><span></span>
         </button>
       </div>
@@ -165,91 +179,69 @@
 
     <section class="hero-research">
       <div class="container">
-        <h1 style="font-size: 3rem; margin-bottom: 20px">Riset & Wawasan</h1>
-        <p
-          style="
-            font-size: 1.15rem;
-            color: var(--text-muted);
-            max-width: 700px;
-            margin: 0 auto;
-          "
-        >
-          Eksplorasi teknis, metodologi, dan pemikiran mendalam kami seputar
-          integrasi sains geospasial, hidrologi, dan kecerdasan buatan.
+        <h1 class="reveal-init" style="font-size: 3rem; margin-bottom: 20px">Riset & Wawasan</h1>
+        <p class="reveal-init" style="font-size: 1.15rem; color: var(--text-muted); max-width: 700px; margin: 0 auto">
+          Eksplorasi teknis, metodologi, dan pemikiran mendalam kami seputar integrasi sains geospasial, hidrologi, dan kecerdasan buatan.
         </p>
       </div>
     </section>
 
     <section class="section">
       <div class="container">
-        <div class="grid-3">
+        <div class="grid-3 align-start">
           <article class="article-card reveal-init">
-            <div class="article-image">[ Gambar Ilustrasi GIS ]</div>
+            <div class="article-image">
+              <span>[ Visualisasi Analisis Lahan ]</span>
+            </div>
             <div class="article-content">
               <div class="article-meta">
                 <span>Fundamental</span><span>5 Min Read</span>
               </div>
               <h3>Paradigma Baru GIS dalam Evaluasi Lahan</h3>
-              <p>
-                Mengapa pemetaan statis tidak lagi cukup, dan bagaimana analisis
-                dinamis mengubah cara kita merencanakan penggunaan lahan
-                pertanian.
-              </p>
-              <a href="gis-fundamentals.html" class="read-more"
-                >Baca Artikel &rarr;</a
-              >
+              <p>Analisis dinamis menggunakan data real-time untuk perencanaan penggunaan lahan pertanian yang lebih berkelanjutan dan adaptif terhadap perubahan iklim.</p>
+              <a href="gis-fundamentals.html" class="read-more">Baca Artikel &rarr;</a>
             </div>
           </article>
 
           <article class="article-card reveal-init">
-            <div class="article-image">[ Gambar Ilustrasi AI / ML ]</div>
+            <div class="article-image">
+              <span>[ Algoritma ML Spasial ]</span>
+            </div>
             <div class="article-content">
               <div class="article-meta">
                 <span>Machine Learning</span><span>8 Min Read</span>
               </div>
               <h3>Memahami Spatial Machine Learning</h3>
-              <p>
-                Panduan teknis penerapan Random Forest dan Support Vector
-                Machine untuk klasifikasi tutupan lahan (LULC) secara otomatis.
-              </p>
-              <a href="spatial-ml-explained.html" class="read-more"
-                >Baca Artikel &rarr;</a
-              >
+              <p>Penerapan praktis Random Forest dan SVM dalam klasifikasi tutupan lahan (LULC) otomatis menggunakan citra satelit resolusi tinggi.</p>
+              <a href="spatial-ml-explained.html" class="read-more">Baca Artikel &rarr;</a>
             </div>
           </article>
 
           <article class="article-card reveal-init">
-            <div class="article-image">[ Gambar Workflow ArcGIS ]</div>
+            <div class="article-image">
+              <span>[ Workflow Otomasi ]</span>
+            </div>
             <div class="article-content">
               <div class="article-meta">
                 <span>Data Engineering</span><span>6 Min Read</span>
               </div>
               <h3>Automasi Workflow ArcGIS untuk Analisis DAS</h3>
-              <p>
-                Meninggalkan klik manual: Membangun skrip Python (ArcPy) untuk
-                mengekstraksi parameter hidrologi Daerah Aliran Sungai secara
-                massal.
-              </p>
-              <a href="arcgis-workflow.html" class="read-more"
-                >Baca Artikel &rarr;</a
-              >
+              <p>Membangun skrip Python (ArcPy) untuk efisiensi ekstraksi parameter hidrologi Daerah Aliran Sungai secara massal dan akurat.</p>
+              <a href="arcgis-workflow.html" class="read-more">Baca Artikel &rarr;</a>
             </div>
           </article>
 
           <article class="article-card reveal-init">
-            <div class="article-image">[ Gambar Arsitektur Server ]</div>
+            <div class="article-image">
+              <span>[ Arsitektur Server GIS ]</span>
+            </div>
             <div class="article-content">
               <div class="article-meta">
                 <span>WebGIS</span><span>10 Min Read</span>
               </div>
               <h3>Arsitektur WebGIS Modern (Open Source)</h3>
-              <p>
-                Membongkar *tech-stack* dari PostGIS, GeoServer, hingga Frontend
-                React untuk membangun portal geospasial kelas Enterprise.
-              </p>
-              <a href="webgis-architecture.html" class="read-more"
-                >Baca Artikel &rarr;</a
-              >
+              <p>Implementasi tech-stack PostGIS dan GeoServer untuk membangun portal geospasial skala besar yang transparan dan andal.</p>
+              <a href="webgis-architecture.html" class="read-more">Baca Artikel &rarr;</a>
             </div>
           </article>
         </div>
@@ -259,17 +251,15 @@
     <footer class="footer">
       <div class="container footer-container">
         <div>
-          <h4>Lontara</h4>
-          <p>Environmental & Land Intelligence Studio.</p>
+          <h4 style="margin-bottom: 10px">Lontara</h4>
+          <p style="font-size: 0.9rem; color: var(--text-muted)">Environmental & Land Intelligence Studio.</p>
         </div>
-        <div><p>&copy; 2026 Lontara. Hak Cipta Dilindungi.</p></div>
+        <div><p style="font-size: 0.9rem; color: var(--text-muted)">&copy; 2026 Lontara. Hak Cipta Dilindungi.</p></div>
       </div>
     </footer>
+
     <script src="../js/utils.js"></script>
     <script src="../js/animation.js"></script>
     <script src="../js/main.js"></script>
   </body>
 </html>
-
-
-
