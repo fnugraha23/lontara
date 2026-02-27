@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Lontara Data Engineering Tools - Pipeline otomatisasi untuk pemrosesan data spasial, raster, dan vektor."
+    />
+    <title>Data Engineering Tools | Lontara</title>
+
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/layout.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/main.css" />
+
+    <style>
+      /* Hero Product dengan Background Gradient */
+      .hero-product {
+        padding: 180px 0 100px; /* Jarak aman dari sticky header */
+        background: linear-gradient(to bottom, #f8fafc, #f1f5f9);
+        text-align: center;
+        border-bottom: 1px solid var(--border);
+      }
+
+      /* Tombol Kembali dengan Style Tombol Kontak */
+      .breadcrumb-back {
+        background-color: var(--primary);
+        color: white !important;
+        padding: 10px 24px;
+        border-radius: 10px;
+        font-size: 0.9rem;
+        margin-bottom: 35px;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+        transition: 0.3s ease;
+        font-weight: 700;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+      .breadcrumb-back:hover {
+        background-color: var(--accent);
+        transform: translateY(-2px);
+      }
+
+      .product-badge {
+        display: inline-block;
+        background: rgba(0, 184, 169, 0.1);
+        color: var(--accent);
+        padding: 6px 16px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 800;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+      }
+
+      /* Card Styling Consistency */
+      .card {
+        background: white;
+        padding: 40px;
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+        transition: var(--transition);
+        height: 100%;
+      }
+      .card:hover {
+        transform: translateY(-8px);
+        border-color: var(--accent);
+        box-shadow: var(--shadow-lg);
+      }
+      .card h3 {
+        color: var(--primary);
+        margin-bottom: 15px;
+        font-size: 1.4rem;
+      }
+      .card p {
+        color: var(--text-muted);
+        line-height: 1.6;
+      }
+
+      /* SINKRONISASI CTA HIJAU FOREST */
+      .section-cta-green {
+        background-color: #123b3a !important;
+        color: white !important;
+        text-align: center;
+        padding: 100px 0;
+      }
+      .btn-cta-white {
+        background-color: white !important;
+        color: #123b3a !important;
+        padding: 16px 40px;
+        border-radius: 8px;
+        font-weight: 800;
+        display: inline-block;
+        text-decoration: none;
+        transition: 0.3s;
+      }
+
+      @media (max-width: 768px) {
+        .hero-product {
+          padding: 150px 0 60px;
+        }
+        .hero-product h1 {
+          font-size: 2.2rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="nav-overlay" id="nav-overlay"></div>
+
+    <header class="header" id="header">
+      <div class="progress-bar" id="progress-bar"></div>
+      <div class="container nav-container">
+        <div class="logo">
+          <a href="../beranda.html">
+            <img
+              src="../assets/images/logo.png"
+              alt="Lontara Logo"
+              width="120"
+              height="38"
+            />
+          </a>
+        </div>
+
+        <nav class="nav" id="nav-menu">
+          <button class="nav-close" id="nav-close" aria-label="Tutup Menu">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+
+          <div class="nav-item">
+            <a href="layanan.html" class="active">Layanan</a>
+          </div>
+          <div class="nav-item">
+            <a href="../portofolio/portofolio.html">Portofolio</a>
+          </div>
+          <div class="nav-item">
+            <a href="../artikel/artikel.html">Artikel</a>
+          </div>
+          <div class="nav-item">
+            <a href="../publikasi/publikasi.html">Publikasi</a>
+          </div>
+          <div class="nav-item">
+            <a href="../aset-digital/aset-digital.html">Aset Digital</a>
+          </div>
+          <div class="nav-item">
+            <a href="../tentang/tentang.html">Tentang</a>
+          </div>
+
+          <div class="nav-item nav-item-cta">
+            <a href="../kontak/kontak.html" class="nav-link-cta">Kontak</a>
+          </div>
+        </nav>
+
+        <div class="nav-actions"></div>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Buka Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero-product">
+        <div class="container">
+          <a href="layanan.html" class="breadcrumb-back">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="3"
+            >
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            Kembali ke Layanan
+          </a>
+          <br />
+          <span class="product-badge">Infrastructure & Pipelines</span>
+          <h1
+            style="font-size: 3rem; margin-bottom: 24px; color: var(--primary)"
+          >
+            Data Engineering Tools
+          </h1>
+          <p
+            style="
+              font-size: 1.15rem;
+              color: var(--text-muted);
+              max-width: 800px;
+              margin: 0 auto 40px;
+            "
+          >
+            Tinggalkan pekerjaan manual memotong, menggabungkan, atau
+            membersihkan topologi data spasial. Rangkaian otomatisasi ETL kami
+            merampingkan proses pemrosesan data berskala besar.
+          </p>
+          <div
+            style="
+              display: flex;
+              gap: 15px;
+              justify-content: center;
+              flex-wrap: wrap;
+            "
+          >
+            <a href="../aset-digital/aset-digital.html" class="btn-primary"
+              >Akses Toolkit</a
+            >
+            <a href="#features" class="btn-secondary">Pelajari Modul</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="features" class="section">
+        <div class="container">
+          <h2 class="section-title">Solusi Rekayasa Data Spasial</h2>
+          <p class="section-subtitle">
+            Otomatisasi alur kerja GIS agar tim Anda dapat fokus pada analisis,
+            bukan sekadar persiapan data.
+          </p>
+
+          <div class="grid-3">
+            <div class="card">
+              <h3>Automasi Pemrosesan Raster</h3>
+              <p>
+                Skrip tumpukan (batch) untuk mosaik, clipping, dan ekstraksi
+                indeks spektral (NDVI/EVI) dari ratusan citra satelit dalam
+                hitungan menit.
+              </p>
+            </div>
+            <div class="card">
+              <h3>Pembersihan Topologi Vektor</h3>
+              <p>
+                Alat deteksi dan perbaikan otomatis untuk poligon overlap, celah
+                (gap), dan penyederhanaan geometri secara algoritmik.
+              </p>
+            </div>
+            <div class="card">
+              <h3>Pipeline ETL WebGIS</h3>
+              <p>
+                Integrasi (Extract, Transform, Load) berkelanjutan dari format
+                mentah (SHP/CSV) langsung menuju basis data spasial (PostGIS).
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-light">
+        <div class="container">
+          <div
+            style="
+              display: flex;
+              flex-wrap: wrap;
+              gap: 60px;
+              align-items: center;
+            "
+          >
+            <div style="flex: 1; min-width: 300px">
+              <div
+                style="
+                  background: #1a1a1a;
+                  border-radius: 16px;
+                  padding: 30px;
+                  color: #00ffcc;
+                  font-family: monospace;
+                  box-shadow: var(--shadow-lg);
+                "
+              >
+                <span style="color: #666"># Pipeline Automation Example</span
+                ><br />
+                import geopandas as gpd<br />
+                df = gpd.read_file("raw_data.shp")<br />
+                clean_df = df.overlay(mask, how='intersection')<br />
+                clean_df.to_postgis("table_name", engine)
+              </div>
+            </div>
+            <div style="flex: 1; min-width: 300px">
+              <h2 class="section-title" style="text-align: left">
+                Skalabilitas Berbasis Skrip
+              </h2>
+              <p
+                style="
+                  color: var(--text-muted);
+                  margin-bottom: 25px;
+                  line-height: 1.8;
+                "
+              >
+                Dibangun menggunakan pustaka geospasial modern seperti
+                Geopandas, Rasterio, dan GDAL. Data Engineering Tools kami
+                mengeliminasi faktor human error dari tugas spasial yang
+                repetitif.
+              </p>
+              <ul
+                style="
+                  list-style: none;
+                  color: var(--text-main);
+                  font-weight: 600;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 15px;
+                "
+              >
+                <li style="display: flex; gap: 10px; align-items: center">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#00b8a9"
+                    stroke-width="3"
+                  >
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  Pemrosesan Paralel (Multiprocessing)
+                </li>
+                <li style="display: flex; gap: 10px; align-items: center">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#00b8a9"
+                    stroke-width="3"
+                  >
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  Dukungan Berbagai Format Spasial
+                </li>
+                <li style="display: flex; gap: 10px; align-items: center">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#00b8a9"
+                    stroke-width="3"
+                  >
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  Integrasi Database Enterprise
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-cta-green">
+        <div class="container">
+          <h2 class="reveal-init">Tingkatkan Efisiensi Tim GIS Anda</h2>
+          <p class="reveal-init">
+            Gunakan tools prapemrosesan kami atau sewa layanan kustomisasi
+            pipeline ETL spasial kustom.
+          </p>
+          <div class="reveal-init">
+            <a href="../kontak/kontak.html" class="btn-cta-white"
+              >Bicarakan dengan Engineer Kami</a
+            >
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-container">
+        <div>
+          <h4>Lontara</h4>
+          <p style="font-size: 0.9rem; color: var(--text-muted)">
+            Environmental & Land Intelligence Studio.
+          </p>
+        </div>
+        <div>
+          <p style="font-size: 0.9rem; color: var(--text-muted)">
+            &copy; 2026 Lontara. Seluruh Hak Cipta Dilindungi.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../js/utils.js"></script>
+    <script src="../js/animation.js"></script>
+    <script src="../js/main.js"></script>
+  </body>
+</html>

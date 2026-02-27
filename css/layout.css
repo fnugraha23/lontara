@@ -1,0 +1,287 @@
+/* =====================================================
+    LONTARA — LAYOUT CORE (Final Proportional & Responsive)
+   ===================================================== */
+
+/* --- GLOBAL FIXES --- */
+html {
+  scroll-behavior: smooth; /* Transisi halus saat navigasi */
+}
+
+body {
+  overflow-x: hidden; /* Mencegah website goyang atau bergeser ke samping */
+  width: 100%;
+  position: relative;
+}
+
+/* --- CONTAINER & SECTIONS --- */
+.container {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 28px;
+  width: 100%;
+}
+
+.section {
+  padding: 100px 0;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.section-light {
+  background: var(--bg-light);
+}
+
+.section-title {
+  font-size: 2.4rem;
+  margin-bottom: 20px;
+  color: var(--primary);
+  text-align: center; /* Judul rata tengah */
+}
+
+.section-subtitle {
+  color: var(--text-muted);
+  margin: 0 auto 60px auto;
+  max-width: 700px;
+  line-height: 1.7;
+  text-align: center; /* Sub-judul rata tengah */
+  display: block;
+}
+
+/* --- HEADER & NAVIGATION (MATHEMATICAL CENTER) --- */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 2000; /* Berada di atas overlay agar tidak terhalang klik */
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  width: 100%;
+}
+
+.nav-container {
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px; /* Jarak aman antar elemen */
+}
+
+/* PERBAIKAN LOGO: Mencegah logo gepeng atau terjepit */
+.logo {
+  flex: 1;
+  flex-shrink: 0; /* Mencegah logo menciut */
+  display: flex;
+  justify-content: flex-start;
+  min-width: 120px;
+}
+
+.logo img {
+  height: 35px; /* Kunci tinggi agar proporsional */
+  width: auto;
+  display: block;
+  object-fit: contain;
+}
+
+/* NAV MIDDLE: Rata tengah sempurna secara horizontal */
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  flex: 2; /* Ruang lebih luas untuk menu tengah */
+}
+
+/* Penyeimbang Sisi Kanan */
+.nav-actions {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.nav-item {
+  position: relative;
+}
+
+.nav a {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-main);
+  transition: 0.3s;
+  white-space: nowrap;
+}
+
+.nav a:hover,
+.nav a.active {
+  color: var(--accent);
+}
+
+.nav a.active {
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 5px;
+}
+
+/* --- KHUSUS: TOMBOL KONTAK DALAM NAV --- */
+.nav-item-cta {
+  margin-left: 20px;
+}
+
+.nav-link-cta {
+  background: var(--primary);
+  color: white !important;
+  padding: 10px 22px;
+  border-radius: 8px;
+  font-weight: 700;
+  transition: 0.3s ease;
+}
+
+.nav-link-cta:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+.nav-close {
+  display: none;
+}
+
+/* --- OVERLAY FIX (NON-BLOCKING) --- */
+.nav-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(6px);
+  z-index: 1000;
+  display: none;
+  pointer-events: none; /* Klik tembus saat tidak aktif */
+}
+
+.nav-overlay.show {
+  display: block;
+  pointer-events: auto; /* Aktif saat menu mobile terbuka */
+}
+
+/* --- GRID SYSTEM (RESPONSIVE FIX) --- */
+.grid-4,
+.grid-3,
+.grid-2 {
+  display: grid;
+  gap: 30px;
+}
+
+/* Default Desktop */
+.grid-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+.grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+.grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+/* --- RESPONSIVE / MOBILE VIEW --- */
+.nav-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.nav-toggle span {
+  width: 28px;
+  height: 2.5px;
+  background: var(--primary);
+  border-radius: 2px;
+}
+
+/* Tablet: Menjadi 2 kolom agar tidak terlalu sempit */
+@media (max-width: 992px) {
+  .grid-4,
+  .grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Layar menengah (Laptop Kecil) */
+@media (max-width: 1100px) {
+  .nav {
+    gap: 15px;
+  }
+  .nav a {
+    font-size: 0.85rem;
+  }
+}
+
+/* Ponsel: Menjadi 1 kolom agar tidak terpotong */
+@media (max-width: 768px) {
+  .grid-4,
+  .grid-3,
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .nav-actions {
+    display: none !important;
+  }
+
+  .nav-toggle {
+    display: flex;
+  }
+
+  .nav {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 280px;
+    height: 100vh;
+    background: white;
+    flex-direction: column;
+    padding: 120px 0;
+    justify-content: flex-start;
+    align-items: center; /* Rata tengah di sidebar */
+    gap: 30px;
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+    transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 2100;
+  }
+
+  .nav.show {
+    right: 0;
+  }
+
+  .nav-item-cta {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+
+  .nav-link-cta {
+    width: 180px;
+    text-align: center;
+  }
+
+  .nav a.active {
+    border-bottom: none;
+    color: var(--accent);
+  }
+
+  .nav-close {
+    display: flex;
+    position: absolute;
+    top: 35px;
+    right: 35px;
+    background: none;
+    border: none;
+  }
+}
+
+/* --- FOOTER (CENTERED) --- */
+.footer {
+  background: #f8fafc;
+  border-top: 1px solid var(--border);
+  padding: 80px 0 40px;
+  width: 100%;
+  text-align: center; /* Footer rata tengah */
+}

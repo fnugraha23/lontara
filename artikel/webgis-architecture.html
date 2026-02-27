@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Arsitektur WebGIS Modern (Open Source) | Lontara</title>
+
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/layout.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/main.css" />
+
+    <style>
+      /* Header Artikel dengan Background Gradient */
+      .article-header {
+        padding: 180px 0 80px;
+        text-align: center;
+        background: linear-gradient(to bottom, #f8fafc, #f1f5f9);
+        border-bottom: 1px solid var(--border);
+      }
+
+      /* Tombol Kembali dengan Style Tombol Kontak */
+      .breadcrumb-back {
+        background-color: var(--primary);
+        color: white !important;
+        padding: 10px 24px;
+        border-radius: 10px;
+        font-size: 0.9rem;
+        margin-bottom: 35px;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+        transition: 0.3s ease;
+        font-weight: 700;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .breadcrumb-back:hover {
+        background-color: var(--accent);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      .article-meta-badge {
+        color: var(--accent);
+        font-weight: 800;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        letter-spacing: 2px;
+        margin-bottom: 20px;
+        display: block;
+      }
+
+      .article-title {
+        font-size: clamp(2rem, 5vw, 2.8rem);
+        max-width: 900px;
+        margin: 0 auto 25px;
+        color: var(--primary);
+        line-height: 1.2;
+        font-weight: 800;
+      }
+
+      /* Container Pembacaan Optimal */
+      .reading-container {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 60px 24px;
+      }
+
+      .article-body {
+        font-family: "Lora", serif;
+        font-size: 1.2rem;
+        line-height: 2;
+        color: #2d3748;
+      }
+
+      .article-body h2 {
+        font-family: "Manrope", sans-serif;
+        font-size: 1.8rem;
+        color: var(--primary);
+        margin: 60px 0 25px;
+        font-weight: 700;
+      }
+
+      /* Styling Code Snippet untuk Arsitektur */
+      .code-snippet-box {
+        background: #0f172a;
+        color: #e2e8f0;
+        padding: 30px;
+        border-radius: 16px;
+        font-family: "Fira Code", monospace;
+        font-size: 0.95rem;
+        margin: 45px 0;
+        overflow-x: auto;
+        line-height: 1.7;
+        border-left: 5px solid var(--accent);
+      }
+
+      /* CTA FOREST GREEN */
+      .section-cta-green {
+        background-color: #123b3a !important;
+        color: white !important;
+        text-align: center;
+        padding: 100px 0;
+      }
+      .btn-cta-white {
+        background-color: white !important;
+        color: #123b3a !important;
+        padding: 16px 40px;
+        border-radius: 8px;
+        font-weight: 800;
+        display: inline-block;
+        text-decoration: none;
+        transition: 0.3s;
+      }
+
+      @media (max-width: 768px) {
+        .article-header {
+          padding: 150px 0 60px;
+        }
+        .article-title {
+          font-size: 2.2rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="nav-overlay" id="nav-overlay"></div>
+
+    <header class="header" id="header">
+      <div class="progress-bar" id="progress-bar"></div>
+      <div class="container nav-container">
+        <div class="logo">
+          <a href="../beranda.html">
+            <img
+              src="../assets/images/logo.png"
+              alt="Lontara Logo"
+              width="120"
+              height="38"
+            />
+          </a>
+        </div>
+
+        <nav class="nav" id="nav-menu">
+          <button class="nav-close" id="nav-close" aria-label="Tutup Menu">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+          <div class="nav-item">
+            <a href="../layanan/layanan.html">Layanan</a>
+          </div>
+          <div class="nav-item">
+            <a href="../portofolio/portofolio.html">Portofolio</a>
+          </div>
+          <div class="nav-item">
+            <a href="artikel.html" class="active">Artikel</a>
+          </div>
+          <div class="nav-item">
+            <a href="../publikasi/publikasi.html">Publikasi</a>
+          </div>
+          <div class="nav-item">
+            <a href="../aset-digital/aset-digital.html">Aset Digital</a>
+          </div>
+          <div class="nav-item">
+            <a href="../tentang/tentang.html">Tentang</a>
+          </div>
+          <div class="nav-item nav-item-cta">
+            <a href="../kontak/kontak.html" class="nav-link-cta">Kontak</a>
+          </div>
+        </nav>
+
+        <div class="nav-actions"></div>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Buka Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <article>
+        <header class="article-header">
+          <div class="container">
+            <a href="artikel.html" class="breadcrumb-back">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="3"
+              >
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+              </svg>
+              Kembali ke Artikel
+            </a>
+            <span class="article-meta-badge">Arsitektur & Sistem</span>
+            <h1 class="article-title">
+              Arsitektur WebGIS Modern (Open Source)
+            </h1>
+            <p style="color: var(--text-muted); font-size: 1.1rem">
+              Oleh <strong>Fajar Nugraha</strong> &middot; 10 Menit Membaca
+            </p>
+          </div>
+        </header>
+
+        <div class="reading-container">
+          <div class="article-body">
+            <p>
+              Membangun portal geospasial yang andal tidak lagi bergantung pada
+              perangkat lunak berbayar yang mahal. Dengan ekosistem
+              <i>open source</i> yang matang, kita dapat membangun infrastruktur
+              WebGIS yang memiliki skalabilitas tinggi untuk melayani ribuan
+              pengguna sekaligus.
+            </p>
+
+            <h2>Stack Inti: PostGIS dan GeoServer</h2>
+            <p>
+              Fondasi utama dari WebGIS modern adalah basis data spasial yang
+              kuat. <strong>PostGIS</strong> (ekstensi dari PostgreSQL)
+              memungkinkan penyimpanan koordinat dan geometri yang kompleks,
+              sementara <strong>GeoServer</strong> bertindak sebagai
+              <i>middleware</i> yang menyajikan data tersebut melalui standar
+              protokol WMS atau WFS.
+            </p>
+
+            <div class="code-snippet-box">
+              <pre>
+# Contoh konfigurasi Docker untuk Stack WebGIS
+version: '3.8'
+services:
+  database:
+    image: postgis/postgis:15-3.3
+    environment:
+      POSTGRES_DB: lontara_spatial
+  
+  geoserver:
+    image: kartoza/geoserver:2.23.0
+    depends_on:
+      - database
+</pre
+              >
+            </div>
+
+            <h2>Optimasi untuk Skala Besar</h2>
+            <p>
+              Untuk menjaga performa tetap cepat saat memuat ribuan poligon,
+              kami di Lontara menerapkan teknik <i>vector tiling</i> dan
+              <i>caching</i> lapisan peta. Hal ini memastikan peta interaktif
+              tetap responsif meskipun diakses melalui perangkat seluler dengan
+              koneksi internet terbatas.
+            </p>
+
+            <p>
+              Arsitektur ini adalah apa yang kami gunakan untuk membangun
+              <strong>WebGIS Interaktif Sub DAS Tanralili</strong>,
+              menggabungkan kecepatan pemrosesan data dengan visualisasi yang
+              estetik.
+            </p>
+          </div>
+        </div>
+      </article>
+
+      <section class="section-cta-green">
+        <div class="container">
+          <h2 class="reveal-init">Butuh Portal WebGIS Kustom?</h2>
+          <p class="reveal-init">
+            Kami berpengalaman membangun infrastruktur geospasial berbasis
+            open-source untuk berbagai kebutuhan pemetaan instansi Anda.
+          </p>
+          <div class="reveal-init">
+            <a href="../kontak/kontak.html" class="btn-cta-white"
+              >Konsultasi Arsitektur Sekarang</a
+            >
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-container">
+        <div>
+          <h4>Lontara</h4>
+          <p style="font-size: 0.9rem; color: var(--text-muted)">
+            Environmental & Land Intelligence Studio.
+          </p>
+        </div>
+        <div>
+          <p style="font-size: 0.9rem; color: var(--text-muted)">
+            &copy; 2026 Lontara. Seluruh Hak Cipta Dilindungi.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../js/utils.js"></script>
+    <script src="../js/animation.js"></script>
+    <script src="../js/main.js"></script>
+  </body>
+</html>

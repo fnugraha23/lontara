@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Unlock Premium Toolkit | Lontara</title>
+
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"
+    ></script>
+
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/layout.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/main.css" />
+
+    <style>
+      /* FIX 1: Hero Header dengan Background Gradient & Padding Aman */
+      .gated-hero {
+        padding: 180px 0 60px;
+        background: linear-gradient(to bottom, #f8fafc, #f1f5f9);
+        text-align: center;
+        border-bottom: 1px solid var(--border);
+      }
+
+      /* Tombol Kembali Style Kontak Premium */
+      .breadcrumb-back {
+        background-color: var(--primary);
+        color: white !important;
+        padding: 12px 24px;
+        border-radius: 12px;
+        font-size: 0.9rem;
+        margin-bottom: 35px;
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+        transition: 0.3s ease;
+        font-weight: 800;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+      .breadcrumb-back:hover {
+        background-color: var(--accent);
+        transform: translateY(-2px);
+      }
+
+      /* FIX 2: Layout Gated Section */
+      .gated-section {
+        padding: 80px 0;
+        background: white;
+        min-height: 60vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .gated-card {
+        background: white;
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        padding: 60px 50px;
+        max-width: 550px;
+        width: 100%;
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08);
+        text-align: center;
+        margin-top: -120px; /* Overlap Hero Effect */
+        position: relative;
+        z-index: 20;
+        border-top: 5px solid var(--accent);
+      }
+
+      .gated-card h2 {
+        color: var(--primary);
+        margin-bottom: 15px;
+        font-weight: 800;
+        font-size: 1.8rem;
+      }
+      .gated-card p {
+        color: var(--text-muted);
+        font-size: 1rem;
+        margin-bottom: 40px;
+        line-height: 1.6;
+      }
+
+      /* Form Styling Premium */
+      .form-group {
+        margin-bottom: 25px;
+        text-align: left;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: 700;
+        font-size: 0.9rem;
+        color: var(--primary);
+      }
+      .form-group input,
+      .form-group select {
+        width: 100%;
+        padding: 14px 18px;
+        border: 2px solid var(--border);
+        border-radius: 12px;
+        font-family: inherit;
+        font-size: 1rem;
+        transition: 0.3s ease;
+        background: #fcfcfc;
+      }
+      .form-group input:focus,
+      .form-group select:focus {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 4px rgba(0, 184, 169, 0.1);
+        background: white;
+        outline: none;
+      }
+
+      .btn-submit {
+        width: 100%;
+        padding: 18px;
+        background-color: var(--primary);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-weight: 800;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+      .btn-submit:hover {
+        background-color: var(--accent);
+        transform: translateY(-2px);
+      }
+
+      /* SINKRONISASI CTA HIJAU FOREST */
+      .section-cta-green {
+        background-color: #123b3a !important;
+        color: white !important;
+        text-align: center;
+        padding: 100px 0;
+      }
+      .btn-cta-white {
+        background-color: white !important;
+        color: #123b3a !important;
+        padding: 16px 40px;
+        border-radius: 8px;
+        font-weight: 800;
+        display: inline-block;
+        text-decoration: none;
+        transition: 0.3s;
+      }
+
+      @media (max-width: 768px) {
+        .gated-hero {
+          padding: 150px 0 80px;
+        }
+        .gated-card {
+          padding: 40px 25px;
+          margin-top: -60px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="nav-overlay" id="nav-overlay"></div>
+
+    <header class="header" id="header">
+      <div class="progress-bar" id="progress-bar"></div>
+      <div class="container nav-container">
+        <div class="logo">
+          <a href="../beranda.html">
+            <img
+              src="../assets/images/logo.png"
+              alt="Lontara Logo"
+              width="120"
+              height="38"
+            />
+          </a>
+        </div>
+        <nav class="nav" id="nav-menu">
+          <button class="nav-close" id="nav-close">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+          <div class="nav-item">
+            <a href="../layanan/layanan.html">Layanan</a>
+          </div>
+          <div class="nav-item">
+            <a href="../portofolio/portofolio.html">Portofolio</a>
+          </div>
+          <div class="nav-item">
+            <a href="../artikel/artikel.html">Artikel</a>
+          </div>
+          <div class="nav-item">
+            <a href="../publikasi/publikasi.html">Publikasi</a>
+          </div>
+          <div class="nav-item">
+            <a href="aset-digital.html" class="active">Aset Digital</a>
+          </div>
+          <div class="nav-item">
+            <a href="../tentang/tentang.html">Tentang</a>
+          </div>
+          <div class="nav-item nav-item-cta">
+            <a href="../kontak/kontak.html" class="nav-link-cta">Kontak</a>
+          </div>
+        </nav>
+        <button class="nav-toggle" id="nav-toggle">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <section class="gated-hero">
+        <div class="container">
+          <a href="aset-digital.html" class="breadcrumb-back">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="3"
+            >
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            Kembali ke Aset Digital
+          </a>
+          <h1
+            style="color: var(--primary); font-weight: 800; font-size: 2.5rem"
+          >
+            Dapatkan Akses Eksklusif
+          </h1>
+        </div>
+      </section>
+
+      <section class="gated-section">
+        <div class="container" style="display: flex; justify-content: center">
+          <div class="gated-card reveal-init">
+            <svg
+              style="margin: 0 auto 20px; color: var(--accent)"
+              width="54"
+              height="54"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            <h2>Akses Premium Toolkit</h2>
+            <p>
+              Masukkan detail profesional Anda untuk mengirimkan kunci akses
+              toolkit eksklusif Lontara langsung ke email Anda.
+            </p>
+
+            <form id="gated-access-form">
+              <div class="form-group">
+                <label for="name">Nama Lengkap</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  placeholder="Contoh: Fajar Nugraha"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="email">Email Profesional / Instansi</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="nama@instansi.go.id"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="toolkit">Pilih Toolkit Premium</label>
+                <select id="toolkit" name="toolkit" required>
+                  <option value="">-- Pilih Akses Toolkit --</option>
+                  <option value="raster">
+                    Raster Automation Toolkit (.py)
+                  </option>
+                  <option value="landml">
+                    Land Suitability ML Kit (.ipynb)
+                  </option>
+                  <option value="webgis">
+                    WebGIS Pro Architecture (Docker)
+                  </option>
+                </select>
+              </div>
+              <button type="submit" class="btn-submit">
+                Kirim Tautan Akses ke Email
+              </button>
+            </form>
+
+            <p
+              style="
+                font-size: 0.8rem;
+                margin-top: 25px;
+                color: #9ca3af;
+                margin-bottom: 0;
+              "
+            >
+              * Privasi Anda aman. Kami tidak membagikan data email kepada pihak
+              ketiga.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-cta-green">
+        <div class="container">
+          <h2 class="reveal-init">Butuh Solusi Kustom untuk Instansi Anda?</h2>
+          <p class="reveal-init">
+            Diskusikan implementasi infrastruktur data spasial yang lebih luas
+            bersama tim engineer kami.
+          </p>
+          <div class="reveal-init" style="margin-top: 40px">
+            <a href="../kontak/kontak.html" class="btn-cta-white"
+              >Konsultasi Sekarang</a
+            >
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-container">
+        <div>
+          <h4>Lontara</h4>
+          <p style="font-size: 0.9rem; color: var(--text-muted)">
+            Environmental & Land Intelligence Studio.
+          </p>
+        </div>
+        <div>
+          <p style="font-size: 0.9rem; color: var(--text-muted)">
+            &copy; 2026 Lontara. Seluruh Hak Cipta Dilindungi.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../js/utils.js"></script>
+    <script src="../js/animation.js"></script>
+    <script src="../js/form-handler.js"></script>
+    <script src="../js/main.js"></script>
+  </body>
+</html>

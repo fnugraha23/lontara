@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Daftar publikasi ilmiah Lontara - Landasan teori dan metodologi dalam bidang Ilmu Tanah, Hidrologi, dan Machine Learning Spasial."
+    />
+    <title>Publikasi Ilmiah | Lontara</title>
+
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/layout.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/main.css" />
+
+    <style>
+      /* FIX: Padding ditingkatkan agar judul tidak tertutup sticky header */
+      .hero-pub {
+        padding: 180px 0 80px;
+        background: var(--bg-light);
+        border-bottom: 1px solid var(--border);
+        text-align: center;
+      }
+
+      .pub-list {
+        max-width: 900px;
+        margin: 0 auto;
+        width: 100%;
+      }
+
+      .pub-card {
+        background: white;
+        border: 1px solid var(--border);
+        border-left: 5px solid var(--primary);
+        border-radius: var(--radius);
+        padding: 40px;
+        margin-bottom: 35px;
+        transition: var(--transition);
+        text-align: left;
+      }
+
+      .pub-card:hover {
+        transform: translateX(12px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.06);
+        border-left-color: var(--accent);
+      }
+
+      .pub-meta {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: var(--accent);
+        font-size: 0.85rem;
+        margin-bottom: 15px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .pub-card h3 {
+        font-size: 1.5rem;
+        margin-bottom: 18px;
+        color: var(--primary);
+        line-height: 1.4;
+      }
+
+      .pub-card p {
+        color: var(--text-muted);
+        margin-bottom: 28px;
+        line-height: 1.8;
+        font-size: 1rem;
+      }
+
+      .pub-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--primary);
+        font-weight: 700;
+        font-size: 0.9rem;
+        border: 2px solid var(--border);
+        padding: 12px 24px;
+        border-radius: 10px;
+        transition: var(--transition);
+        background: white;
+      }
+
+      .pub-link:hover {
+        background: var(--primary);
+        color: white !important;
+        border-color: var(--primary);
+      }
+
+      /* CUSTOM CTA SECTION: Hijau Kalem & Tombol Putih */
+      .section-cta-green {
+        background-color: #123b3a !important; /* Forest Green */
+        color: white !important;
+        text-align: center;
+        padding: 100px 0;
+      }
+      .section-cta-green h2 {
+        color: white !important;
+        margin-bottom: 20px;
+      }
+      .section-cta-green p {
+        color: rgba(255, 255, 255, 0.9) !important;
+        margin-bottom: 40px;
+      }
+
+      .btn-cta-white {
+        background-color: white !important;
+        color: #123b3a !important;
+        padding: 16px 40px;
+        border-radius: 8px;
+        font-weight: 800;
+        font-size: 1.1rem;
+        display: inline-block;
+        transition: 0.3s ease;
+        text-decoration: none;
+      }
+      .btn-cta-white:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        background-color: #f8fafc !important;
+      }
+
+      @media (max-width: 768px) {
+        .hero-pub {
+          padding: 140px 0 60px;
+        }
+        .pub-card {
+          padding: 30px;
+        }
+        .pub-card h3 {
+          font-size: 1.3rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="nav-overlay" id="nav-overlay"></div>
+
+    <header class="header" id="header">
+      <div class="progress-bar" id="progress-bar"></div>
+      <div class="container nav-container">
+        <div class="logo">
+          <a href="../beranda.html">
+            <img
+              src="../assets/images/logo.png"
+              alt="Lontara Logo"
+              width="120"
+              height="38"
+            />
+          </a>
+        </div>
+
+        <nav class="nav" id="nav-menu">
+          <button class="nav-close" id="nav-close" aria-label="Tutup Menu">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+
+          <div class="nav-item">
+            <a href="../layanan/layanan.html">Layanan</a>
+          </div>
+          <div class="nav-item">
+            <a href="../portofolio/portofolio.html">Portofolio</a>
+          </div>
+          <div class="nav-item">
+            <a href="../artikel/artikel.html">Artikel</a>
+          </div>
+          <div class="nav-item">
+            <a href="publikasi.html" class="active">Publikasi</a>
+          </div>
+          <div class="nav-item">
+            <a href="../aset-digital/aset-digital.html">Aset Digital</a>
+          </div>
+          <div class="nav-item">
+            <a href="../tentang/tentang.html">Tentang</a>
+          </div>
+
+          <div class="nav-item nav-item-cta">
+            <a href="../kontak/kontak.html" class="nav-link-cta">Kontak</a>
+          </div>
+        </nav>
+
+        <div class="nav-actions"></div>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Buka Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero-pub">
+        <div class="container">
+          <h1 class="reveal-init">Publikasi Ilmiah & Riset</h1>
+          <p
+            class="reveal-init"
+            style="
+              color: var(--text-muted);
+              max-width: 700px;
+              margin: 0 auto;
+              font-size: 1.1rem;
+            "
+          >
+            Dokumentasi kontribusi ilmiah kami dalam memajukan pemahaman
+            mengenai interaksi lahan, air, dan teknologi intelijen geospasial.
+          </p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container pub-list">
+          <article class="pub-card reveal-init">
+            <div class="pub-meta">
+              <span>Majalah Geografi Indonesia</span>
+              <span style="opacity: 0.5">|</span>
+              <span>Vol. 39, No. 1, 2025</span>
+            </div>
+            <h3>
+              Evaluasi Algoritma Machine Learning untuk Klasifikasi dan Prediksi
+              Penggunaan Lahan
+            </h3>
+            <p>
+              Riset ini menguji efektivitas berbagai algoritma Machine Learning
+              dalam memetakan dinamika tata guna lahan secara otomatis. Temuan
+              ini menjadi fondasi bagi <strong>Spatial ML Engine</strong> yang
+              kami kembangkan.
+            </p>
+            <a
+              href="https://doi.org/10.22146/mgi.99150"
+              target="_blank"
+              class="pub-link"
+            >
+              Akses Jurnal (PDF) &rarr;
+            </a>
+          </article>
+
+          <article class="pub-card reveal-init">
+            <div class="pub-meta">
+              <span>Jurnal Penelitian Pengelolaan DAS</span>
+              <span style="opacity: 0.5">|</span>
+              <span>Vol. 9, No. 1, 2025</span>
+            </div>
+            <h3>
+              Pemodelan Hidrograf untuk Menilai Dampak Perubahan Penggunaan
+              Lahan di Sub-DAS Tanralili
+            </h3>
+            <p>
+              Studi ini memodelkan respon hidrologis terhadap perubahan tutupan
+              lahan di Sub-DAS Tanralili. Hasil riset ini diaplikasikan langsung
+              dalam layanan <strong>Pemodelan Hidrologi</strong> Lontara.
+            </p>
+            <a
+              href="https://doi.org/10.59465/jppdas.2025.9.1.1-22"
+              target="_blank"
+              class="pub-link"
+            >
+              Akses Jurnal (PDF) &rarr;
+            </a>
+          </article>
+        </div>
+      </section>
+
+      <section class="section-cta-green">
+        <div class="container">
+          <h2 class="reveal-init">Kembangkan Solusi Berbasis Riset</h2>
+          <p class="reveal-init">
+            Kami membantu instansi dan peneliti menerapkan metodologi ilmiah
+            terkini untuk manajemen sumber daya lahan.
+          </p>
+          <div class="reveal-init">
+            <a href="../kontak/kontak.html" class="btn-cta-white"
+              >Hubungi Kami Sekarang</a
+            >
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-container">
+        <div>
+          <h4 style="margin-bottom: 10px">Lontara</h4>
+          <p style="font-size: 0.9rem; color: var(--text-muted)">
+            Environmental & Land Intelligence Studio.
+          </p>
+        </div>
+        <div>
+          <p style="font-size: 0.9rem; color: var(--text-muted)">
+            &copy; 2026 Lontara. Seluruh Hak Cipta Dilindungi.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../js/utils.js"></script>
+    <script src="../js/animation.js"></script>
+    <script src="../js/main.js"></script>
+  </body>
+</html>
