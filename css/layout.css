@@ -1,5 +1,5 @@
 /* =====================================================
-   LONTARA — LAYOUT (Header, Footer, Grid, Nav)
+   LONTARA — LAYOUT (Header, Footer, Grid, Nav, Form)
 ===================================================== */
 
 /* =========================
@@ -28,12 +28,29 @@
 .section-subtitle {
   color: var(--text-muted);
   margin-bottom: 50px;
-  
-  /* PERBAIKAN DI SINI */
   max-width: 640px; 
-  width: 100%;             /* Agar fleksibel mengikuti lebar layar */
+  width: 100%;             /* Fleksibel mengikuti lebar layar */
   line-height: 1.6;        /* Memberi ruang antar baris agar nyaman dibaca */
   display: block;          /* Memastikan elemen berperilaku sebagai blok */
+}
+
+/* =========================
+   CONTACT FORM LAYOUT (Fix Bidang Putih)
+========================= */
+
+.contact-form-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  
+  /* Rampingkan kartu agar tidak meluap ke samping */
+  max-width: 520px; 
+  width: 100%;
+  margin: 0 auto;         /* Membuat kartu tepat di tengah secara otomatis */
+  padding: 40px;          /* Ruang dalam yang proporsional */
+  
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+  transition: var(--transition);
 }
 
 /* =========================
@@ -52,6 +69,12 @@
   gap: 28px;
 }
 
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+}
+
 @media (max-width: 1100px) {
   .grid-4,
   .grid-3 {
@@ -61,11 +84,15 @@
 
 @media (max-width: 768px) {
   .grid-4,
-  .grid-3 {
+  .grid-3,
+  .grid-2 {
     grid-template-columns: 1fr;
   }
   .section {
     padding: 80px 0;
+  }
+  .contact-form-card {
+    padding: 25px; /* Mengurangi padding di layar HP agar lebih luas untuk input */
   }
 }
 
@@ -132,8 +159,7 @@
   transition: transform 0.3s ease;
 }
 
-.nav > .nav-item > a::after,
-.nav > a.nav-cta::after {
+.nav > .nav-item > a::after {
   content: "";
   position: absolute;
   width: 0%;
@@ -158,9 +184,6 @@
 
 .nav-cta:hover {
   background: var(--primary-dark);
-}
-.nav-cta::after {
-  display: none;
 }
 
 /* =========================
@@ -204,12 +227,6 @@
   }
 }
 
-.dropdown a::after {
-  content: none !important;
-  display: none !important;
-  width: 0 !important;
-}
-
 /* =========================
    MOBILE NAVIGATION
 ========================= */
@@ -230,6 +247,7 @@
   background: var(--text-main);
   transition: var(--transition);
 }
+
 .nav-toggle.active span:nth-child(1) {
   transform: rotate(45deg) translate(5px, 5px);
 }
@@ -266,13 +284,6 @@
   .nav-item {
     width: 100%;
   }
-  .nav-link-dropdown {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-  }
-
   .dropdown {
     position: static;
     max-height: 0;
@@ -281,27 +292,15 @@
     visibility: hidden;
     border: none;
     box-shadow: none;
-    margin-top: 0;
     padding: 0;
-    border-left: none;
     width: 100%;
     transition: all 0.4s ease-in-out;
-  }
-  .dropdown a {
-    display: block;
-    padding: 10px 0;
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    text-align: center;
   }
   .has-dropdown.active .dropdown {
     max-height: 300px;
     opacity: 1;
     visibility: visible;
     margin-top: 15px;
-  }
-  .has-dropdown.active .arrow-icon {
-    transform: rotate(180deg);
   }
 }
 
@@ -334,4 +333,3 @@
   flex-wrap: wrap;
   gap: 20px;
 }
-
