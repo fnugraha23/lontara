@@ -7,57 +7,76 @@
 ========================= */
 
 .hero {
-  padding: 140px 0 100px;
+  padding: 160px 0 100px;
   background: var(--bg-light);
   position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
 }
 
-/* Pola Grid Halus di Background Hero */
+/* Pola Grid Halus - Identitas Intelijen Spasial */
 .hero::before {
   content: "";
   position: absolute;
   inset: 0;
-  background-image:
-    linear-gradient(rgba(0, 184, 169, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 184, 169, 0.03) 1px, transparent 1px);
-  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(var(--accent) 0.5px, transparent 0.5px),
+    linear-gradient(90deg, var(--accent) 0.5px, transparent 0.5px);
+  background-size: 50px 50px;
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+/* Efek Cahaya Gradien Lembut */
+.hero::after {
+  content: "";
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(0, 184, 169, 0.05) 0%, transparent 70%);
+  transform: translate(-50%, -50%);
   pointer-events: none;
 }
 
 .hero-content {
   text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  position: relative;
+  z-index: 10;
+  max-width: 850px;
   margin: 0 auto;
-  max-width: 800px; /* Opsional: agar teks tidak terlalu melebar ke samping di layar besar */
 }
 
 .hero h1 {
-  font-size: 2.8rem;
-  line-height: 1.2;
+  font-size: 3.2rem;
+  font-weight: 800;
+  line-height: 1.1;
   margin-bottom: 28px;
   color: var(--primary);
+  letter-spacing: -1px;
 }
 
 .hero p {
-  font-size: 1.15rem;
+  font-size: 1.2rem;
   color: var(--text-muted);
-  margin-bottom: 36px;
-  line-height: 1.6;
+  margin-bottom: 40px;
+  line-height: 1.7;
 }
 
 .hero-buttons {
   display: flex;
-  justify-content: center;
-  gap: 15px; /* Memberikan jarak yang rapi antara kedua tombol */
-  margin-top: 20px;
+  justify-content: center; /* Menjaga kesimetrisan tombol */
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
 @media (max-width: 768px) {
-  .hero h1 {
-    font-size: 2.2rem;
-  }
+  .hero { padding: 120px 0 80px; }
+  .hero h1 { font-size: 2.4rem; }
+  .hero p { font-size: 1.1rem; }
+  .hero-buttons { gap: 12px; }
 }
 
 /* =========================
@@ -65,21 +84,25 @@
 ========================= */
 
 .webgis-section {
-  padding: 80px 0;
-  background-color: var(--bg-main);
+  padding: 100px 0;
+  background-color: white;
   border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
+  position: relative;
 }
 
 .webgis-container {
   width: 100%;
-  height: 600px; /* Tinggi optimal untuk Desktop */
+  height: 650px; /* Tinggi optimal untuk visualisasi peta desktop */
   border-radius: var(--radius);
   overflow: hidden;
   border: 1px solid var(--border);
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
-  background: #1e1e2f; /* Sesuai dengan sidebar WebGIS Anda */
-  position: relative;
+  box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.12); /* Bayangan dalam untuk elevasi */
+  background: #1e1e2f; /* Menyesuaikan latar belakang WebGIS Leaflet Anda */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.webgis-container:hover {
+  box-shadow: 0 40px 80px -15px rgba(0, 0, 0, 0.18);
 }
 
 .webgis-iframe {
@@ -89,22 +112,26 @@
   display: block;
 }
 
-/* Overlay Petunjuk Mobile */
+/* Hint interaksi peta */
 .webgis-hint {
   text-align: center;
-  margin-top: 20px;
-  font-size: 0.85rem;
+  margin-top: 25px;
+  font-size: 0.9rem;
   color: var(--text-muted);
   font-style: italic;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+@media (max-width: 992px) {
+  .webgis-container { height: 500px; }
 }
 
 @media (max-width: 768px) {
-  .webgis-container {
-    height: 480px; /* Tinggi lebih pendek untuk layar kecil */
-  }
-  .webgis-section {
-    padding: 60px 0;
-  }
+  .webgis-container { height: 450px; }
+  .webgis-section { padding: 70px 0; }
 }
 
 /* =========================
@@ -112,7 +139,7 @@
 ========================= */
 
 .cta {
-  padding: 100px 0;
+  padding: 120px 0;
   background: var(--primary);
   color: white;
   text-align: center;
@@ -120,36 +147,66 @@
   overflow: hidden;
 }
 
-/* Dekorasi visual di CTA */
-.cta::after {
+/* Dekorasi Elemen Lingkaran Spasial */
+.cta::before {
   content: "";
   position: absolute;
   top: -50%;
   right: -10%;
-  width: 400px;
-  height: 400px;
-  background: rgba(255, 255, 255, 0.03);
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
   border-radius: 50%;
   pointer-events: none;
 }
 
+.cta::after {
+  content: "";
+  position: absolute;
+  bottom: -20%;
+  left: -5%;
+  width: 300px;
+  height: 300px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.cta-content {
+  position: relative;
+  z-index: 5;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
 .cta h2 {
-  font-size: 2.4rem;
+  font-size: 2.8rem;
+  font-weight: 700;
   margin-bottom: 24px;
   color: white;
+  line-height: 1.2;
 }
 
 .cta p {
-  font-size: 1.1rem;
-  margin-bottom: 32px;
-  opacity: 0.9;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
+  font-size: 1.15rem;
+  margin-bottom: 40px;
+  opacity: 0.85;
+  line-height: 1.6;
+}
+
+/* Menyesuaikan tombol di dalam area gelap */
+.cta .btn-primary {
+  background: white;
+  color: var(--primary) !important;
+}
+
+.cta .btn-primary:hover {
+  background: var(--bg-light);
+  transform: translateY(-4px);
 }
 
 @media (max-width: 768px) {
-  .cta h2 {
-    font-size: 1.8rem;
-  }
+  .cta { padding: 90px 20px; }
+  .cta h2 { font-size: 2rem; }
+  .cta p { font-size: 1rem; }
 }
