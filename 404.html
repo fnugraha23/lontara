@@ -20,19 +20,55 @@
     <link rel="stylesheet" href="/css/main.css" />
 
     <style>
-      /* --- STYLING KHUSUS RADAR INTELIJEN --- */
+      /* --- HEADER FIX: RATA TENGAH & SINKRON --- */
+      header.header {
+        background-color: white !important; /* Menyamakan dengan header utama */
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 80px;
+      }
+
+      /* Menengahkah menu di antara Logo dan CTA */
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1; 
+        gap: clamp(15px, 3vw, 30px);
+      }
+
+      .logo {
+        flex: 0 0 120px; /* Memberikan ruang tetap untuk logo di sisi kiri */
+      }
+
+      .nav-item-cta-container {
+        flex: 0 0 120px; /* Menyeimbangkan sisi kanan agar menu tetap di tengah */
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      /* --- STYLING KHUSUS RADAR 404 --- */
       .error-page {
         min-height: 100vh;
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: #0b1a19; /* Latar gelap pekat agar radar menyala */
+        background-color: #0b1a19;
         position: relative;
         overflow: hidden;
         color: white;
+        padding-top: 80px; /* Padding agar tidak tertutup header */
       }
 
-      /* Efek Scanline Monitor */
       .error-page::after {
         content: "";
         position: absolute;
@@ -45,7 +81,6 @@
         z-index: 5;
       }
 
-      /* Sistem Radar */
       .radar-system {
         position: absolute;
         width: 800px;
@@ -119,7 +154,8 @@
       @keyframes flicker { 0%, 100% { opacity: 0; transform: scale(1); } 50% { opacity: 1; transform: scale(1.5); } }
       @keyframes pulse-glow { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.02); } }
 
-      @media (max-width: 768px) {
+      @media (max-width: 992px) {
+        .nav { display: none; } /* Mobile menu ditangani oleh main.js & nav-toggle */
         .error-code { font-size: 8rem; letter-spacing: -5px; }
         .radar-system { width: 500px; height: 500px; }
       }
@@ -148,11 +184,11 @@
           <div class="nav-item"><a href="/publikasi/publikasi.html">Publikasi</a></div>
           <div class="nav-item"><a href="/aset-digital/aset-digital.html">Aset Digital</a></div>
           <div class="nav-item"><a href="/tentang/tentang.html">Tentang</a></div>
-
-          <div class="nav-item nav-item-cta">
-            <a href="/kontak/kontak.html" class="nav-link-cta">Kontak</a>
-          </div>
         </nav>
+
+        <div class="nav-item-cta-container">
+          <a href="/kontak/kontak.html" class="nav-link-cta">Kontak</a>
+        </div>
 
         <button class="nav-toggle" id="nav-toggle"><span></span><span></span><span></span></button>
       </div>
