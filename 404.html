@@ -16,17 +16,7 @@
     <link rel="stylesheet" href="/css/main.css" />
 
     <style>
-      /* --- KEYFRAMES: Diletakkan di atas agar terbaca browser lebih cepat --- */
-      @keyframes scan-radar {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(360deg); }
-      }
-      @keyframes pulse-glow {
-        0%, 100% { transform: scale(1); opacity: 0.8; }
-        50% { transform: scale(1.05); opacity: 1; }
-      }
-
-      /* --- HEADER FIX: RATA TENGAH SEMPURNA --- */
+      /* --- HEADER FIX: SINKRON & RESPONSIF --- */
       header.header {
         background-color: white !important;
         position: fixed;
@@ -34,6 +24,7 @@
         top: 0;
         z-index: 1000;
         border-bottom: 1px solid var(--border);
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
       }
 
       .nav-container {
@@ -41,18 +32,17 @@
         justify-content: space-between;
         align-items: center;
         height: 80px;
-        padding: 0 40px;
+        padding: 0 20px;
       }
 
-      .logo { flex: 0 0 120px; }
+      .logo { flex: 0 0 auto; }
 
-      /* Membungkus Menu & Kontak dalam satu baris rata tengah */
       .nav {
         display: flex;
         align-items: center;
         justify-content: center;
         flex: 1;
-        gap: clamp(10px, 2.5vw, 30px);
+        gap: clamp(10px, 2.5vw, 35px);
       }
 
       .nav-item-cta a {
@@ -61,22 +51,32 @@
         padding: 10px 24px;
         border-radius: 8px;
         font-weight: 700;
+        transition: 0.3s ease;
+      }
+
+      /* --- FIX: HAMBURGER ICON STYLING --- */
+      .nav-toggle {
+        display: none; /* Sembunyi di desktop */
+        flex-direction: column;
+        justify-content: space-between;
+        width: 30px;
+        height: 21px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        z-index: 1001;
+      }
+
+      .nav-toggle span {
+        width: 100%;
+        height: 3px;
+        background-color: var(--primary); /* Menggunakan warna gelap agar terlihat di header putih */
+        border-radius: 10px;
         transition: 0.3s;
       }
 
-      /* FIX: Hamburger Icon untuk Mobile */
-      .nav-toggle {
-        display: none;
-        flex-direction: column;
-        gap: 5px;
-        background: none;
-        border: none;
-        cursor: pointer;
-        z-index: 1001;
-      }
-      .nav-toggle span { width: 28px; height: 3px; background: var(--primary); border-radius: 2px; }
-
-      /* --- STYLING RADAR 404: ANIMASI AKTIF --- */
+      /* --- STYLING RADAR 404 --- */
       .error-page {
         min-height: 100vh;
         display: flex;
@@ -86,43 +86,25 @@
         position: relative;
         overflow: hidden;
         color: white;
+        padding-top: 80px;
       }
 
-      /* Lapisan Scanline di atas radar */
-      .error-page::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
-        background-size: 100% 4px;
-        pointer-events: none;
-        z-index: 4;
-      }
-
+      /* Radar & Scanline Logic */
       .radar-system {
         position: absolute;
-        width: min(800px, 90vw);
-        height: min(800px, 90vw);
-        border: 2px solid rgba(0, 184, 169, 0.1);
+        width: 800px;
+        height: 800px;
+        border: 1px solid rgba(0, 184, 169, 0.15);
         border-radius: 50%;
-        z-index: 2;
+        z-index: 1;
       }
 
-      /* FIX: Animasi Linear agar radar berputar konstan */
       .radar-sweep {
         position: absolute;
         inset: 0;
         border-radius: 50%;
-        background: conic-gradient(from 0deg, rgba(0, 184, 169, 0.4) 0%, transparent 50%);
-        animation: scan-radar 4s linear infinite; /* Gunakan linear, bukan cubic-bezier */
-      }
-
-      .error-content {
-        position: relative;
-        z-index: 10;
-        text-align: center;
-        max-width: 600px;
-        padding: 40px;
+        background: conic-gradient(from 0deg, transparent 60%, rgba(0, 184, 169, 0.35));
+        animation: scan-pro 4s infinite linear;
       }
 
       .error-code {
@@ -131,12 +113,22 @@
         background: linear-gradient(to bottom, #00b8a9, #ffffff);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        animation: pulse-glow 3s ease-in-out infinite;
+        animation: pulse-glow 4s infinite;
       }
 
+      @keyframes scan-pro { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+      @keyframes pulse-glow { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.02); } }
+
+      /* --- MEDIA QUERY: MOBILE VIEW --- */
       @media (max-width: 992px) {
-        .nav { display: none; }
-        .nav-toggle { display: flex; }
+        .nav { display: none; } /* Sembunyikan menu teks */
+        
+        .nav-toggle { 
+          display: flex; /* Tampilkan hamburger di mobile */
+        }
+
+        .error-code { font-size: 8rem; }
+        .radar-system { width: 500px; height: 500px; }
       }
     </style>
   </head>
@@ -153,7 +145,7 @@
         </div>
 
         <nav class="nav" id="nav-menu">
-          <button class="nav-close" id="nav-close">
+          <button class="nav-close" id="nav-close" aria-label="Tutup Menu">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
           </button>
           
@@ -165,39 +157,43 @@
           <div class="nav-item"><a href="/tentang/tentang.html">Tentang</a></div>
 
           <div class="nav-item nav-item-cta">
-            <a href="/kontak/kontak.html">Kontak</a>
+            <a href="/kontak/kontak.html" class="nav-link-cta">Kontak</a>
           </div>
         </nav>
 
-        <button class="nav-toggle" id="nav-toggle">
-          <span></span><span></span><span></span>
-        </button>
+        <button class="nav-toggle" id="nav-toggle"><span></span><span></span><span></span></button>
       </div>
     </header>
 
     <main class="error-page">
       <div class="radar-system">
         <div class="radar-sweep"></div>
-        <div class="blip" style="position: absolute; width: 8px; height: 8px; background: var(--accent); border-radius: 50%; top: 30%; left: 40%; box-shadow: 0 0 10px var(--accent);"></div>
+        <div class="blip" style="top: 25%; left: 35%; animation-delay: 1s"></div>
+        <div class="blip" style="top: 65%; left: 75%; animation-delay: 2.5s"></div>
+        <div class="blip" style="top: 45%; left: 15%; animation-delay: 0.5s"></div>
       </div>
 
       <div class="container error-content">
         <div class="error-code">404</div>
-        <h2 style="font-size: 2rem; margin-top: -10px; letter-spacing: 2px;">Signal Lost</h2>
-        <p style="color: rgba(255, 255, 255, 0.7); margin-bottom: 40px; line-height: 1.6;">
-          Koordinat spasial yang Anda cari tidak terdeteksi. Rute ini mungkin telah dipindahkan atau berada di luar cakupan geodatabase Lontara.
+        <h2>Signal Lost</h2>
+        <p>
+          Koordinat spasial yang Anda cari tidak terdeteksi oleh sensor kami.
+          Rute ini mungkin telah dipindahkan atau berada di luar cakupan geodatabase Lontara.
         </p>
 
         <div class="btn-container">
           <a href="/beranda.html" class="btn-primary" style="background: var(--accent); border: none">Inisialisasi Beranda</a>
+          <a href="/layanan/layanan.html" class="btn-secondary" style="border-color: white; color: white">Lihat Sistem Layanan</a>
         </div>
       </div>
     </main>
 
-    <footer class="footer" style="background: transparent; border: none; position: absolute; bottom: 20px; width: 100%; z-index: 10; text-align: center;">
-      <p style="font-size: 0.85rem; color: rgba(255, 255, 255, 0.4)">
-        &copy; 2026 Lontara Studio. Environmental & Land Intelligence Studio.
-      </p>
+    <footer class="footer" style="background: transparent; border: none; position: absolute; bottom: 20px; width: 100%; z-index: 10;">
+      <div class="container" style="text-align: center">
+        <p style="font-size: 0.85rem; color: rgba(255, 255, 255, 0.4)">
+          &copy; 2026 Lontara. Environmental & Land Intelligence Studio.
+        </p>
+      </div>
     </footer>
 
     <script src="/js/utils.js"></script>
