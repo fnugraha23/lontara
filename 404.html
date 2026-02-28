@@ -8,7 +8,7 @@
     <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap" rel="stylesheet" />
 
     <link rel="stylesheet" href="/css/theme.css" />
     <link rel="stylesheet" href="/css/layout.css" />
@@ -16,59 +16,37 @@
     <link rel="stylesheet" href="/css/main.css" />
 
     <style>
-      /* --- HEADER FIX: SINKRONISASI TOTAL --- */
-      header.header {
-        background-color: white !important;
-        position: fixed;
-        width: 100%;
-        top: 0;
-        z-index: 1000;
-        border-bottom: 1px solid var(--border);
-      }
-
+      /* --- PENYESUAIAN HEADER: RATA TENGAH & KONTAK HIJAU --- */
       .nav-container {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        height: 80px;
-        padding: 0 40px;
       }
 
-      .logo { flex: 0 0 120px; }
-
-      /* Menu Rata Tengah */
       .nav {
         display: flex;
         align-items: center;
-        justify-content: center;
-        flex: 1;
-        gap: clamp(10px, 2.5vw, 30px);
+        justify-content: center; /* Membuat menu rata tengah */
+        flex: 1; 
+        gap: 30px;
       }
 
-      /* FIX: Visibilitas Tombol Hamburger */
-      .nav-toggle {
-        display: none; /* Sembunyi di desktop */
-        flex-direction: column;
-        justify-content: space-between;
-        width: 28px;
-        height: 18px;
-        background: transparent;
-        border: none;
-        cursor: pointer;
-        padding: 0;
-        z-index: 1100;
+      /* Pembeda Warna Hijau untuk Kontak */
+      .nav-cta {
+        background-color: #123b3a !important; /* Hijau Lontara */
+        color: white !important;
+        padding: 10px 24px;
+        border-radius: 8px;
+        font-weight: 700;
+        transition: 0.3s ease;
+        text-decoration: none;
+      }
+      .nav-cta:hover {
+        background-color: var(--accent) !important;
+        transform: translateY(-2px);
       }
 
-      /* Warna span diatur gelap agar muncul di header putih */
-      .nav-toggle span {
-        width: 100%;
-        height: 3px;
-        background-color: #123b3a; /* Warna hijau gelap Lontara */
-        border-radius: 10px;
-        transition: 0.3s;
-      }
-
-      /* --- STYLING RADAR PREMIUM --- */
+      /* --- STYLING RADAR INTELIJEN --- */
       .error-page {
         min-height: 100vh;
         display: flex;
@@ -78,40 +56,80 @@
         position: relative;
         overflow: hidden;
         color: white;
-        padding-top: 80px;
+      }
+
+      .error-page::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%),
+          linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+        background-size: 100% 4px, 4px 100%;
+        pointer-events: none;
+        z-index: 5;
       }
 
       .radar-system {
         position: absolute;
-        width: min(800px, 90vw);
-        height: min(800px, 90vw);
+        width: 800px;
+        height: 800px;
+        border: 1px solid rgba(0, 184, 169, 0.15);
         border-radius: 50%;
         z-index: 1;
-        background-image: radial-gradient(rgba(0, 184, 169, 0.1) 1px, transparent 1px);
-        background-size: 50px 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
 
       .radar-sweep {
         position: absolute;
         inset: 0;
         border-radius: 50%;
-        background: conic-gradient(from 0deg, transparent 0%, rgba(0, 184, 169, 0.5) 30%, rgba(0, 184, 169, 1) 31%, transparent 32%);
-        filter: drop-shadow(0 0 15px rgba(0, 184, 169, 0.8));
-        animation: scan-radar-pro 4s linear infinite;
-        z-index: 2;
+        background: conic-gradient(from 0deg, transparent 60%, rgba(0, 184, 169, 0.35));
+        animation: scan-pro 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
       }
 
-      .error-content { position: relative; z-index: 10; text-align: center; max-width: 600px; padding: 40px; }
-      .error-code { font-size: clamp(6rem, 15vw, 12rem); font-weight: 900; background: linear-gradient(to bottom, #00b8a9, #ffffff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+      .blip {
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        background: var(--accent);
+        border-radius: 50%;
+        filter: blur(1px);
+        box-shadow: 0 0 10px var(--accent);
+        animation: flicker 3s infinite;
+        opacity: 0;
+      }
 
-      @keyframes scan-radar-pro { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+      .error-code {
+        font-size: 12rem;
+        font-weight: 900;
+        line-height: 1;
+        background: linear-gradient(to bottom, #00b8a9, #ffffff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 0;
+        letter-spacing: -10px;
+        filter: drop-shadow(0 0 20px rgba(0, 184, 169, 0.4));
+        animation: pulse-glow 4s ease-in-out infinite;
+      }
 
-      /* --- MEDIA QUERY MOBILE --- */
-      @media (max-width: 992px) {
-        .nav { display: none; } /* Sembunyikan menu teks di mobile */
-        .nav-toggle { display: flex; } /* Tampilkan hamburger */
-        .nav-container { padding: 0 25px; }
-        .error-code { font-size: 8rem; }
+      .error-content {
+        position: relative;
+        z-index: 10;
+        text-align: center;
+        max-width: 600px;
+        padding: 40px;
+      }
+
+      @keyframes scan-pro { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+      @keyframes flicker { 0%, 100% { opacity: 0; transform: scale(1); } 50% { opacity: 1; transform: scale(1.5); } }
+      @keyframes pulse-glow { 0%, 100% { filter: drop-shadow(0 0 15px rgba(0, 184, 169, 0.3)); transform: scale(1); } 50% { filter: drop-shadow(0 0 40px rgba(0, 184, 169, 0.7)); transform: scale(1.02); } }
+
+      @media (max-width: 768px) {
+        .error-code { font-size: 8rem; letter-spacing: -5px; }
+        .radar-system { width: 500px; height: 500px; }
       }
     </style>
   </head>
@@ -119,8 +137,7 @@
   <body>
     <div class="nav-overlay" id="nav-overlay"></div>
 
-    <header class="header" id="header">
-      <div class="progress-bar" id="progress-bar"></div>
+    <header class="header">
       <div class="container nav-container">
         <div class="logo">
           <a href="/beranda.html">
@@ -139,42 +156,41 @@
           <div class="nav-item"><a href="/publikasi/publikasi.html">Publikasi</a></div>
           <div class="nav-item"><a href="/aset-digital/aset-digital.html">Aset Digital</a></div>
           <div class="nav-item"><a href="/tentang/tentang.html">Tentang</a></div>
-
-          <div class="nav-item nav-item-cta">
-            <a href="/kontak/kontak.html" class="nav-link-cta">Kontak</a>
-          </div>
+          
+          <a href="/kontak/kontak.html" class="nav-cta">Kontak</a>
         </nav>
 
-        <button class="nav-toggle" id="nav-toggle" aria-label="Buka Menu">
-          <span></span>
-          <span></span>
-          <span></span>
+        <button class="nav-toggle" id="nav-toggle">
+          <span></span><span></span><span></span>
         </button>
       </div>
     </header>
 
     <main class="error-page">
-      
       <div class="radar-system">
         <div class="radar-sweep"></div>
+        <div class="blip" style="top: 25%; left: 35%; animation-delay: 1s"></div>
+        <div class="blip" style="top: 65%; left: 75%; animation-delay: 2.5s"></div>
+        <div class="blip" style="top: 45%; left: 15%; animation-delay: 0.5s"></div>
       </div>
 
       <div class="container error-content">
         <div class="error-code">404</div>
-        <h2 style="font-size: 2rem; margin-top: -10px; letter-spacing: 2px;">Signal Lost</h2>
-        <p style="color: rgba(255, 255, 255, 0.7); margin-bottom: 40px; line-height: 1.6;">
-          Koordinat spasial tidak terdeteksi. Rute ini mungkin telah dipindahkan atau berada di luar cakupan geodatabase Lontara.
+        <h2>Signal Lost</h2>
+        <p>
+          Koordinat spasial yang Anda cari tidak terdeteksi oleh sensor kami. Rute ini mungkin telah dipindahkan atau berada di luar cakupan geodatabase Lontara.
         </p>
 
         <div class="btn-container">
-          <a href="/beranda.html" class="btn-primary" style="background: var(--accent); border: none; font-weight: 800; padding: 18px 30px;">Inisialisasi Beranda</a>
+          <a href="/beranda.html" class="btn-primary" style="background: var(--accent); border: none">Inisialisasi Beranda</a>
+          <a href="/layanan/layanan.html" class="btn-secondary" style="border-color: white; color: white">Lihat Sistem Layanan</a>
         </div>
       </div>
     </main>
 
     <footer class="footer" style="background: transparent; border: none; position: absolute; bottom: 20px; width: 100%; z-index: 10; text-align: center;">
       <p style="font-size: 0.85rem; color: rgba(255, 255, 255, 0.4)">
-        &copy; 2026 Lontara Studio.
+        &copy; 2026 Lontara. Environmental & Land Intelligence Studio.
       </p>
     </footer>
 
