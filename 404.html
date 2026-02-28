@@ -34,8 +34,10 @@
         padding: 0 40px;
       }
 
+      /* Logo di Sisi Kiri */
       .logo { flex: 0 0 120px; }
 
+      /* Menu Utama Rata Tengah */
       .nav {
         display: flex;
         align-items: center;
@@ -44,7 +46,7 @@
         gap: clamp(10px, 2.5vw, 30px);
       }
 
-      /* Style khusus CTA agar menyatu di baris menu */
+      /* Kontak menyatu di baris menu sisi kanan */
       .nav-item-cta a {
         background-color: #123b3a;
         color: white !important;
@@ -54,7 +56,7 @@
         transition: 0.3s;
       }
 
-      /* FIX: HAMBURGER ICON STYLING (Wajib Ada di 404) */
+      /* FIX: HAMBURGER ICON STYLING (Wajib Terlihat di Mobile) */
       .nav-toggle {
         display: none;
         flex-direction: column;
@@ -70,12 +72,12 @@
       .nav-toggle span {
         width: 100%;
         height: 3px;
-        background-color: var(--primary); /* Warna gelap sesuai header putih */
+        background-color: var(--primary); /* Warna gelap agar kontras dengan header putih */
         border-radius: 10px;
         transition: 0.3s;
       }
 
-      /* --- STYLING RADAR 404: ESTETIKA PREMIUM --- */
+      /* --- STYLING RADAR 404 --- */
       .error-page {
         min-height: 100vh;
         display: flex;
@@ -88,21 +90,20 @@
         padding-top: 80px;
       }
 
-      /* Efek Scanline Monitor */
       .error-page::after {
         content: "";
         position: absolute;
         inset: 0;
         background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
-        background-size: 100% 4px;
+        background-size: 100% 4px, 4px 100%;
         pointer-events: none;
         z-index: 5;
       }
 
       .radar-system {
         position: absolute;
-        width: min(800px, 90vw);
-        height: min(800px, 90vw);
+        width: 800px;
+        height: 800px;
         border: 1px solid rgba(0, 184, 169, 0.15);
         border-radius: 50%;
         z-index: 1;
@@ -115,9 +116,31 @@
         position: absolute;
         inset: 0;
         border-radius: 50%;
-        background: conic-gradient(from 0deg, rgba(0, 184, 169, 0.5) 0%, transparent 45%);
-        filter: drop-shadow(0 0 15px rgba(0, 184, 169, 0.6));
-        animation: scan-radar 4s linear infinite; /* Animasi linear agar mulus */
+        background: conic-gradient(from 0deg, transparent 60%, rgba(0, 184, 169, 0.35));
+        animation: scan-pro 4s linear infinite; /* Animasi linear agar lancar */
+      }
+
+      .blip {
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        background: var(--accent);
+        border-radius: 50%;
+        filter: blur(1px);
+        box-shadow: 0 0 10px var(--accent);
+        animation: flicker 3s infinite;
+        opacity: 0;
+      }
+
+      .error-code {
+        font-size: clamp(6rem, 15vw, 12rem);
+        font-weight: 900;
+        line-height: 1;
+        background: linear-gradient(to bottom, #00b8a9, #ffffff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        letter-spacing: -10px;
+        animation: pulse-glow 4s ease-in-out infinite;
       }
 
       .error-content {
@@ -128,23 +151,17 @@
         padding: 40px;
       }
 
-      .error-code {
-        font-size: clamp(6rem, 15vw, 12rem);
-        font-weight: 900;
-        background: linear-gradient(to bottom, #00b8a9, #ffffff);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        animation: pulse-glow 3s ease-in-out infinite;
-      }
-
-      @keyframes scan-radar { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-      @keyframes pulse-glow { 0%, 100% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.03); opacity: 1; } }
+      @keyframes scan-pro { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+      @keyframes flicker { 0%, 100% { opacity: 0; transform: scale(1); } 50% { opacity: 1; transform: scale(1.5); } }
+      @keyframes pulse-glow { 0%, 100% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.02); opacity: 1; } }
 
       /* --- MEDIA QUERY: MOBILE --- */
       @media (max-width: 992px) {
-        .nav { display: none; }
-        .nav-toggle { display: flex; } /* Paksa hamburger muncul di mobile */
+        .nav { display: none; } 
+        .nav-toggle { display: flex; } /* Tampilkan hamburger di layar seluler */
         .nav-container { padding: 0 25px; }
+        .error-code { font-size: 8rem; }
+        .radar-system { width: 500px; height: 500px; }
       }
     </style>
   </head>
@@ -188,17 +205,21 @@
     <main class="error-page">
             <div class="radar-system">
         <div class="radar-sweep"></div>
+        <div class="blip" style="top: 25%; left: 35%; animation-delay: 1s"></div>
+        <div class="blip" style="top: 65%; left: 75%; animation-delay: 2.5s"></div>
+        <div class="blip" style="top: 45%; left: 15%; animation-delay: 0.5s"></div>
       </div>
 
       <div class="container error-content">
         <div class="error-code">404</div>
-        <h2 style="font-size: 2rem; margin-top: -10px; letter-spacing: 2px;">Signal Lost</h2>
+        <h2 style="font-size: 2rem; margin-top: -10px; letter-spacing: 2px; text-transform: uppercase;">Signal Lost</h2>
         <p style="color: rgba(255, 255, 255, 0.7); margin-bottom: 40px; line-height: 1.6;">
-          Koordinat spasial yang Anda cari tidak terdeteksi oleh sensor geodatabase Lontara. Rute ini mungkin telah dipindahkan atau berada di luar cakupan analisis kami.
+          Koordinat spasial yang Anda cari tidak terdeteksi oleh sensor kami. Rute ini mungkin telah dipindahkan atau berada di luar cakupan geodatabase Lontara.
         </p>
 
         <div class="btn-container">
-          <a href="/beranda.html" class="btn-primary" style="background: var(--accent); border: none; font-weight: 800; padding: 18px 30px;">Inisialisasi Beranda</a>
+          <a href="/beranda.html" class="btn-primary" style="background: var(--accent); border: none; font-weight: 800;">Inisialisasi Beranda</a>
+          <a href="/layanan/layanan.html" class="btn-secondary" style="border-color: white; color: white">Lihat Sistem Layanan</a>
         </div>
       </div>
     </main>
