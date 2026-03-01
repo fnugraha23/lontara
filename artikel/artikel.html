@@ -27,9 +27,20 @@
       /* FIX: Padding Hero ditingkatkan agar judul tidak tertutup header sticky */
       .hero-articles {
         padding: 180px 0 100px;
-        background-color: var(--bg-light);
+        background-color: var(--primary);
+        color: white;
         text-align: center;
-        border-bottom: 1px solid var(--border);
+      }
+      .hero-articles h1 {
+        font-size: 3rem;
+        margin-bottom: 24px;
+        color: white;
+      }
+      .hero-articles p {
+        font-size: 1.15rem;
+        color: rgba(255, 255, 255, 0.85);
+        max-width: 700px;
+        margin: 0 auto;
       }
 
       /* Card Styling */
@@ -146,6 +157,9 @@
         .hero-articles {
           padding: 140px 0 60px;
         }
+        .hero-articles h1 {
+          font-size: 2.2rem;
+        }
       }
     </style>
   </head>
@@ -216,18 +230,10 @@
     <main>
       <section class="hero-articles">
         <div class="container">
-          <h1 class="reveal-init" style="font-size: 3rem; margin-bottom: 20px">
+          <h1 class="reveal-init">
             Artikel & Wawasan
           </h1>
-          <p
-            class="reveal-init"
-            style="
-              font-size: 1.15rem;
-              color: var(--text-muted);
-              max-width: 700px;
-              margin: 0 auto;
-            "
-          >
+          <p class="reveal-init">
             Eksplorasi tutorial teknis, metodologi riset, dan tips seputar
             integrasi sains geospasial, hidrologi, dan kecerdasan buatan.
           </p>
@@ -335,3 +341,4 @@
     <script src="../js/main.js"></script>
   </body>
 </html>
+
