@@ -6,6 +6,8 @@
     <title>Dataset Batas Administrasi Indonesia 2024 | Lontara</title>
 
     <link rel="icon" type="image/png" href="../../assets/images/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
     <link rel="stylesheet" href="../../css/theme.css" />
@@ -14,7 +16,7 @@
     <link rel="stylesheet" href="../../css/main.css" />
 
     <style>
-      /* --- HEADER & NAVIGASI RATA TENGAH --- */
+      /* --- FIX 1: HEADER & DESKTOP NAV (RATA TENGAH) --- */
       header.header {
         background-color: white !important;
         position: fixed;
@@ -40,9 +42,9 @@
       .nav {
         display: flex;
         align-items: center;
-        justify-content: center; /* Menu Desktop Rata Tengah */
+        justify-content: center; /* Menu di Tengah */
         flex: 1;
-        gap: 25px;
+        gap: 30px;
       }
 
       .nav-link-cta {
@@ -54,7 +56,7 @@
         text-decoration: none;
       }
 
-      /* --- SIDE DRAWER: SLIDE KANAN & TANPA BURAM --- */
+      /* --- FIX 2: SIDEBAR GLASS EFFECT (GAMBAR 1 STYLE) --- */
       .nav-toggle {
         display: none;
         flex-direction: column;
@@ -71,30 +73,33 @@
       .nav-overlay {
         position: fixed;
         inset: 0;
-        background: rgba(0,0,0,0.1); /* Overlay tipis transparan */
+        background: rgba(0, 0, 0, 0.2);
         z-index: 3050;
         display: none;
-        backdrop-filter: none !important; /* MENGHILANGKAN EFEK BURAM */
+        backdrop-filter: blur(4px); /* Efek blur halus di latar belakang */
       }
 
       @media (max-width: 992px) {
         .nav {
           position: fixed;
           top: 0;
-          right: -100%; /* Sembunyi di samping kanan */
-          width: 280px;
+          right: -100%; /* Sembunyi di kanan */
+          width: 320px;
           height: 100vh;
-          background: white;
+          background: rgba(255, 255, 255, 0.85); /* Efek Transparan Putih */
+          backdrop-filter: blur(15px); /* EFEK GELAS */
           flex-direction: column;
-          justify-content: flex-start;
-          padding: 100px 30px;
+          justify-content: center;
+          padding: 40px;
           gap: 25px;
-          box-shadow: -5px 0 20px rgba(0,0,0,0.05);
-          transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+          transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
           z-index: 3100;
         }
-        .nav.active { right: 0; }
+
+        .nav.active { right: 0; } /* Slide dari Samping */
         .nav-toggle { display: flex; }
+        .nav-close { display: block !important; position: absolute; top: 30px; right: 30px; background: none; border: none; cursor: pointer; }
       }
 
       /* --- CONTENT: PETA TIDAK TERPOTONG --- */
@@ -106,9 +111,8 @@
         max-width: 1000px; display: flex; flex-direction: column; align-items: center;
       }
 
-      /* Grid 4 Kolom untuk Preview */
       .preview-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; width: 100%; margin: 30px 0; }
-      .map-frame { height: 180px; background: white; border: 1px solid var(--border); border-radius: 12px; display: flex; align-items: center; justify-content: center; padding: 10px; overflow: hidden; }
+      .map-frame { height: 200px; background: white; border: 1px solid var(--border); border-radius: 12px; display: flex; align-items: center; justify-content: center; padding: 10px; overflow: hidden; }
       .map-frame img { max-width: 100%; max-height: 100%; object-fit: contain; } /* FIX: Peta Utuh 100% */
 
       .btn-download-gis {
@@ -126,7 +130,6 @@
     <div class="nav-overlay" id="nav-overlay" onclick="closeMenu()"></div>
 
     <header class="header" id="header">
-      <div class="progress-bar" id="progress-bar"></div>
       <div class="container nav-container">
         <div class="logo">
           <a href="../../beranda.html">
@@ -135,6 +138,10 @@
         </div>
 
         <nav class="nav" id="nav-menu">
+          <button class="nav-close" id="nav-close" onclick="closeMenu()" style="display:none;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#123b3a" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
+
           <div class="nav-item"><a href="../../layanan/layanan.html">Layanan</a></div>
           <div class="nav-item"><a href="../../portofolio/portofolio.html">Portofolio</a></div>
           <div class="nav-item"><a href="../../artikel/artikel.html">Artikel</a></div>
@@ -153,43 +160,43 @@
     <main>
       <section class="hero-boundaries">
         <div class="container">
-          <h1 style="font-size: 3rem; font-weight: 800; color: var(--primary);">Dataset Batas Administrasi Indonesia</h1>
-          <p style="font-size: 1.2rem; color: var(--text-muted); margin-top: 20px;">Data spasial resmi BIG 2024 (Provinsi, Kabupaten, Kecamatan, Desa).</p>
+          <h1 style="font-size: 3.2rem; font-weight: 800; color: var(--primary);">Dataset Batas Administrasi Indonesia</h1>
+          <p style="font-size: 1.25rem; color: var(--text-muted); margin-top: 20px;">Data spasial resmi BIG 2024 yang divalidasi topologi secara nasional.</p>
         </div>
       </section>
 
       <div class="container">
         <div class="download-card">
-          <h2 style="font-size: 1.8rem; font-weight: 800; color: var(--primary);">Pratinjau Dataset</h2>
+          <h2 style="font-size: 2rem; font-weight: 800; color: var(--primary);">Pratinjau & Unduh</h2>
           
           <div class="preview-grid">
             <div class="preview-item">
-              <div class="map-frame"><img src="../images/prov-peta-adm.png" alt="Prov"></div>
-              <div style="padding:10px; font-weight:800; font-size:0.8rem; text-align:center;">Peta Provinsi</div>
+              <div class="map-frame"><img src="../images/prov-peta-adm.png" alt="Provinsi"></div>
+              <div style="padding:12px; font-weight:800; font-size:0.85rem; text-align:center;">Administrasi Provinsi</div>
             </div>
             <div class="preview-item">
-              <div class="map-frame"><img src="../images/kab-peta-adm.png" alt="Kab"></div>
-              <div style="padding:10px; font-weight:800; font-size:0.8rem; text-align:center;">Peta Kabupaten</div>
+              <div class="map-frame"><img src="../images/kab-peta-adm.png" alt="Kabupaten"></div>
+              <div style="padding:12px; font-weight:800; font-size:0.85rem; text-align:center;">Administrasi Kabupaten</div>
             </div>
             <div class="preview-item">
-              <div class="map-frame"><img src="../images/kec-peta-adm.png" alt="Kec"></div>
-              <div style="padding:10px; font-weight:800; font-size:0.8rem; text-align:center;">Peta Kecamatan</div>
+              <div class="map-frame"><img src="../images/kec-peta-adm.png" alt="Kecamatan"></div>
+              <div style="padding:12px; font-weight:800; font-size:0.85rem; text-align:center;">Administrasi Kecamatan</div>
             </div>
             <div class="preview-item">
               <div class="map-frame"><img src="../images/desa-peta-adm.png" alt="Desa"></div>
-              <div style="padding:10px; font-weight:800; font-size:0.8rem; text-align:center;">Peta Desa</div>
+              <div style="padding:12px; font-weight:800; font-size:0.85rem; text-align:center;">Administrasi Desa</div>
             </div>
           </div>
 
-          <div style="background:var(--bg-light); border:2px dashed var(--border); border-radius:24px; padding:40px; width:100%; max-width:600px; margin-top:20px; text-align:center;">
-            <span style="font-weight:800; color:var(--accent); letter-spacing:2px; text-transform:uppercase; font-size:0.8rem; display:block; margin-bottom:25px;">Free Dataset</span>
+          <div style="background:var(--bg-light); border:2px dashed var(--border); border-radius:28px; padding:50px; width:100%; max-width:650px; margin-top:20px; text-align:center;">
+            <span style="font-weight:800; color:var(--accent); letter-spacing:2px; text-transform:uppercase; font-size:0.85rem; display:block; margin-bottom:25px;">Free Dataset</span>
             
-            <a href="https://drive.google.com/file/d/1i-7YiqaVlBJ_f8crLmXo6fmJYfaH5dvV/view?usp=sharing" target="_blank" class="btn-download-gis">Unduh Data Provinsi (.shp)</a>
-            <a href="https://drive.google.com/file/d/16bf1SimNf_kIO3qNzaDMwYJNL3foWgj9/view?usp=sharing" target="_blank" class="btn-download-gis">Unduh Data Kabupaten (.shp)</a>
-            <a href="https://drive.google.com/file/d/1xQkTCOEvGKNbRsxfCzC1EjvTgnKDfLYK/view?usp=sharing" target="_blank" class="btn-download-gis">Unduh Data Kecamatan (.shp)</a>
-            <a href="https://drive.google.com/file/d/19rQnH1lu9fHzyXAnZifKcLA1hB2RzDKx/view?usp=sharing" target="_blank" class="btn-download-gis">Unduh Data Desa (.shp)</a>
+            <a href="https://drive.google.com/file/d/1i-7YiqaVlBJ_f8crLmXo6fmJYfaH5dvV/view" target="_blank" class="btn-download-gis">Unduh Data Provinsi (.shp)</a>
+            <a href="https://drive.google.com/file/d/16bf1SimNf_kIO3qNzaDMwYJNL3foWgj9/view" target="_blank" class="btn-download-gis">Unduh Data Kabupaten (.shp)</a>
+            <a href="https://drive.google.com/file/d/1xQkTCOEvGKNbRsxfCzC1EjvTgnKDfLYK/view" target="_blank" class="btn-download-gis">Unduh Data Kecamatan (.shp)</a>
+            <a href="https://drive.google.com/file/d/19rQnH1lu9fHzyXAnZifKcLA1hB2RzDKx/view" target="_blank" class="btn-download-gis">Unduh Data Desa (.shp)</a>
 
-            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 20px;">Update: Jan 2024 • Format: Shapefile</p>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 25px;">Update: Jan 2024 • Sumber: BIG</p>
           </div>
         </div>
       </div>
@@ -203,26 +210,15 @@
       function toggleMenu() {
         const menu = document.getElementById('nav-menu');
         const overlay = document.getElementById('nav-overlay');
-        const toggle = document.getElementById('nav-toggle');
-        const spans = toggle.getElementsByTagName('span');
-
-        menu.classList.toggle('active');
-        overlay.style.display = menu.classList.contains('active') ? 'block' : 'none';
-
-        if(menu.classList.contains('active')) {
-          spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
-          spans[1].style.opacity = '0';
-          spans[2].style.transform = 'rotate(-45deg) translate(6px, -7px)';
-        } else {
-          spans[0].style.transform = 'none'; spans[1].style.opacity = '1'; spans[2].style.transform = 'none';
-        }
+        menu.classList.add('active');
+        overlay.style.display = 'block';
       }
 
       function closeMenu() {
-        document.getElementById('nav-menu').classList.remove('active');
-        document.getElementById('nav-overlay').style.display = 'none';
-        const spans = document.getElementById('nav-toggle').getElementsByTagName('span');
-        spans[0].style.transform = 'none'; spans[1].style.opacity = '1'; spans[2].style.transform = 'none';
+        const menu = document.getElementById('nav-menu');
+        const overlay = document.getElementById('nav-overlay');
+        menu.classList.remove('active');
+        overlay.style.display = 'none';
       }
     </script>
   </body>
