@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="../../css/main.css" />
 
     <style>
-      /* --- HERO SECTION: Menggunakan Jarak Aman 180px --- */
+      /* --- HERO SECTION --- */
       .hero-boundaries {
         padding: 180px 0 100px;
         background: linear-gradient(to bottom, #f8fafc, #f1f5f9);
@@ -24,7 +24,7 @@
         border-bottom: 1px solid var(--border);
       }
 
-      /* --- DOWNLOAD CARD: Arsitektur Utama Lontara --- */
+      /* --- DOWNLOAD CARD --- */
       .download-card {
         background: white;
         border: 1px solid var(--border);
@@ -38,35 +38,53 @@
         align-items: center;
       }
 
-      /* Preview Grid & Frame */
+      /* --- PREVIEW GRID & CAPTION --- */
       .preview-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
+        gap: 25px;
         width: 100%;
-        margin: 30px 0;
+        margin: 35px 0;
+      }
+
+      .preview-item {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
       }
 
       .map-frame {
-        height: 180px;
+        height: 200px;
         background: white;
         border: 1px solid var(--border);
-        border-radius: 12px;
+        border-radius: 16px;
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 10px;
+        padding: 15px;
         overflow: hidden;
+        transition: 0.3s ease;
       }
 
-      /* Memastikan Peta Tidak Terpotong */
+      .map-frame:hover {
+        border-color: var(--accent);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.03);
+      }
+
       .map-frame img {
         max-width: 100%;
         max-height: 100%;
         object-fit: contain;
       }
 
-      /* Tombol Unduh GIS Proporsional */
+      .map-label {
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: var(--primary);
+        text-align: center;
+      }
+
+      /* --- BUTTONS --- */
       .btn-download-gis {
         background: var(--primary);
         color: white !important;
@@ -87,7 +105,7 @@
         transform: translateY(-3px);
       }
 
-      @media (max-width: 600px) {
+      @media (max-width: 768px) {
         .preview-grid { grid-template-columns: 1fr; }
         .download-card { padding: 40px 20px; }
       }
@@ -99,7 +117,6 @@
 
     <header class="header" id="header">
       <div class="progress-bar" id="progress-bar"></div>
-
       <div class="container nav-container">
         <div class="logo">
           <a href="../../beranda.html">
@@ -111,20 +128,14 @@
           <button class="nav-close" id="nav-close" aria-label="Tutup Menu">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
           </button>
-
           <div class="nav-item"><a href="../../layanan/layanan.html">Layanan</a></div>
           <div class="nav-item"><a href="../../portofolio/portofolio.html">Portofolio</a></div>
           <div class="nav-item"><a href="../../artikel/artikel.html">Artikel</a></div>
           <div class="nav-item"><a href="../../publikasi/publikasi.html">Publikasi</a></div>
           <div class="nav-item"><a href="../aset-digital.html" class="active">Aset Digital</a></div>
           <div class="nav-item"><a href="../../tentang/tentang.html">Tentang</a></div>
-
-          <div class="nav-item nav-item-cta">
-            <a href="../../kontak/kontak.html" class="nav-link-cta">Kontak</a>
-          </div>
+          <div class="nav-item nav-item-cta"><a href="../../kontak/kontak.html" class="nav-link-cta">Kontak</a></div>
         </nav>
-
-        <div class="nav-actions"></div>
 
         <button class="nav-toggle" id="nav-toggle" aria-label="Buka Menu">
           <span></span><span></span><span></span>
@@ -138,10 +149,10 @@
           <a href="../aset-digital.html" style="background: var(--primary); color: white; padding: 10px 20px; border-radius: 10px; text-decoration: none; font-weight: 800; display: inline-block; margin-bottom: 30px;">
             ← Kembali ke Aset Digital
           </a>
-
           <h1 style="font-size: 3.2rem; font-weight: 800; color: var(--primary)">Dataset Batas Administrasi</h1>
-          <p style="font-size: 1.25rem; color: var(--text-muted); margin-top: 20px;">
-            Akses data spasial resmi BIG 2024 tingkat Nasional (Provinsi, Kab, Kec, Desa).
+          <p style="font-size: 1.2rem; color: var(--text-muted); max-width: 850px; margin: 25px auto 0; line-height: 1.6;">
+            Akses dataset spasial poligon resmi yang bersumber dari <strong>Badan Informasi Geospasial (BIG) tahun 2024</strong>. 
+            Data telah melalui proses validasi topologi (clean) untuk memastikan tidak ada <i>gap</i> atau <i>overlap</i> antar batas wilayah.
           </p>
         </div>
       </section>
@@ -151,13 +162,35 @@
           <h2 style="font-size: 2rem; font-weight: 800; color: var(--primary)">Pratinjau & Unduh</h2>
           
           <div class="preview-grid">
-            <div class="map-frame"><img src="../images/prov-peta-adm.png" alt="Provinsi" /></div>
-            <div class="map-frame"><img src="../images/kab-peta-adm.png" alt="Kabupaten" /></div>
-            <div class="map-frame"><img src="../images/kec-peta-adm.png" alt="Kecamatan" /></div>
-            <div class="map-frame"><img src="../images/desa-peta-adm.png" alt="Desa" /></div>
+            <div class="preview-item">
+              <div class="map-frame"><img src="../images/prov-peta-adm.png" alt="Peta Provinsi" /></div>
+              <p class="map-label">Batas Administrasi Provinsi (Nasional)</p>
+            </div>
+            <div class="preview-item">
+              <div class="map-frame"><img src="../images/kab-peta-adm.png" alt="Peta Kabupaten" /></div>
+              <p class="map-label">Batas Administrasi Kabupaten/Kota</p>
+            </div>
+            <div class="preview-item">
+              <div class="map-frame"><img src="../images/kec-peta-adm.png" alt="Peta Kecamatan" /></div>
+              <p class="map-label">Batas Administrasi Kecamatan</p>
+            </div>
+            <div class="preview-item">
+              <div class="map-frame"><img src="../images/desa-peta-adm.png" alt="Peta Desa" /></div>
+              <p class="map-label">Batas Administrasi Desa/Kelurahan</p>
+            </div>
           </div>
 
-          <div style="background: var(--bg-light); border: 2px dashed var(--border); border-radius: 28px; padding: 50px; width: 100%; max-width: 650px; margin-top: 20px; text-align: center;">
+          <div style="width: 100%; max-width: 800px; margin-bottom: 40px; text-align: left;">
+            <h3 style="color: var(--primary); margin-bottom: 15px;">Informasi Teknis:</h3>
+            <ul style="list-style: none; padding: 0; color: var(--text-muted); line-height: 1.8;">
+              <li><strong>• Sumber Data:</strong> Badan Informasi Geospasial (BIG) - TASWIL 2024</li>
+              <li><strong>• Sistem Proyeksi:</strong> WGS 84 (EPSG:4326)</li>
+              <li><strong>• Format File:</strong> ESRI Shapefile (.shp)</li>
+              <li><strong>• Atribut:</strong> Nama Wilayah, Kode Dagri, dan Luas Geometris.</li>
+            </ul>
+          </div>
+
+          <div style="background: var(--bg-light); border: 2px dashed var(--border); border-radius: 28px; padding: 50px; width: 100%; max-width: 650px; text-align: center;">
             <span style="font-weight: 800; color: var(--accent); letter-spacing: 2px; text-transform: uppercase; font-size: 0.85rem; display: block; margin-bottom: 25px;">
               Free Dataset
             </span>
@@ -167,14 +200,14 @@
             <a href="https://drive.google.com/file/d/1xQkTCOEvGKNbRsxfCzC1EjvTgnKDfLYK/view" target="_blank" class="btn-download-gis">Unduh Data Kecamatan (.shp)</a>
             <a href="https://drive.google.com/file/d/19rQnH1lu9fHzyXAnZifKcLA1hB2RzDKx/view" target="_blank" class="btn-download-gis">Unduh Data Desa (.shp)</a>
 
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 25px;">Update: Jan 2024 • Sumber: BIG</p>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 25px;">Update Terakhir: Januari 2024</p>
           </div>
         </div>
       </div>
     </main>
 
     <footer style="padding: 60px 0; text-align: center; border-top: 1px solid var(--border);">
-      <p style="font-size: 0.9rem; color: var(--text-muted)">© 2026 Lontara Studio.</p>
+      <p style="font-size: 0.9rem; color: var(--text-muted)">© 2026 Lontara Studio. Environmental & Land Intelligence.</p>
     </footer>
 
     <script src="../../js/utils.js"></script>
