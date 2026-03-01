@@ -5,191 +5,123 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dataset Batas Administrasi Indonesia 2024 | Lontara Free Resources</title>
 
-    <link rel="icon" type="image/png" href="../../assets/images/favicon.png" />
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
-    <link rel="stylesheet" href="../../css/theme.css" />
-    <link rel="stylesheet" href="../../css/layout.css" />
-    <link rel="stylesheet" href="../../css/components.css" />
-    <link rel="stylesheet" href="../../css/main.css" />
+    <link rel="stylesheet" href="/css/theme.css" />
+    <link rel="stylesheet" href="/css/layout.css" />
+    <link rel="stylesheet" href="/css/components.css" />
+    <link rel="stylesheet" href="/css/main.css" />
 
     <style>
-      /* --- HERO SECTION: Memberikan jarak aman dari Header --- */
+      /* --- FIX 1: HEADER & MENU RATA TENGAH --- */
+      header.header {
+        background-color: white !important;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 3000;
+        border-bottom: 1px solid var(--border);
+        height: 80px;
+      }
+
+      .nav-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 100%;
+        padding: 0 40px;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .logo { flex: 0 0 150px; } /* Memberikan ruang tetap untuk logo di kiri */
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: center; /* MEMASTIKAN MENU DI TENGAH */
+        flex: 1; 
+        gap: 30px;
+      }
+
+      .nav-item-cta { flex: 0 0 150px; display: flex; justify-content: flex-end; }
+
+      .nav-link-cta {
+        background-color: #123b3a !important; /* Hijau Lontara */
+        color: white !important;
+        padding: 10px 22px;
+        border-radius: 8px;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      /* --- HERO SECTION --- */
       .resource-header {
-        padding: 220px 0 140px; 
-        text-align: left;
+        padding: 220px 0 120px;
         background: linear-gradient(to bottom, #f8fafc, #f1f5f9);
         border-bottom: 1px solid var(--border);
       }
 
-      .breadcrumb-back {
-        background-color: var(--primary);
-        color: white !important;
-        padding: 12px 24px;
-        border-radius: 12px;
-        font-size: 0.9rem;
-        margin-bottom: 50px; 
-        display: inline-flex;
-        align-items: center;
-        gap: 12px;
-        text-decoration: none;
-        transition: 0.3s ease;
-        font-weight: 800;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      }
-      .breadcrumb-back:hover {
-        background-color: var(--accent);
-        transform: translateX(-5px);
-      }
-
-      /* --- BOX UTAMA: Proporsional & Lega --- */
+      /* --- FIX 2: PROPORSIONAL DOWNLOAD BOX --- */
       .download-box {
         background: white;
         border: 1px solid var(--border);
-        border-radius: 24px;
-        padding: 80px 70px; 
+        border-radius: 28px;
+        padding: 70px;
         box-shadow: 0 40px 80px -15px rgba(0, 0, 0, 0.05);
-        margin-top: 80px; 
-        position: relative;
-        z-index: 10;
+        margin-top: 80px;
         display: flex;
         flex-wrap: wrap;
-        gap: 80px;
+        gap: 60px;
         align-items: flex-start;
       }
 
-      .download-info {
-        flex: 1 1 500px;
-        min-width: 350px;
-      }
+      .download-info { flex: 1 1 500px; min-width: 350px; }
 
-      .download-info h2 {
-        color: var(--primary);
-        margin-bottom: 45px; 
-        font-size: 2.2rem;
-        font-weight: 800;
-        letter-spacing: -1px;
-      }
-
-      .download-info ul {
-        list-style: none;
-      }
-      .download-info li {
-        margin-bottom: 24px;
-        display: flex;
-        align-items: flex-start;
-        gap: 20px;
-        color: var(--text-main);
-        line-height: 1.7;
-        font-size: 1.1rem;
-      }
-      .download-info li::before {
-        content: "✓";
-        color: var(--accent);
-        font-weight: 900;
-        font-size: 1.4rem;
-        margin-top: -3px;
-      }
-
-      /* --- PREVIEW GRID (PETA TIDAK TERPOTONG) --- */
+      /* PREVIEW PETA (TIDAK TERPOTONG) */
       .preview-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 20px;
-        margin: 40px 0;
+        margin: 35px 0;
       }
-      .preview-item {
-        background: #f8fafc;
-        border: 1px solid var(--border);
-        border-radius: 16px;
-        overflow: hidden;
-      }
-      .preview-img-container {
-        height: 180px;
-        background: white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 10px;
-      }
-      .preview-img-container img {
-        max-width: 100%;
-        max-height: 100%;
-        object-fit: contain; /* Peta utuh tanpa terpotong */
-      }
-      .preview-caption {
-        padding: 10px;
-        font-size: 0.85rem;
-        font-weight: 800;
-        text-align: center;
-        color: var(--primary);
-        background: #f8fafc;
-        border-top: 1px solid var(--border);
-      }
+      .preview-item { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: #f8fafc; }
+      .preview-img-container { height: 180px; display: flex; align-items: center; justify-content: center; background: white; padding: 10px; }
+      .preview-img-container img { max-width: 100%; max-height: 100%; object-fit: contain; }
+      .preview-caption { padding: 10px; font-size: 0.85rem; font-weight: 800; text-align: center; color: var(--primary); border-top: 1px solid var(--border); }
 
-      /* --- ACTION PANEL: Simetris & Fokus --- */
+      /* ACTION PANEL (SIMETRIS) */
       .download-action {
         flex: 0 0 380px;
-        text-align: center;
-        padding: 60px 45px;
         background: var(--bg-light);
-        border-radius: 28px;
+        border-radius: 24px;
         border: 2px dashed var(--border);
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
+        padding: 50px 40px;
+        text-align: center;
       }
 
-      .download-action h4 {
-        margin-bottom: 20px;
-        font-weight: 800;
-        color: var(--accent);
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        font-size: 0.9rem;
-      }
-
-      .btn-download {
-        background-color: var(--primary);
+      .btn-download-gis {
+        background-color: #123b3a; /* Hijau Gelap */
         color: white !important;
-        padding: 20px 0;
-        border-radius: 12px;
+        padding: 18px 0;
+        border-radius: 10px;
         font-weight: 800;
         text-decoration: none;
         display: block;
         margin-bottom: 15px;
+        width: 100%; /* Memastikan tombol proporsional penuh */
         transition: 0.3s;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-      }
-      .btn-download:hover {
-        background-color: var(--accent);
-        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(18, 59, 58, 0.1);
       }
 
-      /* --- CTA SINKRON --- */
-      .section-cta-green {
-        background-color: #123b3a !important;
-        color: white !important;
-        text-align: center;
-        padding: 120px 0;
-        margin-top: 100px;
-      }
-      .btn-cta-white {
-        background-color: white !important;
-        color: #123b3a !important;
-        padding: 16px 45px;
-        border-radius: 8px;
-        font-weight: 800;
-        display: inline-block;
-        text-decoration: none;
-        transition: 0.3s;
-      }
+      .btn-download-gis:hover { background-color: var(--accent); transform: translateY(-3px); }
 
       @media (max-width: 992px) {
-        .download-box { padding: 50px 30px; gap: 40px; margin-top: 40px; }
+        .nav { display: none; }
+        .download-box { padding: 40px 25px; gap: 40px; }
         .preview-grid { grid-template-columns: 1fr; }
         .download-action { width: 100%; flex: none; }
-        .resource-header { padding: 180px 0 80px; }
       }
     </style>
   </head>
@@ -197,46 +129,38 @@
   <body>
     <div class="nav-overlay" id="nav-overlay"></div>
 
-    <header class="header" id="header">
-      <div class="progress-bar" id="progress-bar"></div>
+    <header class="header">
       <div class="container nav-container">
         <div class="logo">
-          <a href="../../beranda.html">
-            <img src="../../assets/images/logo.png" alt="Lontara Logo" width="120" height="38" />
+          <a href="/beranda.html">
+            <img src="/assets/images/logo.png" alt="Lontara Logo" width="120" height="38" />
           </a>
         </div>
+
         <nav class="nav" id="nav-menu">
-          <button class="nav-close" id="nav-close">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-          </button>
-          <div class="nav-item"><a href="../../layanan/layanan.html">Layanan</a></div>
-          <div class="nav-item"><a href="../../portofolio/portofolio.html">Portofolio</a></div>
-          <div class="nav-item"><a href="../../artikel/artikel.html">Artikel</a></div>
-          <div class="nav-item"><a href="../../publikasi/publikasi.html">Publikasi</a></div>
-          <div class="nav-item"><a href="../aset-digital.html" class="active">Aset Digital</a></div>
-          <div class="nav-item"><a href="../../tentang/tentang.html">Tentang</a></div>
-          <div class="nav-item nav-item-cta">
-            <a href="../../kontak/kontak.html" class="nav-link-cta">Kontak</a>
-          </div>
+          <div class="nav-item"><a href="/layanan/layanan.html">Layanan</a></div>
+          <div class="nav-item"><a href="/portofolio/portofolio.html">Portofolio</a></div>
+          <div class="nav-item"><a href="/artikel/artikel.html">Artikel</a></div>
+          <div class="nav-item"><a href="/publikasi/publikasi.html">Publikasi</a></div>
+          <div class="nav-item"><a href="/aset-digital/aset-digital.html" class="active">Aset Digital</a></div>
+          <div class="nav-item"><a href="/tentang/tentang.html">Tentang</a></div>
         </nav>
-        <button class="nav-toggle" id="nav-toggle">
-          <span></span><span></span><span></span>
-        </button>
+
+        <div class="nav-item-cta">
+          <a href="/kontak/kontak.html" class="nav-link-cta">Kontak</a>
+        </div>
+
+        <button class="nav-toggle" id="nav-toggle"><span></span><span></span><span></span></button>
       </div>
     </header>
 
     <main>
       <section class="resource-header">
         <div class="container">
-          <a href="../aset-digital.html" class="breadcrumb-back">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-            Kembali ke Aset Digital
-          </a>
-          <h1 style="font-size: 3.5rem; color: var(--primary); font-weight: 800; line-height: 1.1;">
-            Dataset Batas Administrasi Indonesia 2024
-          </h1>
-          <p style="color: var(--text-muted); font-size: 1.25rem; max-width: 750px; margin-top: 25px; line-height: 1.6;">
-            Dataset batas wilayah resmi berbasis BIG (Badan Informasi Geospasial) yang telah divalidasi topologi untuk kebutuhan analisis GIS profesional.
+          <a href="/aset-digital/aset-digital.html" style="background:var(--primary); color:white; padding:12px 25px; border-radius:12px; text-decoration:none; font-weight:800; display:inline-flex; align-items:center; gap:10px; margin-bottom:40px;">← Kembali ke Aset Digital</a>
+          <h1 style="font-size: 3.5rem; color: var(--primary); font-weight: 800; line-height: 1.1;">Dataset Batas Administrasi Indonesia 2024</h1>
+          <p style="font-size: 1.25rem; color: var(--text-muted); max-width: 800px; margin-top: 25px; line-height: 1.6;">
+            Akses data spasial resmi berbasis BIG (Badan Informasi Geospasial) yang telah divalidasi topologi untuk integrasi sistem GIS yang presisi.
           </p>
         </div>
       </section>
@@ -245,70 +169,64 @@
         <div class="container">
           <div class="download-box">
             <div class="download-info">
-              <h2>Spesifikasi & Pratinjau</h2>
-              
+              <h2 style="color:var(--primary); margin-bottom:30px; font-size:2.2rem; font-weight:800;">Spesifikasi & Pratinjau</h2>
+              <p>Dataset ini menyediakan batas poligon administrasi nasional yang telah dibersihkan dari *overlap* dan *gap*, siap digunakan langsung dalam format Shapefile (.shp).</p>
+
               <div class="preview-grid">
                 <div class="preview-item">
-                  <div class="preview-img-container"><img src="../images/prov-peta-adm.png" alt="Provinsi"></div>
-                  <div class="preview-caption">Batas Administrasi Provinsi</div>
+                  <div class="preview-img-container"><img src="/aset-digital/images/prov-peta-adm.png" alt="Prov"></div>
+                  <div class="preview-caption">Peta Provinsi</div>
                 </div>
                 <div class="preview-item">
-                  <div class="preview-img-container"><img src="../images/kab-peta-adm.png" alt="Kabupaten"></div>
-                  <div class="preview-caption">Batas Administrasi Kabupaten</div>
+                  <div class="preview-img-container"><img src="/aset-digital/images/kab-peta-adm.png" alt="Kab"></div>
+                  <div class="preview-caption">Peta Kabupaten/Kota</div>
                 </div>
                 <div class="preview-item">
-                  <div class="preview-img-container"><img src="../images/kec-peta-adm.png" alt="Kecamatan"></div>
-                  <div class="preview-caption">Batas Administrasi Kecamatan</div>
+                  <div class="preview-img-container"><img src="/aset-digital/images/kec-peta-adm.png" alt="Kec"></div>
+                  <div class="preview-caption">Peta Kecamatan</div>
                 </div>
                 <div class="preview-item">
-                  <div class="preview-img-container"><img src="../images/desa-peta-adm.png" alt="Desa"></div>
-                  <div class="preview-caption">Batas Administrasi Desa</div>
+                  <div class="preview-img-container"><img src="/aset-digital/images/desa-peta-adm.png" alt="Desa"></div>
+                  <div class="preview-caption">Peta Desa/Kelurahan</div>
                 </div>
               </div>
 
-              <ul>
-                <li><strong>Sumber Resmi:</strong> BIG – TASWIL 2024</li>
-                <li><strong>Sistem Koordinat:</strong> WGS 84 (EPSG:4326)</li>
-                <li><strong>Kualitas Data:</strong> Topologi Clean (No Overlaps/Gaps)</li>
-                <li><strong>Format:</strong> Shapefile (.SHP)</li>
+              <ul style="list-style:none; padding:0; margin-top:30px;">
+                <li style="margin-bottom:15px;"><strong>✓ Sumber Data:</strong> BIG – TASWIL 2024</li>
+                <li style="margin-bottom:15px;"><strong>✓ Koordinat:</strong> WGS 84 (EPSG:4326)</li>
+                <li style="margin-bottom:15px;"><strong>✓ Kualitas:</strong> Topologi Clean</li>
               </ul>
             </div>
 
             <div class="download-action">
-              <h4>Lisensi Gratis</h4>
-              <a href="https://drive.google.com/file/d/1i-7YiqaVlBJ_f8crLmXo6fmJYfaH5dvV/view" target="_blank" class="btn-download">Unduh Data Provinsi</a>
-              <a href="https://drive.google.com/file/d/16bf1SimNf_kIO3qNzaDMwYJNL3foWgj9/view" target="_blank" class="btn-download">Unduh Data Kabupaten</a>
-              <a href="https://drive.google.com/file/d/1xQkTCOEvGKNbRsxfCzC1EjvTgnKDfLYK/view" target="_blank" class="btn-download">Unduh Data Kecamatan</a>
-              <a href="https://drive.google.com/file/d/19rQnH1lu9fHzyXAnZifKcLA1hB2RzDKx/view" target="_blank" class="btn-download">Unduh Data Desa</a>
-              <p style="font-size: 0.9rem; color: var(--text-muted); font-weight: 600; margin-top: 15px;">Update: Jan 2024</p>
+              <span style="font-weight:800; color:var(--accent); letter-spacing:2px; margin-bottom:25px; display:block;">FREE DATASET</span>
+              
+              <a href="https://drive.google.com/file/d/1i-7YiqaVlBJ_f8crLmXo6fmJYfaH5dvV/view" target="_blank" class="btn-download-gis">Unduh Data Provinsi</a>
+              <a href="https://drive.google.com/file/d/16bf1SimNf_kIO3qNzaDMwYJNL3foWgj9/view" target="_blank" class="btn-download-gis">Unduh Data Kabupaten</a>
+              <a href="https://drive.google.com/file/d/1xQkTCOEvGKNbRsxfCzC1EjvTgnKDfLYK/view" target="_blank" class="btn-download-gis">Unduh Data Kecamatan</a>
+              <a href="https://drive.google.com/file/d/19rQnH1lu9fHzyXAnZifKcLA1hB2RzDKx/view" target="_blank" class="btn-download-gis">Unduh Data Desa</a>
+
+              <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 25px;">Update: Jan 2024 • Format: .shp</p>
             </div>
           </div>
         </div>
       </section>
 
-      <section class="section-cta-green">
+      <section style="background:#123b3a; padding:100px 0; text-align:center; color:white; margin-top:100px;">
         <div class="container">
-          <h2>Butuh Integrasi WebGIS Kustom?</h2>
-          <p style="font-size: 1.15rem; margin: 20px 0 40px; opacity: 0.9">
-            Kami melayani pengembangan platform informasi geospasial berbasis data riset spesifik Anda.
-          </p>
-          <a href="../../kontak/kontak.html" class="btn-cta-white">Hubungi Spesialis GIS</a>
+          <h2 style="font-size:2.5rem; margin-bottom:20px;">Butuh Integrasi WebGIS?</h2>
+          <p style="opacity:0.8; margin-bottom:40px;">Kami melayani pengembangan platform informasi geospasial kustom.</p>
+          <a href="/kontak/kontak.html" style="background:white; color:#123b3a; padding:18px 40px; border-radius:10px; font-weight:800; text-decoration:none; display:inline-block;">Hubungi Kami Sekarang</a>
         </div>
       </section>
     </main>
 
-    <footer class="footer">
-      <div class="container footer-container" style="display: flex; justify-content: space-between; align-items: center;">
-        <div>
-          <h4>Lontara</h4>
-          <p style="font-size: 0.9rem; color: var(--text-muted)">Environmental & Land Intelligence Studio.</p>
-        </div>
-        <p style="font-size: 0.9rem; color: var(--text-muted)">&copy; 2026 Lontara. Seluruh Hak Cipta Dilindungi.</p>
-      </div>
+    <footer style="padding: 60px 0; text-align: center; border-top: 1px solid var(--border);">
+      <p style="font-size: 0.9rem; color: var(--text-muted)">© 2026 Lontara Studio. Environmental & Land Intelligence Studio.</p>
     </footer>
 
-    <script src="../../js/utils.js"></script>
-    <script src="../../js/animation.js"></script>
-    <script src="../../js/main.js"></script>
+    <script src="/js/utils.js"></script>
+    <script src="/js/animation.js"></script>
+    <script src="/js/main.js"></script>
   </body>
 </html>
