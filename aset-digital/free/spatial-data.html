@@ -3,18 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dataset Batas Administrasi Indonesia 2024 | Lontara Free Resources</title>
+    <title>Dataset Batas Administrasi Indonesia 2024 | Lontara</title>
 
-    <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="../../assets/images/favicon.png" />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
-    <link rel="stylesheet" href="/css/theme.css" />
-    <link rel="stylesheet" href="/css/layout.css" />
-    <link rel="stylesheet" href="/css/components.css" />
-    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/layout.css" />
+    <link rel="stylesheet" href="../../css/components.css" />
+    <link rel="stylesheet" href="../../css/main.css" />
 
     <style>
-      /* --- HEADER FIX: DESKTOP RATA TENGAH --- */
+      /* --- FIX 1: HEADER SINKRON & RATA TENGAH --- */
       header.header {
         background-color: white !important;
         position: fixed;
@@ -54,7 +54,7 @@
         text-decoration: none;
       }
 
-      /* --- FIX: SIDE MENU (SLIDE KANAN) & NO BLUR --- */
+      /* --- FIX 2: SIDE DRAWER & NO BLUR (MENGATASI CAHAYA KURANG ESTETIK) --- */
       .nav-toggle {
         display: none;
         flex-direction: column;
@@ -68,21 +68,20 @@
       }
       .nav-toggle span { width: 100%; height: 3px; background-color: #123b3a; border-radius: 10px; transition: 0.3s; }
 
-      /* Overlay tanpa Efek Buram */
       .nav-overlay {
         position: fixed;
         inset: 0;
-        background: rgba(0,0,0,0.1); /* Tipis saja, tanpa blur agar tidak mengganggu */
+        background: rgba(0,0,0,0.1); /* Overlay sangat tipis, tidak gelap */
         z-index: 3050;
         display: none;
-        backdrop-filter: none !important; /* MENGHILANGKAN LAYAR BURAM */
+        backdrop-filter: none !important; /* MENGHILANGKAN EFEK BURAM */
       }
 
       @media (max-width: 992px) {
         .nav {
           position: fixed;
           top: 0;
-          right: -100%; /* Sembunyi di kanan */
+          right: -100%; /* Sembunyi di kanan layar */
           width: 280px;
           height: 100vh;
           background: white;
@@ -99,16 +98,18 @@
         .nav-toggle { display: flex; }
       }
 
-      /* --- CONTENT & PREVIEW STYLING --- */
+      /* --- CONTENT STYLING: PETA TIDAK TERPOTONG --- */
       .hero-boundaries { padding: 220px 0 100px; background: linear-gradient(to bottom, #f8fafc, #f1f5f9); text-align: center; }
+      
       .download-card {
         background: white; border: 1px solid var(--border); border-radius: 32px; padding: 60px;
         box-shadow: 0 40px 80px rgba(0, 0, 0, 0.05); margin: -60px auto 100px;
         max-width: 900px; display: flex; flex-direction: column; align-items: center;
       }
+
       .preview-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; width: 100%; margin: 30px 0; }
-      .map-frame { height: 180px; background: white; border: 1px solid var(--border); border-radius: 12px; display: flex; align-items: center; justify-content: center; padding: 10px; }
-      .map-frame img { max-width: 100%; max-height: 100%; object-fit: contain; } /* Peta utuh */
+      .map-frame { height: 180px; background: white; border: 1px solid var(--border); border-radius: 12px; display: flex; align-items: center; justify-content: center; padding: 10px; overflow: hidden; }
+      .map-frame img { max-width: 100%; max-height: 100%; object-fit: contain; } /* FIX: Peta Utuh */
 
       .btn-download-premium {
         background-color: #123b3a; color: white !important; padding: 18px; border-radius: 12px;
@@ -125,23 +126,28 @@
     <div class="nav-overlay" id="nav-overlay" onclick="closeMenu()"></div>
 
     <header class="header" id="header">
+      <div class="progress-bar" id="progress-bar"></div>
       <div class="container nav-container">
         <div class="logo">
-          <a href="/beranda.html">
-            <img src="/assets/images/logo.png" alt="Lontara Logo" width="120" height="38" />
+          <a href="../../beranda.html">
+            <img src="../../assets/images/logo.png" alt="Lontara Logo" width="120" height="38" />
           </a>
         </div>
 
         <nav class="nav" id="nav-menu">
-          <div class="nav-item"><a href="/layanan/layanan.html">Layanan</a></div>
-          <div class="nav-item"><a href="/portofolio/portofolio.html">Portofolio</a></div>
-          <div class="nav-item"><a href="/artikel/artikel.html">Artikel</a></div>
-          <div class="nav-item"><a href="/publikasi/publikasi.html">Publikasi</a></div>
-          <div class="nav-item"><a href="/aset-digital/aset-digital.html" class="active">Aset Digital</a></div>
-          <div class="nav-item"><a href="/tentang/tentang.html">Tentang</a></div>
-          <a href="/kontak/kontak.html" class="nav-link-cta">Kontak</a>
+          <button class="nav-close" id="nav-close" style="display:none;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
+          <div class="nav-item"><a href="../../layanan/layanan.html">Layanan</a></div>
+          <div class="nav-item"><a href="../../portofolio/portofolio.html">Portofolio</a></div>
+          <div class="nav-item"><a href="../../artikel/artikel.html">Artikel</a></div>
+          <div class="nav-item"><a href="../../publikasi/publikasi.html">Publikasi</a></div>
+          <div class="nav-item"><a href="../aset-digital.html" class="active">Aset Digital</a></div>
+          <div class="nav-item"><a href="../../tentang/tentang.html">Tentang</a></div>
+          <a href="../../kontak/kontak.html" class="nav-link-cta">Kontak</a>
         </nav>
 
+        <div class="nav-actions"></div>
         <button class="nav-toggle" id="nav-toggle" onclick="toggleMenu()" aria-label="Buka Menu">
           <span></span><span></span><span></span>
         </button>
@@ -162,16 +168,16 @@
           
           <div class="preview-grid">
             <div class="preview-item">
-              <div class="map-frame"><img src="/aset-digital/images/prov-peta-adm.png" alt="Provinsi"></div>
+              <div class="map-frame"><img src="../images/prov-peta-adm.png" alt="Provinsi"></div>
               <div style="padding:10px; font-weight:800; font-size:0.8rem; text-align:center;">Provinsi</div>
             </div>
             <div class="preview-item">
-              <div class="map-frame"><img src="/aset-digital/images/kab-peta-adm.png" alt="Kabupaten"></div>
+              <div class="map-frame"><img src="../images/kab-peta-adm.png" alt="Kabupaten"></div>
               <div style="padding:10px; font-weight:800; font-size:0.8rem; text-align:center;">Kabupaten</div>
             </div>
           </div>
 
-          <div style="background:var(--bg-light); border:2px dashed var(--border); border-radius:24px; padding:40px; width:100%; max-width:500px; margin-top:20px; text-align:center;">
+          <div style="background:var(--bg-light); border:2px dashed var(--border); border-radius:24px; padding:40px; width:100%; max-width:550px; margin-top:20px; text-align:center;">
             <span style="font-weight:800; color:var(--accent); letter-spacing:2px; text-transform:uppercase; font-size:0.8rem; display:block; margin-bottom:25px;">Free Dataset</span>
             <a href="https://drive.google.com/file/d/1i-7YiqaVlBJ_f8crLmXo6fmJYfaH5dvV/view" target="_blank" class="btn-download-premium">Unduh Data Provinsi (.shp)</a>
             <a href="https://drive.google.com/file/d/16bf1SimNf_kIO3qNzaDMwYJNL3foWgj9/view" target="_blank" class="btn-download-premium">Unduh Data Kabupaten (.shp)</a>
@@ -180,6 +186,10 @@
         </div>
       </div>
     </main>
+
+    <footer class="footer" style="padding: 60px 0; border-top: 1px solid var(--border); text-align: center;">
+      <p style="font-size: 0.9rem; color: var(--text-muted)">&copy; 2026 Lontara Studio.</p>
+    </footer>
 
     <script>
       function toggleMenu() {
