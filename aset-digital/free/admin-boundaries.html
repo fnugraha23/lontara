@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Dataset Batas Administrasi Indonesia 2024 | Lontara</title>
+
+    <link rel="icon" type="image/png" href="../../assets/images/favicon.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/layout.css" />
+    <link rel="stylesheet" href="../../css/components.css" />
+    <link rel="stylesheet" href="../../css/main.css" />
+
+    <style>
+      /* ===============================
+   HERO
+================================ */
+
+      .hero-boundaries {
+        padding: 180px 0 100px;
+        background: linear-gradient(to bottom, #f8fafc, #f1f5f9);
+        text-align: center;
+        border-bottom: 1px solid var(--border);
+      }
+
+      /* ===============================
+   DOWNLOAD CARD
+================================ */
+
+      .download-card {
+        background: white;
+        border: 1px solid var(--border);
+        border-radius: 32px;
+        padding: 60px;
+        box-shadow: 0 40px 80px rgba(0, 0, 0, 0.05);
+        margin: -60px auto 100px;
+        max-width: 1100px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      /* Preview Grid */
+
+      .preview-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        width: 100%;
+        margin: 30px 0;
+      }
+
+      .map-frame {
+        height: 180px;
+        background: white;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+        overflow: hidden;
+      }
+
+      .map-frame img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+      }
+
+      /* Download Button */
+
+      .btn-download-gis {
+        background: var(--primary);
+        color: white !important;
+        padding: 18px;
+        border-radius: 12px;
+        font-weight: 700;
+        text-decoration: none;
+        display: block;
+        width: 100%;
+        max-width: 500px;
+        margin-bottom: 12px;
+        text-align: center;
+        transition: 0.3s;
+      }
+
+      .btn-download-gis:hover {
+        background: var(--accent);
+        transform: translateY(-3px);
+      }
+
+      @media (max-width: 600px) {
+        .preview-grid {
+          grid-template-columns: 1fr;
+        }
+        .download-card {
+          padding: 40px 20px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- ===============================
+     NAV OVERLAY (GLOBAL SYSTEM)
+================================ -->
+    <div class="nav-overlay" id="nav-overlay"></div>
+
+    <!-- ===============================
+     HEADER (STANDARD LONTARA)
+================================ -->
+    <header class="header" id="header">
+      <div class="progress-bar" id="progress-bar"></div>
+
+      <div class="container nav-container">
+        <div class="logo">
+          <a href="../../beranda.html">
+            <img
+              src="../../assets/images/logo.png"
+              alt="Lontara Logo"
+              width="120"
+              height="38"
+            />
+          </a>
+        </div>
+
+        <nav class="nav" id="nav-menu">
+          <button class="nav-close" id="nav-close" aria-label="Tutup Menu">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+
+          <div class="nav-item">
+            <a href="../../layanan/layanan.html">Layanan</a>
+          </div>
+          <div class="nav-item">
+            <a href="../../portofolio/portofolio.html">Portofolio</a>
+          </div>
+          <div class="nav-item">
+            <a href="../../artikel/artikel.html">Artikel</a>
+          </div>
+          <div class="nav-item">
+            <a href="../../publikasi/publikasi.html">Publikasi</a>
+          </div>
+          <div class="nav-item">
+            <a href="../aset-digital.html" class="active">Aset Digital</a>
+          </div>
+          <div class="nav-item">
+            <a href="../../tentang/tentang.html">Tentang</a>
+          </div>
+
+          <div class="nav-item nav-item-cta">
+            <a href="../../kontak/kontak.html" class="nav-link-cta">Kontak</a>
+          </div>
+        </nav>
+
+        <div class="nav-actions"></div>
+
+        <button class="nav-toggle" id="nav-toggle" aria-label="Buka Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ===============================
+     MAIN CONTENT
+================================ -->
+
+    <main>
+      <section class="hero-boundaries">
+        <div class="container">
+          <a
+            href="../aset-digital.html"
+            style="
+              background: var(--primary);
+              color: white;
+              padding: 10px 20px;
+              border-radius: 10px;
+              text-decoration: none;
+              font-weight: 800;
+              display: inline-block;
+              margin-bottom: 30px;
+            "
+          >
+            ← Kembali ke Aset Digital
+          </a>
+
+          <h1
+            style="font-size: 3.2rem; font-weight: 800; color: var(--primary)"
+          >
+            Dataset Batas Administrasi
+          </h1>
+
+          <p
+            style="
+              font-size: 1.25rem;
+              color: var(--text-muted);
+              margin-top: 20px;
+            "
+          >
+            Akses data spasial resmi BIG 2024 tingkat Nasional (Provinsi, Kab,
+            Kec, Desa).
+          </p>
+        </div>
+      </section>
+
+      <div class="container">
+        <div class="download-card">
+          <h2 style="font-size: 2rem; font-weight: 800; color: var(--primary)">
+            Pratinjau & Unduh
+          </h2>
+
+          <div class="preview-grid">
+            <div class="map-frame">
+              <img src="../images/prov-peta-adm.png" />
+            </div>
+            <div class="map-frame">
+              <img src="../images/kab-peta-adm.png" />
+            </div>
+            <div class="map-frame">
+              <img src="../images/kec-peta-adm.png" />
+            </div>
+            <div class="map-frame">
+              <img src="../images/desa-peta-adm.png" />
+            </div>
+          </div>
+
+          <div
+            style="
+              background: var(--bg-light);
+              border: 2px dashed var(--border);
+              border-radius: 28px;
+              padding: 50px;
+              width: 100%;
+              max-width: 650px;
+              margin-top: 20px;
+              text-align: center;
+            "
+          >
+            <span
+              style="
+                font-weight: 800;
+                color: var(--accent);
+                letter-spacing: 2px;
+                text-transform: uppercase;
+                font-size: 0.85rem;
+                display: block;
+                margin-bottom: 25px;
+              "
+            >
+              Free Dataset
+            </span>
+
+            <a
+              href="https://drive.google.com/file/d/1i-7YiqaVlBJ_f8crLmXo6fmJYfaH5dvV/view"
+              target="_blank"
+              class="btn-download-gis"
+              >Unduh Data Provinsi (.shp)</a
+            >
+
+            <a
+              href="https://drive.google.com/file/d/16bf1SimNf_kIO3qNzaDMwYJNL3foWgj9/view"
+              target="_blank"
+              class="btn-download-gis"
+              >Unduh Data Kabupaten (.shp)</a
+            >
+
+            <a
+              href="https://drive.google.com/file/d/1xQkTCOEvGKNbRsxfCzC1EjvTgnKDfLYK/view"
+              target="_blank"
+              class="btn-download-gis"
+              >Unduh Data Kecamatan (.shp)</a
+            >
+
+            <a
+              href="https://drive.google.com/file/d/19rQnH1lu9fHzyXAnZifKcLA1hB2RzDKx/view"
+              target="_blank"
+              class="btn-download-gis"
+              >Unduh Data Desa (.shp)</a
+            >
+
+            <p
+              style="
+                font-size: 0.85rem;
+                color: var(--text-muted);
+                margin-top: 25px;
+              "
+            >
+              Update: Jan 2024 • Sumber: BIG
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ===============================
+     FOOTER
+================================ -->
+
+    <footer
+      style="
+        padding: 60px 0;
+        text-align: center;
+        border-top: 1px solid var(--border);
+      "
+    >
+      <p style="font-size: 0.9rem; color: var(--text-muted)">
+        © 2026 Lontara Studio.
+      </p>
+    </footer>
+
+    <!-- ===============================
+     GLOBAL JS (WAJIB)
+================================ -->
+
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/animation.js"></script>
+    <script src="../../js/main.js"></script>
+  </body>
+</html>
