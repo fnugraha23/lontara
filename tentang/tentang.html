@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Tentang Lontara - Visi, misi, dan keahlian kami." />
+    <meta name="description" content="Tentang Lontara - Visi, misi, dan keahlian kami dalam membangun sistem intelijen lingkungan dan tata ruang berbasis sains hidrologi." />
     <title>Tentang | Lontara</title>
 
     <link rel="icon" type="image/png" href="../assets/images/favicon.png" />
@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="../css/main.css" />
 
     <style>
-      /* --- FIX OVERLAP & HERO (GOLDEN PADDING) --- */
+      /* --- HERO SECTION: Padding 180px Mencegah Overlap --- */
       .hero-about {
         padding: 180px 0 100px;
         background: linear-gradient(to bottom, #f8fafc, #f1f5f9);
@@ -25,20 +25,32 @@
         border-bottom: 1px solid var(--border);
       }
       .hero-about h1 { font-size: 3.2rem; margin-bottom: 24px; color: var(--primary); font-weight: 800; }
+      .hero-about p { font-size: 1.25rem; color: var(--text-muted); max-width: 800px; margin: 0 auto; line-height: 1.7; }
 
-      /* --- VISI MISI: Padding 60px --- */
+      /* --- VISI MISI: Golden Padding 60px --- */
       .vision-mission-wrapper { margin-top: -60px; position: relative; z-index: 10; }
       .vm-card {
         background: white;
-        padding: 60px; 
+        padding: 60px; /* Internal Padding Premium */
         border-radius: 32px;
         box-shadow: 0 40px 80px rgba(0, 0, 0, 0.05);
         border: 1px solid var(--border);
         text-align: center;
+        transition: 0.3s ease;
         height: 100%;
       }
+      .vm-card h2 { color: var(--accent); margin-bottom: 20px; font-weight: 800; font-size: 2rem; }
+      .vm-card p { color: var(--text-muted); line-height: 1.8; font-size: 1.1rem; }
 
-      /* --- HAMBURGER MENU & SIDEBAR (GOLDEN STYLE) --- */
+      /* --- FOUNDER SECTION --- */
+      .founder-section { display: grid; grid-template-columns: 1fr 1.3fr; gap: 80px; align-items: center; padding: 120px 0; }
+      .founder-image-container { border-radius: 24px; overflow: hidden; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12); }
+      .founder-image-container img { width: 100%; height: auto; display: block; object-fit: contain; }
+      .founder-text { text-align: center; }
+      .founder-text h2 { font-size: 2.8rem; margin-bottom: 25px; color: var(--primary); font-weight: 800; }
+      .founder-text p { color: var(--text-muted); margin-bottom: 20px; line-height: 1.8; font-size: 1.1rem; }
+
+      /* --- SIDEBAR GLASS EFFECT --- */
       .nav-overlay {
         position: fixed;
         inset: 0;
@@ -47,51 +59,25 @@
         display: none;
       }
 
-      /* Pastikan Tombol Toggle Muncul di Mobile */
-      .nav-toggle {
-        display: none;
-        flex-direction: column;
-        justify-content: space-between;
-        width: 30px;
-        height: 20px;
-        background: transparent;
-        border: none;
-        cursor: pointer;
-        z-index: 3105;
-        padding: 0;
-      }
-      .nav-toggle span { width: 100%; height: 3px; background-color: #123b3a; border-radius: 10px; transition: 0.3s; }
-
       @media (max-width: 992px) {
-        .nav-toggle { display: flex; } /* Tampilkan hamburger di mobile */
-        
         .nav {
           position: fixed;
           top: 0;
-          right: -340px; /* Sembunyi di kanan */
+          right: -320px;
           width: 300px;
           height: 100vh;
-          background: rgba(255, 255, 255, 0.85); /* Transparan Putih */
-          backdrop-filter: blur(20px); /* EFEK GELAS */
+          background: rgba(255, 255, 255, 0.85);
+          backdrop-filter: blur(20px); /* Efek Gelas Lokal */
           -webkit-backdrop-filter: blur(20px);
           flex-direction: column;
           justify-content: center;
           padding: 40px;
           gap: 25px;
-          box-shadow: -10px 0 30px rgba(0,0,0,0.1);
-          transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
           z-index: 3100;
+          transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .nav.active { right: 0; }
         .nav-close { display: block !important; position: absolute; top: 30px; right: 30px; background: none; border: none; }
-      }
-
-      /* Founder Section */
-      .founder-section { display: grid; grid-template-columns: 1fr 1.3fr; gap: 80px; align-items: center; padding: 120px 0; }
-      .founder-image-container { border-radius: 24px; overflow: hidden; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12); }
-      .founder-text { text-align: center; }
-
-      @media (max-width: 992px) {
         .founder-section { grid-template-columns: 1fr; }
         .vm-card { padding: 40px 25px; }
       }
@@ -135,7 +121,7 @@
       <section class="hero-about">
         <div class="container">
           <h1 class="reveal-init">Menjembatani Sains Lahan & Teknologi Spasial</h1>
-          <p class="reveal-init">Lontara adalah studio pemodelan lingkungan yang berdedikasi mentransformasi pengambilan keputusan tata ruang berbasis data prediktif.</p>
+          <p class="reveal-init">Lontara adalah studio pemodelan lingkungan yang berdedikasi mentransformasi pengambilan keputusan tata ruang berbasis data prediktif dan rekayasa cerdas.</p>
         </div>
       </section>
 
@@ -144,11 +130,11 @@
           <div class="grid-2">
             <div class="vm-card reveal-init">
               <h2>Visi Kami</h2>
-              <p>Menjadi pelopor infrastruktur data spasial dalam pengelolaan lingkungan hidup yang presisi.</p>
+              <p>Menjadi pelopor infrastruktur data spasial dalam pengelolaan lingkungan hidup, memastikan setiap kebijakan didasarkan pada perhitungan ekologis yang presisi.</p>
             </div>
             <div class="vm-card reveal-init">
               <h2>Misi Kami</h2>
-              <p>Menyediakan alat rekayasa data dan dasbor WebGIS yang transparan untuk mitigasi risiko hidrologi.</p>
+              <p>Menyediakan alat rekayasa data dan dasbor WebGIS yang transparan untuk membantu evaluasi kesesuaian lahan serta mitigasi risiko hidrologi.</p>
             </div>
           </div>
         </div>
@@ -160,11 +146,13 @@
             <div class="founder-image-container reveal-init">
               <img src="../assets/images/foto-pribadi.jpeg" alt="Fajar Nugraha" />
             </div>
+
             <div class="founder-text reveal-init">
               <span style="display:inline-block; padding:6px 16px; background:rgba(18, 184, 169, 0.1); color:var(--accent); border-radius:20px; font-size:0.85rem; font-weight:800; text-transform:uppercase; margin-bottom:20px;">Founder & Lead Engineer</span>
               <h2>Fajar Nugraha</h2>
-              <p>Berlatar belakang <strong>Ilmu Tanah</strong> dari <strong>Universitas Hasanuddin</strong> dan pascasarjana di <strong>IPB University</strong>.</p>
-              
+              <p>Lontara lahir dari visi bahwa sains lingkungan membutuhkan rekayasa teknologi untuk solusi nyata. Kami fokus pada pengembangan sistem pendukung keputusan yang akurat.</p>
+              <p>Berlatar belakang <strong>Ilmu Tanah</strong> dari <strong>Universitas Hasanuddin</strong> dan pascasarjana di <strong>IPB University</strong>, Fajar menggabungkan kepakaran hidrologi dengan otomasi Python dan Spatial Machine Learning.</p>
+
               <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 35px; justify-content: center;">
                 <a href="../kontak/kontak.html" class="btn-primary">Hubungi Saya</a>
                 <a href="https://linkedin.com/in/fajar-nugraha23" target="_blank" class="btn-secondary">Profil LinkedIn</a>
@@ -173,10 +161,26 @@
           </div>
         </div>
       </section>
+
+      <section class="section-cta-green" style="background:#123b3a; color:white; text-align:center; padding:100px 0;">
+        <div class="container">
+          <h2 class="reveal-init">Mari Berkolaborasi Demi Lingkungan yang Cerdas</h2>
+          <p class="reveal-init" style="margin:20px 0 40px; opacity:0.9;">Diskusikan kebutuhan riset atau implementasi sistem intelijen spasial instansi Anda bersama kami.</p>
+          <div class="reveal-init">
+            <a href="../kontak/kontak.html" style="background:white; color:#123b3a; padding:16px 45px; border-radius:12px; font-weight:800; text-decoration:none; display:inline-block;">Hubungi Kami Sekarang</a>
+          </div>
+        </div>
+      </section>
     </main>
 
-    <footer style="padding: 60px 0; text-align: center; border-top: 1px solid var(--border);">
-      <p style="font-size: 0.9rem; color: var(--text-muted)">© 2026 Lontara Studio.</p>
+    <footer class="footer">
+      <div class="container footer-container">
+        <div>
+          <h4 style="margin-bottom: 10px">Lontara</h4>
+          <p style="font-size: 0.9rem; color: var(--text-muted)">Environmental & Land Intelligence Studio.</p>
+        </div>
+        <p style="font-size: 0.9rem; color: var(--text-muted)">&copy; 2026 Lontara. Seluruh Hak Cipta Dilindungi.</p>
+      </div>
     </footer>
 
     <script>
@@ -193,5 +197,6 @@
     </script>
     <script src="../js/utils.js"></script>
     <script src="../js/animation.js"></script>
+    <script src="../js/main.js"></script>
   </body>
 </html>
