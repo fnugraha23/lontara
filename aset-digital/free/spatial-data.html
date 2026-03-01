@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="../../css/main.css" />
 
     <style>
-      /* --- HEADER FIX: RATA TENGAH & SINKRON --- */
+      /* --- HEADER FIX: RATA TENGAH & VISIBILITAS --- */
       header.header {
         background-color: white !important;
         position: fixed;
@@ -54,6 +54,27 @@
         border-radius: 8px;
         font-weight: 700;
         text-decoration: none;
+      }
+
+      /* FIX: STYLING HAMBURGER AGAR TERLIHAT */
+      .nav-toggle {
+        display: none; /* Sembunyi di desktop */
+        flex-direction: column;
+        justify-content: space-between;
+        width: 28px;
+        height: 18px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        z-index: 3100;
+      }
+
+      .nav-toggle span {
+        width: 100%;
+        height: 3px;
+        background-color: #123b3a; /* Warna garis hamburger */
+        border-radius: 10px;
         transition: 0.3s;
       }
 
@@ -67,7 +88,7 @@
 
       /* --- DOWNLOAD BOX: PROPORSIONAL & TENGAH --- */
       .main-content-wrapper {
-        max-width: 1000px;
+        max-width: 1100px;
         margin: -60px auto 100px;
         padding: 0 20px;
         position: relative;
@@ -85,7 +106,6 @@
         align-items: center;
       }
 
-      /* FIX PREVIEW PETA: TIDAK TERPOTONG */
       .preview-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -113,20 +133,9 @@
       .map-frame img {
         max-width: 100%;
         max-height: 100%;
-        object-fit: contain; /* Memastikan peta utuh 100% */
+        object-fit: contain; /* FIX: Peta tidak terpotong */
       }
 
-      .map-label {
-        padding: 12px;
-        font-size: 0.85rem;
-        font-weight: 800;
-        text-align: center;
-        background: #f8fafc;
-        color: var(--primary);
-        border-top: 1px solid var(--border);
-      }
-
-      /* PANEL AKSI DOWNLOAD */
       .action-panel {
         background: var(--bg-light);
         border: 2px dashed var(--border);
@@ -149,10 +158,11 @@
         width: 100%;
         transition: 0.3s;
       }
-      .btn-gis-premium:hover { background-color: var(--accent); transform: translateY(-3px); }
 
+      /* --- MEDIA QUERIES --- */
       @media (max-width: 992px) {
         .nav { display: none; }
+        .nav-toggle { display: flex; } /* Tampilkan hamburger di mobile */
         .preview-grid { grid-template-columns: 1fr; }
         .download-card { padding: 40px 25px; }
       }
@@ -188,7 +198,6 @@
           </div>
         </nav>
 
-        <div class="nav-actions"></div>
         <button class="nav-toggle" id="nav-toggle" aria-label="Buka Menu">
           <span></span><span></span><span></span>
         </button>
@@ -198,53 +207,35 @@
     <main>
       <section class="hero-boundaries">
         <div class="container">
-          <h1 style="font-size: 3.2rem; font-weight: 800; color: var(--primary);">Dataset Batas Administrasi Indonesia</h1>
-          <p style="font-size: 1.2rem; color: var(--text-muted); max-width: 700px; margin: 20px auto 0;">
-            Data spasial resmi (BIG 2024) yang divalidasi topologi untuk riset dan kebutuhan industri geospasial.
-          </p>
+          <h1 style="font-size: 3.2rem; font-weight: 800; color: var(--primary);">Dataset Batas Administrasi</h1>
+          <p style="font-size: 1.2rem; color: var(--text-muted); margin-top: 20px;">Data spasial resmi BIG 2024 yang divalidasi topologi.</p>
         </div>
       </section>
 
       <div class="main-content-wrapper">
         <div class="download-card">
-          <h2 style="font-size: 2rem; font-weight: 800; color: var(--primary);">Spesifikasi & Pratinjau</h2>
+          <h2 style="font-size: 1.8rem; font-weight: 800; color: var(--primary);">Pratinjau & Unduh</h2>
           
           <div class="preview-grid">
             <div class="preview-item">
               <div class="map-frame"><img src="../images/prov-peta-adm.png" alt="Prov"></div>
-              <div class="map-label">Administrasi Provinsi</div>
+              <div style="padding:10px; font-weight:800; font-size:0.8rem; text-align:center;">Peta Provinsi</div>
             </div>
             <div class="preview-item">
               <div class="map-frame"><img src="../images/kab-peta-adm.png" alt="Kab"></div>
-              <div class="map-label">Administrasi Kabupaten</div>
-            </div>
-            <div class="preview-item">
-              <div class="map-frame"><img src="../images/kec-peta-adm.png" alt="Kec"></div>
-              <div class="map-label">Administrasi Kecamatan</div>
-            </div>
-            <div class="preview-item">
-              <div class="map-frame"><img src="../images/desa-peta-adm.png" alt="Desa"></div>
-              <div class="map-label">Administrasi Desa</div>
+              <div style="padding:10px; font-weight:800; font-size:0.8rem; text-align:center;">Peta Kabupaten</div>
             </div>
           </div>
 
           <div class="action-panel">
             <span style="font-weight:800; color:var(--accent); letter-spacing:2px; text-transform:uppercase; font-size:0.8rem; display:block; margin-bottom:25px;">Free Dataset</span>
-            
             <a href="https://drive.google.com/file/d/1i-7YiqaVlBJ_f8crLmXo6fmJYfaH5dvV/view" target="_blank" class="btn-gis-premium">Unduh Data Provinsi (.shp)</a>
             <a href="https://drive.google.com/file/d/16bf1SimNf_kIO3qNzaDMwYJNL3foWgj9/view" target="_blank" class="btn-gis-premium">Unduh Data Kabupaten (.shp)</a>
-            <a href="https://drive.google.com/file/d/1xQkTCOEvGKNbRsxfCzC1EjvTgnKDfLYK/view" target="_blank" class="btn-gis-premium">Unduh Data Kecamatan (.shp)</a>
-            <a href="https://drive.google.com/file/d/19rQnH1lu9fHzyXAnZifKcLA1hB2RzDKx/view" target="_blank" class="btn-gis-premium">Unduh Data Desa (.shp)</a>
-
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 25px;">Update: Jan 2024 • Format: Shapefile</p>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 20px;">Format: Shapefile (WGS 84)</p>
           </div>
         </div>
       </div>
     </main>
-
-    <footer class="footer" style="padding: 60px 0; border-top: 1px solid var(--border); text-align: center;">
-      <p style="font-size: 0.9rem; color: var(--text-muted)">&copy; 2026 Lontara Studio. Environmental & Land Intelligence Studio.</p>
-    </footer>
 
     <script src="../../js/utils.js"></script>
     <script src="../../js/animation.js"></script>
