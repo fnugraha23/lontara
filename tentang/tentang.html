@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Tentang Lontara - Visi, misi, dan keahlian kami dalam membangun sistem intelijen lingkungan dan tata ruang berbasis sains hidrologi." />
     <title>Tentang | Lontara</title>
 
     <link rel="icon" type="image/png" href="../assets/images/favicon.png" />
@@ -16,10 +17,13 @@
     <link rel="stylesheet" href="../css/main.css" />
 
     <style>
-      /* --- FIX OVERLAP: HERO SECTION (Padding Dataset 180px) --- */
+      /* ===============================
+         HERO SECTION (Standard Lontara)
+         Padding 180px untuk mencegah overlap
+      ================================ */
       .hero-about {
-        padding: 180px 0 100px;
-        background-color: var(--bg-light);
+        padding: 180px 0 120px;
+        background: linear-gradient(to bottom, #f8fafc, #f1f5f9);
         text-align: center;
         border-bottom: 1px solid var(--border);
       }
@@ -28,31 +32,90 @@
         margin-bottom: 24px;
         color: var(--primary);
         font-weight: 800;
+        line-height: 1.2;
+      }
+      .hero-about p {
+        font-size: 1.25rem;
+        color: var(--text-muted);
+        max-width: 800px;
+        margin: 0 auto;
+        line-height: 1.7;
       }
 
-      /* --- VM CARD: Padding Dataset (60px) --- */
-      .vision-mission {
-        margin-top: -60px; /* Elemen sedikit naik mengikuti gaya card dataset */
+      /* ===============================
+         VISI MISI (Internal Padding 60px)
+         Menggunakan arsitektur Download Card
+      ================================ */
+      .vision-mission-wrapper {
+        margin-top: -60px; /* Membuat kartu "naik" ke area hero */
         position: relative;
         z-index: 10;
       }
       .vm-card {
         background: white;
-        padding: 60px; /* INTERNAL PAD: Konsisten dengan Download Card */
+        padding: 60px; /* PAD YANG ANDA SUKAI */
         border-radius: 32px;
         box-shadow: 0 40px 80px rgba(0, 0, 0, 0.05);
         border: 1px solid var(--border);
         text-align: center;
-        transition: var(--transition);
+        transition: 0.3s ease;
         height: 100%;
       }
-      .vm-card h2 { color: var(--accent); margin-bottom: 20px; font-weight: 800; }
+      .vm-card:hover {
+        transform: translateY(-8px);
+        border-color: var(--accent);
+      }
+      .vm-card h2 {
+        color: var(--accent);
+        margin-bottom: 20px;
+        font-size: 2rem;
+        font-weight: 800;
+      }
+      .vm-card p {
+        color: var(--text-muted);
+        line-height: 1.8;
+        font-size: 1.05rem;
+      }
 
-      /* --- HAMBURGER SIDEBAR GLASS EFFECT (HANYA SIDEBAR) --- */
+      /* ===============================
+         FOUNDER SECTION
+      ================================ */
+      .founder-section {
+        display: grid;
+        grid-template-columns: 1fr 1.3fr;
+        gap: 80px;
+        align-items: center;
+        padding: 120px 0;
+      }
+      .founder-image-container {
+        width: 100%;
+        max-width: 450px;
+        margin: 0 auto;
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+      }
+      .founder-image-container img {
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: contain;
+      }
+      .founder-text h2 {
+        font-size: 2.8rem;
+        margin-bottom: 25px;
+        color: var(--primary);
+        font-weight: 800;
+      }
+
+      /* ===============================
+         MOBILE SIDEBAR GLASS EFFECT
+         Hanya pada sidebar, bukan seluruh layar
+      ================================ */
       .nav-overlay {
         position: fixed;
         inset: 0;
-        background: rgba(0, 0, 0, 0.3);
+        background: rgba(0, 0, 0, 0.4);
         z-index: 3050;
         display: none;
       }
@@ -64,27 +127,20 @@
           right: -320px;
           width: 300px;
           height: 100vh;
-          background: rgba(255, 255, 255, 0.75);
-          backdrop-filter: blur(20px); /* EFEK GELAS */
+          background: rgba(255, 255, 255, 0.8);
+          backdrop-filter: blur(20px); /* EFEK GELAS LOKAL */
           -webkit-backdrop-filter: blur(20px);
           flex-direction: column;
-          padding: 100px 30px;
+          justify-content: center;
+          padding: 40px;
           gap: 25px;
-          box-shadow: -10px 0 30px rgba(0,0,0,0.1);
-          transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
           z-index: 3100;
+          transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .nav.active { right: 0; }
-        .nav-toggle { display: flex; }
-      }
-
-      /* Founder & CTA Styling */
-      .founder-section { display: grid; grid-template-columns: 1fr 1.3fr; gap: 80px; align-items: center; padding: 120px 0; }
-      .section-cta-green { background-color: #123b3a !important; color: white !important; text-align: center; padding: 100px 0; }
-
-      @media (max-width: 992px) {
+        .nav-close { display: block !important; position: absolute; top: 30px; right: 30px; }
         .founder-section { grid-template-columns: 1fr; text-align: center; }
-        .vm-card { padding: 40px 20px; }
+        .vm-card { padding: 40px 25px; } /* Pad mobile yang disesuaikan */
       }
     </style>
   </head>
@@ -102,8 +158,8 @@
         </div>
 
         <nav class="nav" id="nav-menu">
-          <button class="nav-close" id="nav-close" onclick="closeMenu()">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          <button class="nav-close" id="nav-close" onclick="closeMenu()" style="display:none;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#123b3a" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
           </button>
           <div class="nav-item"><a href="../layanan/layanan.html">Layanan</a></div>
           <div class="nav-item"><a href="../portofolio/portofolio.html">Portofolio</a></div>
@@ -115,7 +171,8 @@
         </nav>
 
         <div class="nav-actions"></div>
-        <button class="nav-toggle" id="nav-toggle" onclick="toggleMenu()">
+
+        <button class="nav-toggle" id="nav-toggle" onclick="toggleMenu()" aria-label="Buka Menu">
           <span></span><span></span><span></span>
         </button>
       </div>
@@ -125,26 +182,49 @@
       <section class="hero-about">
         <div class="container">
           <h1>Menjembatani Sains Lahan & Teknologi Spasial</h1>
-          <p>Lontara adalah studio pemodelan lingkungan yang berdedikasi mentransformasi pengambilan keputusan tata ruang berbasis data prediktif.</p>
+          <p>Lontara adalah studio pemodelan lingkungan yang berdedikasi mentransformasi pengambilan keputusan tata ruang berbasis data prediktif dan rekayasa cerdas.</p>
         </div>
       </section>
 
-      <section class="section" style="padding-top: 0">
+      <section class="vision-mission-wrapper">
         <div class="container">
-          <div class="vision-mission grid-2">
+          <div class="grid-2">
             <div class="vm-card">
               <h2>Visi Kami</h2>
-              <p>Menjadi pelopor infrastruktur data spasial dalam pengelolaan lingkungan hidup yang presisi.</p>
+              <p>Menjadi pelopor infrastruktur data spasial dalam pengelolaan lingkungan hidup, memastikan setiap kebijakan didasarkan pada perhitungan ekologis yang presisi.</p>
             </div>
             <div class="vm-card">
               <h2>Misi Kami</h2>
-              <p>Menyediakan alat rekayasa data dan dasbor WebGIS yang transparan untuk mitigasi risiko hidrologi.</p>
+              <p>Menyediakan alat rekayasa data dan dasbor WebGIS yang transparan untuk membantu evaluasi kesesuaian lahan serta mitigasi risiko hidrologi.</p>
             </div>
           </div>
         </div>
       </section>
 
-      </main>
+      <section class="section section-light">
+        <div class="container">
+          <div class="founder-section">
+            <div class="founder-image-container">
+              <img src="../assets/images/foto-pribadi.jpeg" alt="Fajar Nugraha" />
+            </div>
+            <div class="founder-text">
+              <span style="display:inline-block; padding:6px 16px; background:rgba(18, 184, 169, 0.1); color:var(--accent); border-radius:20px; font-size:0.85rem; font-weight:800; text-transform:uppercase; margin-bottom:20px;">Founder & Lead Engineer</span>
+              <h2>Fajar Nugraha</h2>
+              <p>Lontara lahir dari visi bahwa sains lingkungan membutuhkan rekayasa teknologi untuk solusi nyata. Kami fokus pada pengembangan sistem pendukung keputusan yang akurat.</p>
+              <p>Berlatar belakang Ilmu Tanah dari Universitas Hasanuddin dan IPB University, Fajar menggabungkan kepakaran hidrologi dengan otomasi Python.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-cta-green" style="background:#123b3a; color:white; text-align:center; padding:100px 0;">
+        <div class="container">
+          <h2>Mari Berkolaborasi Demi Lingkungan yang Cerdas</h2>
+          <p style="margin:20px 0 40px; opacity:0.9;">Diskusikan kebutuhan riset atau implementasi sistem intelijen spasial instansi Anda bersama kami.</p>
+          <a href="../kontak/kontak.html" style="background:white; color:#123b3a; padding:16px 45px; border-radius:12px; font-weight:800; text-decoration:none; display:inline-block;">Hubungi Kami Sekarang</a>
+        </div>
+      </section>
+    </main>
 
     <footer style="padding: 60px 0; text-align: center; border-top: 1px solid var(--border);">
       <p style="font-size: 0.9rem; color: var(--text-muted)">© 2026 Lontara Studio.</p>
@@ -154,10 +234,12 @@
       function toggleMenu() {
         document.getElementById('nav-menu').classList.add('active');
         document.getElementById('nav-overlay').style.display = 'block';
+        document.body.style.overflow = 'hidden';
       }
       function closeMenu() {
         document.getElementById('nav-menu').classList.remove('active');
         document.getElementById('nav-overlay').style.display = 'none';
+        document.body.style.overflow = 'auto';
       }
     </script>
     <script src="../js/utils.js"></script>
