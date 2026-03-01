@@ -14,112 +14,135 @@
     <link rel="stylesheet" href="/css/main.css" />
 
     <style>
-      /* --- HEADER: RATA TENGAH & KONTAK HIJAU --- */
+      /* --- FIX 1: HEADER VISIBILITY --- */
+      header.header {
+        background-color: white !important;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 2000; /* Memastikan di atas Hero Section */
+        border-bottom: 1px solid var(--border);
+      }
+
       .nav-container {
         display: flex;
         justify-content: space-between;
         align-items: center;
         height: 80px;
+        padding: 0 40px;
       }
-      .logo { flex: 0 0 120px; }
+
       .nav {
         display: flex;
         align-items: center;
         justify-content: center;
         flex: 1;
-        gap: 30px;
-      }
-      .nav-link-cta {
-        background-color: #123b3a !important; /* Hijau Lontara */
-        color: white !important;
-        padding: 10px 24px;
-        border-radius: 8px;
-        font-weight: 700;
-        text-decoration: none;
-        transition: 0.3s ease;
+        gap: 25px;
       }
 
-      /* --- HERO & CONTENT --- */
+      /* --- HERO SECTION --- */
       .resource-header {
         padding: 240px 0 100px;
         background: linear-gradient(to bottom, #f8fafc, #f1f5f9);
         border-bottom: 1px solid var(--border);
       }
-      .breadcrumb-back {
-        background: var(--primary);
-        color: #fff !important;
-        padding: 12px 26px;
-        border-radius: 12px;
-        display: inline-flex;
-        gap: 12px;
-        font-weight: 800;
-        text-decoration: none;
-        margin-bottom: 45px;
+
+      /* --- FIX 2: PREVIEW MAPS (NO CROP) --- */
+      .preview-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+        margin-top: 40px;
       }
+
+      .preview-item {
+        background: #f1f5f9; /* Background kontras untuk peta */
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        overflow: hidden;
+        transition: 0.3s ease;
+      }
+
+      .preview-item img {
+        width: 100%;
+        height: 220px;
+        object-fit: contain; /* FIX: Peta tidak akan terpotong lagi */
+        padding: 15px;
+        background: white;
+      }
+
+      .preview-caption {
+        padding: 12px;
+        font-size: 0.9rem;
+        font-weight: 800;
+        text-align: center;
+        color: var(--primary);
+        background: #f8fafc;
+        border-top: 1px solid var(--border);
+      }
+
+      /* --- FIX 3: ESTETIK DOWNLOAD BUTTONS --- */
       .download-box {
         background: #fff;
         border: 1px solid var(--border);
-        border-radius: 24px;
+        border-radius: 32px;
         padding: 60px;
-        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.05);
         margin-top: 80px;
         display: flex;
         flex-wrap: wrap;
         gap: 50px;
         align-items: flex-start;
       }
-      .download-info { flex: 1 1 520px; }
+
       .download-action {
-        flex: 0 0 360px;
+        flex: 0 0 380px;
         background: var(--bg-light);
-        border-radius: 20px;
+        border-radius: 24px;
         border: 2px dashed var(--border);
-        padding: 45px 35px;
+        padding: 50px 35px;
         display: flex;
         flex-direction: column;
         align-items: center;
-        text-align: center;
       }
 
-      /* --- PREVIEW GRID --- */
-      .preview-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
-        margin-top: 40px;
-      }
-      .preview-item {
-        background: white;
-        border: 1px solid var(--border);
-        border-radius: 12px;
-        overflow: hidden;
-        transition: 0.3s;
-      }
-      .preview-item img {
+      .btn-download-gis {
         width: 100%;
-        height: 160px;
-        object-fit: cover;
-      }
-      .preview-caption {
-        padding: 10px;
-        font-size: 0.8rem;
+        background-color: #123b3a; /* Hijau Gelap Lontara */
+        color: white !important;
+        padding: 16px 20px;
+        border-radius: 12px;
         font-weight: 700;
-        text-align: center;
-        color: var(--primary);
+        text-decoration: none;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        transition: 0.3s;
+        box-shadow: 0 4px 10px rgba(18, 59, 58, 0.15);
+        font-size: 0.95rem;
       }
 
-      .section-cta-green {
-        background: #123b3a;
-        color: #fff;
-        text-align: center;
-        padding: 100px 0;
-        margin-top: 100px;
+      .btn-download-gis:hover {
+        background-color: var(--accent);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0, 184, 169, 0.3);
+      }
+
+      .license-tag {
+        font-weight: 800;
+        color: var(--accent);
+        letter-spacing: 2px;
+        margin-bottom: 25px;
+        text-transform: uppercase;
       }
 
       @media (max-width: 992px) {
         .nav { display: none; }
-        .download-box { flex-direction: column; padding: 40px 30px; }
+        .download-box { flex-direction: column; padding: 40px 25px; }
         .preview-grid { grid-template-columns: 1fr; }
+        .download-action { width: 100%; flex: none; }
       }
     </style>
   </head>
@@ -127,8 +150,7 @@
   <body>
     <div class="nav-overlay" id="nav-overlay"></div>
 
-    <header class="header" id="header">
-      <div class="progress-bar" id="progress-bar"></div>
+    <header class="header">
       <div class="container nav-container">
         <div class="logo">
           <a href="/beranda.html">
@@ -137,31 +159,26 @@
         </div>
 
         <nav class="nav" id="nav-menu">
-          <button class="nav-close" id="nav-close" aria-label="Tutup Menu">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-          </button>
           <div class="nav-item"><a href="/layanan/layanan.html">Layanan</a></div>
           <div class="nav-item"><a href="/portofolio/portofolio.html">Portofolio</a></div>
           <div class="nav-item"><a href="/artikel/artikel.html">Artikel</a></div>
           <div class="nav-item"><a href="/publikasi/publikasi.html">Publikasi</a></div>
-          <div class="nav-item"><a href="/aset-digital/aset-digital.html">Aset Digital</a></div>
+          <div class="nav-item"><a href="/aset-digital/aset-digital.html" class="active">Aset Digital</a></div>
           <div class="nav-item"><a href="/tentang/tentang.html">Tentang</a></div>
-          <div class="nav-item"><a href="/kontak/kontak.html" class="nav-link-cta">Kontak</a></div>
+          <a href="/kontak/kontak.html" class="nav-link-cta" style="background-color:#123b3a; color:white; padding:10px 20px; border-radius:8px; font-weight:700;">Kontak</a>
         </nav>
 
-        <button class="nav-toggle" id="nav-toggle" aria-label="Buka Menu">
-          <span></span><span></span><span></span>
-        </button>
+        <button class="nav-toggle" id="nav-toggle"><span></span><span></span><span></span></button>
       </div>
     </header>
 
     <main>
       <section class="resource-header">
         <div class="container">
-          <a href="/aset-digital/aset-digital.html" class="breadcrumb-back">← Kembali ke Aset Digital</a>
-          <h1 style="font-size:3.2rem; color:var(--primary); font-weight:800;">Dataset Batas Administrasi Indonesia 2024</h1>
-          <p style="font-size:1.25rem; color:var(--text-muted); max-width:760px; margin-top:20px;">
-            Dataset resmi berbasis data BIG (Badan Informasi Geospasial) yang telah divalidasi topologi untuk kebutuhan analisis spasial profesional.
+          <a href="/aset-digital/aset-digital.html" class="breadcrumb-back" style="background:var(--primary); color:white; padding:12px 25px; border-radius:12px; text-decoration:none; font-weight:800; display:inline-block; margin-bottom:40px;">← Kembali ke Aset Digital</a>
+          <h1 style="font-size:3.5rem; color:var(--primary); font-weight:800; line-height:1.1;">Dataset Batas Administrasi Indonesia 2024</h1>
+          <p style="font-size:1.3rem; color:var(--text-muted); max-width:800px; margin-top:25px; line-height:1.6;">
+            Akses data spasial batas wilayah resmi tingkat Nasional (BIG 2024) yang telah diproses secara topologis untuk integrasi sistem GIS yang presisi.
           </p>
         </div>
       </section>
@@ -170,58 +187,63 @@
         <div class="container">
           <div class="download-box">
             <div class="download-info">
-              <h2>Deskripsi & Spesifikasi</h2>
-              <p>Dataset ini mencakup batas wilayah nasional yang telah dibersihkan geometri-nya agar siap digunakan langsung (Plug-and-Play) di berbagai software GIS maupun WebGIS.</p>
+              <h2 style="font-size:2rem; color:var(--primary); margin-bottom:25px;">Spesifikasi & Preview</h2>
+              <p style="line-height:1.8; color:var(--text-main);">Dataset ini menyediakan batas poligon administrasi nasional yang telah divalidasi bebas *overlap* dan *gap*, siap digunakan untuk pemetaan WebGIS maupun analisis kewilayahan.</p>
               
-              <ul style="list-style:none; margin: 20px 0;">
-                <li style="margin-bottom:15px;"><strong>✓ Sumber Data:</strong> BIG – TASWIL 2024</li>
-                <li style="margin-bottom:15px;"><strong>✓ Sistem Koordinat:</strong> WGS84 (EPSG:4326)</li>
-                <li style="margin-bottom:15px;"><strong>✓ Kualitas:</strong> Topologi Clean (No Gaps/Overlaps)</li>
-              </ul>
-
-              <h3 style="margin-top:40px; margin-bottom:20px;">Galeri Preview Dataset</h3>
               <div class="preview-grid">
                 <div class="preview-item">
                   <img src="/aset-digital/images/prov-peta-adm.png" alt="Batas Provinsi">
-                  <div class="preview-caption">Peta Provinsi</div>
+                  <div class="preview-caption">Peta Administrasi Provinsi</div>
                 </div>
                 <div class="preview-item">
                   <img src="/aset-digital/images/kab-peta-adm.png" alt="Batas Kabupaten">
-                  <div class="preview-caption">Peta Kabupaten/Kota</div>
+                  <div class="preview-caption">Peta Administrasi Kabupaten</div>
                 </div>
                 <div class="preview-item">
                   <img src="/aset-digital/images/kec-peta-adm.png" alt="Batas Kecamatan">
-                  <div class="preview-caption">Peta Kecamatan</div>
+                  <div class="preview-caption">Peta Administrasi Kecamatan</div>
                 </div>
                 <div class="preview-item">
                   <img src="/aset-digital/images/desa-peta-adm.png" alt="Batas Desa">
-                  <div class="preview-caption">Peta Desa/Kelurahan</div>
+                  <div class="preview-caption">Peta Administrasi Desa</div>
                 </div>
               </div>
             </div>
 
             <div class="download-action">
-              <span style="font-weight:800; color:var(--accent); letter-spacing:2px; margin-bottom:20px;">FREE DATASET</span>
-              <a href="https://drive.google.com/file/d/1i-7YiqaVlBJ_f8crLmXo6fmJYfaH5dvV/view" target="_blank" class="btn-primary">Unduh Administrasi Provinsi</a>
-              <a href="https://drive.google.com/file/d/16bf1SimNf_kIO3qNzaDMwYJNL3foWgj9/view" target="_blank" class="btn-primary">Unduh Administrasi Kabupaten</a>
-              <a href="https://drive.google.com/file/d/1xQkTCOEvGKNbRsxfCzC1EjvTgnKDfLYK/view" target="_blank" class="btn-primary">Unduh Administrasi Kecamatan</a>
-              <a href="https://drive.google.com/file/d/19rQnH1lu9fHzyXAnZifKcLA1hB2RzDKx/view" target="_blank" class="btn-primary">Unduh Administrasi Desa</a>
-              <p style="font-size:0.9rem; color:var(--text-muted); margin-top:20px;">Update: 2024 • Format: Shapefile (.shp)</p>
+              <span class="license-tag">Free Dataset</span>
+              
+              <a href="https://drive.google.com/file/d/1i-7YiqaVlBJ_f8crLmXo6fmJYfaH5dvV/view" target="_blank" class="btn-download-gis">
+                Unduh Data Provinsi (.shp)
+              </a>
+              <a href="https://drive.google.com/file/d/16bf1SimNf_kIO3qNzaDMwYJNL3foWgj9/view" target="_blank" class="btn-download-gis">
+                Unduh Data Kabupaten (.shp)
+              </a>
+              <a href="https://drive.google.com/file/d/1xQkTCOEvGKNbRsxfCzC1EjvTgnKDfLYK/view" target="_blank" class="btn-download-gis">
+                Unduh Data Kecamatan (.shp)
+              </a>
+              <a href="https://drive.google.com/file/d/19rQnH1lu9fHzyXAnZifKcLA1hB2RzDKx/view" target="_blank" class="btn-download-gis">
+                Unduh Data Desa (.shp)
+              </a>
+
+              <p style="font-size:0.85rem; color:var(--text-muted); margin-top:25px; text-align:center;">
+                Update: Jan 2024 • Sumber: BIG <br> Sistem Koordinat: WGS 84
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      <section class="section-cta-green">
+      <section class="section-cta-green" style="background:#123b3a; padding:100px 0; text-align:center; color:white; margin-top:100px;">
         <div class="container">
-          <h2>Butuh Dataset Spasial Kustom?</h2>
-          <p>Lontara menyediakan layanan pemrosesan data geospasial tematik untuk riset dan industri.</p>
-          <a href="/kontak/kontak.html" class="btn-cta-white">Hubungi Kami Sekarang</a>
+          <h2 style="font-size:2.5rem; margin-bottom:20px;">Butuh Integrasi WebGIS?</h2>
+          <p style="opacity:0.8; margin-bottom:40px;">Kami melayani pengembangan platform informasi spasial berbasis data kustom.</p>
+          <a href="/kontak/kontak.html" class="btn-cta-white" style="background:white; color:#123b3a; padding:18px 35px; border-radius:12px; font-weight:800; text-decoration:none; display:inline-block;">Hubungi Spesialis GIS</a>
         </div>
       </section>
     </main>
 
-    <footer class="footer">
+    <footer class="footer" style="padding:50px 0; border-top:1px solid var(--border);">
       <div class="container" style="text-align:center;">
         <p style="font-size:.9rem; color:var(--text-muted);">© 2026 Lontara Studio. Environmental & Land Intelligence Studio.</p>
       </div>
