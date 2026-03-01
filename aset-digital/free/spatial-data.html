@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dataset Batas Administrasi Indonesia 2024 | Lontara Free Resources</title>
 
-    <link rel="icon" type="image/png" href="../../assets/images/favicon.png" />
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet" />
 
-    <link rel="stylesheet" href="../../css/theme.css" />
-    <link rel="stylesheet" href="../../css/layout.css" />
-    <link rel="stylesheet" href="../../css/components.css" />
-    <link rel="stylesheet" href="../../css/main.css" />
+    <link rel="stylesheet" href="/css/theme.css" />
+    <link rel="stylesheet" href="/css/layout.css" />
+    <link rel="stylesheet" href="/css/components.css" />
+    <link rel="stylesheet" href="/css/main.css" />
 
     <style>
       /* --- HEADER FIX: DESKTOP RATA TENGAH --- */
@@ -40,7 +40,7 @@
       .nav {
         display: flex;
         align-items: center;
-        justify-content: center; /* Menu Desktop di Tengah */
+        justify-content: center; /* Menu Desktop Rata Tengah */
         flex: 1;
         gap: 25px;
       }
@@ -54,7 +54,7 @@
         text-decoration: none;
       }
 
-      /* --- FIX: SIDE DRAWER MENU (SLIDE DARI SAMPING) --- */
+      /* --- FIX: SIDE MENU (SLIDE KANAN) & NO BLUR --- */
       .nav-toggle {
         display: none;
         flex-direction: column;
@@ -64,15 +64,25 @@
         background: transparent;
         border: none;
         cursor: pointer;
-        z-index: 3105; /* Di atas segalanya */
+        z-index: 3105;
       }
       .nav-toggle span { width: 100%; height: 3px; background-color: #123b3a; border-radius: 10px; transition: 0.3s; }
+
+      /* Overlay tanpa Efek Buram */
+      .nav-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.1); /* Tipis saja, tanpa blur agar tidak mengganggu */
+        z-index: 3050;
+        display: none;
+        backdrop-filter: none !important; /* MENGHILANGKAN LAYAR BURAM */
+      }
 
       @media (max-width: 992px) {
         .nav {
           position: fixed;
           top: 0;
-          right: -100%; /* Sembunyikan di kanan layar */
+          right: -100%; /* Sembunyi di kanan */
           width: 280px;
           height: 100vh;
           background: white;
@@ -80,21 +90,16 @@
           justify-content: flex-start;
           padding: 100px 30px;
           gap: 25px;
-          box-shadow: -10px 0 30px rgba(0,0,0,0.1);
-          transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Animasi slide halus */
+          box-shadow: -5px 0 20px rgba(0,0,0,0.05);
+          transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
           z-index: 3100;
         }
 
-        .nav.active {
-          right: 0; /* Slide ke posisi aktif */
-        }
-
+        .nav.active { right: 0; } /* Slide ke posisi aktif */
         .nav-toggle { display: flex; }
-        .nav-item { width: 100%; text-align: left; }
-        .nav-link-cta { display: block; text-align: center; margin-top: 15px; }
       }
 
-      /* --- CONTENT STYLING --- */
+      /* --- CONTENT & PREVIEW STYLING --- */
       .hero-boundaries { padding: 220px 0 100px; background: linear-gradient(to bottom, #f8fafc, #f1f5f9); text-align: center; }
       .download-card {
         background: white; border: 1px solid var(--border); border-radius: 32px; padding: 60px;
@@ -102,13 +107,13 @@
         max-width: 900px; display: flex; flex-direction: column; align-items: center;
       }
       .preview-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; width: 100%; margin: 30px 0; }
-      .map-frame { height: 180px; background: white; border: 1px solid var(--border); border-radius: 12px; display: flex; align-items: center; justify-content: center; padding: 10px; overflow: hidden; }
-      .map-frame img { max-width: 100%; max-height: 100%; object-fit: contain; } /* Peta tidak terpotong */
+      .map-frame { height: 180px; background: white; border: 1px solid var(--border); border-radius: 12px; display: flex; align-items: center; justify-content: center; padding: 10px; }
+      .map-frame img { max-width: 100%; max-height: 100%; object-fit: contain; } /* Peta utuh */
 
       .btn-download-premium {
         background-color: #123b3a; color: white !important; padding: 18px; border-radius: 12px;
         font-weight: 700; text-decoration: none; display: block; width: 100%; max-width: 450px;
-        margin-bottom: 12px; transition: 0.3s; text-align: center; box-shadow: 0 5px 15px rgba(18,59,58,0.1);
+        margin-bottom: 12px; transition: 0.3s; text-align: center;
       }
       .btn-download-premium:hover { background-color: var(--accent); transform: translateY(-3px); }
 
@@ -117,27 +122,27 @@
   </head>
 
   <body>
-    <div class="nav-overlay" id="nav-overlay" style="position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:3050; display:none; backdrop-filter: blur(2px);"></div>
+    <div class="nav-overlay" id="nav-overlay" onclick="closeMenu()"></div>
 
     <header class="header" id="header">
       <div class="container nav-container">
         <div class="logo">
-          <a href="../../beranda.html">
-            <img src="../../assets/images/logo.png" alt="Lontara Logo" width="120" height="38" />
+          <a href="/beranda.html">
+            <img src="/assets/images/logo.png" alt="Lontara Logo" width="120" height="38" />
           </a>
         </div>
 
         <nav class="nav" id="nav-menu">
-          <div class="nav-item"><a href="../../layanan/layanan.html">Layanan</a></div>
-          <div class="nav-item"><a href="../../portofolio/portofolio.html">Portofolio</a></div>
-          <div class="nav-item"><a href="../../artikel/artikel.html">Artikel</a></div>
-          <div class="nav-item"><a href="../../publikasi/publikasi.html">Publikasi</a></div>
-          <div class="nav-item"><a href="../aset-digital.html" class="active">Aset Digital</a></div>
-          <div class="nav-item"><a href="../../tentang/tentang.html">Tentang</a></div>
-          <a href="../../kontak/kontak.html" class="nav-link-cta">Kontak</a>
+          <div class="nav-item"><a href="/layanan/layanan.html">Layanan</a></div>
+          <div class="nav-item"><a href="/portofolio/portofolio.html">Portofolio</a></div>
+          <div class="nav-item"><a href="/artikel/artikel.html">Artikel</a></div>
+          <div class="nav-item"><a href="/publikasi/publikasi.html">Publikasi</a></div>
+          <div class="nav-item"><a href="/aset-digital/aset-digital.html" class="active">Aset Digital</a></div>
+          <div class="nav-item"><a href="/tentang/tentang.html">Tentang</a></div>
+          <a href="/kontak/kontak.html" class="nav-link-cta">Kontak</a>
         </nav>
 
-        <button class="nav-toggle" id="nav-toggle" aria-label="Buka Menu">
+        <button class="nav-toggle" id="nav-toggle" onclick="toggleMenu()" aria-label="Buka Menu">
           <span></span><span></span><span></span>
         </button>
       </div>
@@ -157,11 +162,11 @@
           
           <div class="preview-grid">
             <div class="preview-item">
-              <div class="map-frame"><img src="../images/prov-peta-adm.png" alt="Prov"></div>
+              <div class="map-frame"><img src="/aset-digital/images/prov-peta-adm.png" alt="Provinsi"></div>
               <div style="padding:10px; font-weight:800; font-size:0.8rem; text-align:center;">Provinsi</div>
             </div>
             <div class="preview-item">
-              <div class="map-frame"><img src="../images/kab-peta-adm.png" alt="Kab"></div>
+              <div class="map-frame"><img src="/aset-digital/images/kab-peta-adm.png" alt="Kabupaten"></div>
               <div style="padding:10px; font-weight:800; font-size:0.8rem; text-align:center;">Kabupaten</div>
             </div>
           </div>
@@ -170,24 +175,24 @@
             <span style="font-weight:800; color:var(--accent); letter-spacing:2px; text-transform:uppercase; font-size:0.8rem; display:block; margin-bottom:25px;">Free Dataset</span>
             <a href="https://drive.google.com/file/d/1i-7YiqaVlBJ_f8crLmXo6fmJYfaH5dvV/view" target="_blank" class="btn-download-premium">Unduh Data Provinsi (.shp)</a>
             <a href="https://drive.google.com/file/d/16bf1SimNf_kIO3qNzaDMwYJNL3foWgj9/view" target="_blank" class="btn-download-premium">Unduh Data Kabupaten (.shp)</a>
-            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 20px;">Update: Jan 2024 • Format: Shapefile</p>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 20px;">Update: Jan 2024</p>
           </div>
         </div>
       </div>
     </main>
 
     <script>
-      const toggleBtn = document.getElementById('nav-toggle');
-      const navMenu = document.getElementById('nav-menu');
-      const overlay = document.getElementById('nav-overlay');
+      function toggleMenu() {
+        const menu = document.getElementById('nav-menu');
+        const overlay = document.getElementById('nav-overlay');
+        const toggle = document.getElementById('nav-toggle');
+        const spans = toggle.getElementsByTagName('span');
 
-      toggleBtn.addEventListener('click', () => {
-        navMenu.classList.toggle('active');
-        overlay.style.display = navMenu.classList.contains('active') ? 'block' : 'none';
-        
-        // Animasi icon hamburger menjadi silang (opsional)
-        const spans = toggleBtn.getElementsByTagName('span');
-        if(navMenu.classList.contains('active')) {
+        menu.classList.toggle('active');
+        overlay.style.display = menu.classList.contains('active') ? 'block' : 'none';
+
+        // Animasi X pada hamburger
+        if(menu.classList.contains('active')) {
           spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
           spans[1].style.opacity = '0';
           spans[2].style.transform = 'rotate(-45deg) translate(6px, -7px)';
@@ -196,16 +201,16 @@
           spans[1].style.opacity = '1';
           spans[2].style.transform = 'none';
         }
-      });
+      }
 
-      overlay.addEventListener('click', () => {
-        navMenu.classList.remove('active');
-        overlay.style.display = 'none';
-        const spans = toggleBtn.getElementsByTagName('span');
+      function closeMenu() {
+        document.getElementById('nav-menu').classList.remove('active');
+        document.getElementById('nav-overlay').style.display = 'none';
+        const spans = document.getElementById('nav-toggle').getElementsByTagName('span');
         spans[0].style.transform = 'none';
         spans[1].style.opacity = '1';
         spans[2].style.transform = 'none';
-      });
+      }
     </script>
   </body>
 </html>
