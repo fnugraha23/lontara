@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Artikel, tutorial, dan wawasan teknis Lontara seputar Geospasial, Machine Learning, dan pengelolaan Lingkungan."
+    />
+    <title>Artikel & Wawasan | Lontara</title>
+
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/layout.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/main.css" />
+
+    <style>
+      /* FIX: Padding Hero ditingkatkan agar judul tidak tertutup header sticky */
+      .hero-articles {
+        padding: 180px 0 100px;
+        background-color: var(--primary);
+        color: white;
+        text-align: center;
+      }
+      .hero-articles h1 {
+        font-size: 3rem;
+        margin-bottom: 24px;
+        color: white;
+      }
+      .hero-articles p {
+        font-size: 1.15rem;
+        color: rgba(255, 255, 255, 0.85);
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      /* Card Styling */
+      .article-card {
+        background: white;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+        transition: var(--transition);
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        text-align: left;
+      }
+
+      .article-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        border-color: var(--accent);
+      }
+
+      .article-image {
+        height: 200px;
+        background: #f0f2f5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-muted);
+        font-weight: 600;
+        font-size: 0.9rem;
+        border-bottom: 1px solid var(--border);
+        padding: 20px;
+        text-align: center;
+      }
+
+      .article-content {
+        padding: 30px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .article-meta {
+        font-size: 0.8rem;
+        color: var(--accent);
+        margin-bottom: 12px;
+        display: flex;
+        justify-content: space-between;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .article-content h3 {
+        font-size: 1.35rem;
+        margin-bottom: 15px;
+        color: var(--primary);
+        line-height: 1.4;
+      }
+
+      .article-content p {
+        color: var(--text-muted);
+        font-size: 0.95rem;
+        margin-bottom: 25px;
+        flex-grow: 1;
+        line-height: 1.6;
+      }
+
+      .read-more {
+        color: var(--primary);
+        font-weight: 700;
+        margin-top: auto;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: var(--transition);
+        font-size: 0.9rem;
+      }
+
+      /* CUSTOM CTA SECTION: Hijau Kalem & Tombol Putih */
+      .section-cta-green {
+        background-color: #123b3a !important; /* Forest Green */
+        color: white !important;
+        text-align: center;
+        padding: 100px 0;
+      }
+      .section-cta-green h2 {
+        color: white !important;
+        margin-bottom: 20px;
+      }
+      .section-cta-green p {
+        color: rgba(255, 255, 255, 0.9) !important;
+        margin-bottom: 40px;
+      }
+
+      .btn-cta-white {
+        background-color: white !important;
+        color: #123b3a !important;
+        padding: 16px 40px;
+        border-radius: 8px;
+        font-weight: 800;
+        font-size: 1.1rem;
+        display: inline-block;
+        transition: 0.3s ease;
+        text-decoration: none;
+      }
+      .btn-cta-white:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        background-color: #f8fafc !important;
+      }
+
+      @media (max-width: 768px) {
+        .hero-articles {
+          padding: 140px 0 60px;
+        }
+        .hero-articles h1 {
+          font-size: 2.2rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="header" id="header">
+      <div class="progress-bar" id="progress-bar"></div>
+
+      <div class="container nav-container">
+        <div class="logo">
+          <a href="../beranda.html">
+            <img
+              src="../assets/images/logo.png"
+              alt="Lontara Logo"
+              width="120"
+              height="38"
+            />
+          </a>
+        </div>
+
+        <nav class="nav" id="nav-menu">
+          <div class="nav-item">
+            <a href="../layanan/layanan.html">Layanan</a>
+          </div>
+
+          <div class="nav-item">
+            <a href="../portofolio/portofolio.html">Portofolio</a>
+          </div>
+
+          <div class="nav-item">
+            <a href="../artikel/artikel.html">Artikel</a>
+          </div>
+
+          <div class="nav-item">
+            <a href="../publikasi/publikasi.html">Publikasi</a>
+          </div>
+
+          <div class="nav-item">
+            <a href="../aset-digital/aset-digital.html">Aset Digital</a>
+          </div>
+
+          <div class="nav-item">
+            <a href="../tentang/tentang.html">Tentang</a>
+          </div>
+
+          <a href="../kontak/kontak.html" class="nav-cta">Kontak</a>
+        </nav>
+
+        <button
+          class="nav-toggle"
+          id="nav-toggle"
+          aria-label="Toggle navigation"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero-articles">
+        <div class="container">
+          <h1 class="reveal-init">Artikel & Wawasan</h1>
+          <p class="reveal-init">
+            Eksplorasi tutorial teknis, metodologi riset, dan tips seputar
+            integrasi sains geospasial, hidrologi, dan kecerdasan buatan.
+          </p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="grid-3 align-start">
+            <article class="article-card reveal-init">
+              <div class="article-image">
+                <img
+                  src="1-dasar-gis/analogi-tumpukan-layer.png"
+                  alt="Analogi tumpukan layer GIS"
+                  style="width: 100%; height: 100%; object-fit: cover"
+                />
+              </div>
+              <div class="article-content">
+                <div class="article-meta">
+                  <span>Artikel</span><span>4 Min Baca</span>
+                </div>
+                <h3>Apa Itu GIS? Panduan Lengkap untuk Pemula</h3>
+                <p>
+                  Panduan menggunakan data real-time untuk perencanaan lahan
+                  pertanian yang berkelanjutan dan adaptif terhadap perubahan
+                  iklim.
+                </p>
+                <a href="1-gis-dasar.html" class="read-more"
+                  >Baca Artikel &rarr;</a
+                >
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-cta-green">
+        <div class="container">
+          <h2 class="reveal-init">Dapatkan Wawasan Teknis Lebih Dalam</h2>
+          <p class="reveal-init">
+            Mari berdiskusi mengenai implementasi teknologi geospasial untuk
+            kebutuhan riset atau instansi Anda.
+          </p>
+          <div class="reveal-init">
+            <a href="../kontak/kontak.html" class="btn-cta-white"
+              >Hubungi Kami Sekarang</a
+            >
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-container">
+        <div>
+          <h4 style="margin-bottom: 10px">Lontara</h4>
+          <p style="font-size: 0.9rem; color: var(--text-muted)">
+            Environmental & Land Intelligence Studio.
+          </p>
+        </div>
+        <div>
+          <p style="font-size: 0.9rem; color: var(--text-muted)">
+            &copy; 2026 Lontara. Seluruh Hak Cipta Dilindungi.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../js/utils.js"></script>
+    <script src="../js/animation.js"></script>
+    <script src="../js/main.js"></script>
+  </body>
+</html>

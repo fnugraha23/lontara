@@ -1,0 +1,264 @@
+/* =====================================================
+   LONTARA — COMPONENTS (Buttons, Cards, Nav, Gallery)
+===================================================== */
+
+/* =========================
+   SCROLL PROGRESS BAR
+========================= */
+.progress-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background: var(--accent);
+  transition: width 0.1s linear;
+  z-index: 1001;
+}
+
+/* =========================
+   NAVIGATION & HEADER
+========================= */
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Inti dari perataan tengah */
+  flex: 1;
+  gap: clamp(10px, 2.5vw, 30px);
+}
+
+/* Tombol Kontak Hijau Lontara */
+.nav-link-cta {
+  background-color: #123b3a !important;
+  color: white !important;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: var(--transition);
+  display: inline-block;
+}
+
+.nav-link-cta:hover {
+  background-color: var(--accent) !important;
+  transform: translateY(-2px);
+}
+
+/* =========================
+   BUTTONS
+========================= */
+.btn-primary,
+.btn-secondary,
+.btn-tersier {
+  position: relative;
+  overflow: hidden;
+  padding: 13px 28px;
+  border-radius: 10px;
+  font-weight: 600;
+  transition: var(--transition);
+  display: inline-block;
+  cursor: pointer;
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: white !important;
+}
+
+.btn-primary:hover {
+  background: var(--primary-dark);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+}
+
+.btn-secondary {
+  border: 2px solid var(--primary);
+  color: var(--primary);
+  background: transparent;
+}
+
+.btn-secondary:hover {
+  background: var(--primary);
+  color: white !important;
+}
+
+.btn-tersier {
+  background: white;
+  color: var(--primary) !important;
+}
+
+.btn-tersier:hover {
+  background: whitesmoke;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* Ripple Effect Animation */
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  transform: scale(0);
+  animation: ripple-animation 0.6s linear;
+  pointer-events: none;
+}
+
+@keyframes ripple-animation {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* =========================
+   CARDS
+========================= */
+.card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 35px;
+  transition: var(--transition);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.card:hover {
+  border-color: var(--accent);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+/* =========================
+   GALERI PREVIEW DATASET
+========================= */
+.preview-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.preview-item {
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: 0.3s ease;
+}
+
+.preview-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+.preview-item img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-bottom: 1px solid var(--border);
+}
+
+.preview-caption {
+  padding: 12px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-align: center;
+  background: white;
+}
+
+/* =========================
+   FORM ELEMENTS (EmailJS Optimized)
+========================= */
+.form-group {
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 14px 18px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #f9fafb;
+  font-family: inherit;
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: white;
+  box-shadow: 0 0 0 4px rgba(0, 184, 169, 0.1);
+}
+
+/* Status Messages */
+.form-status {
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: none;
+}
+
+.form-status.success {
+  display: block;
+  background: rgba(0, 184, 169, 0.1);
+  color: #065f46;
+  border: 1px solid var(--accent);
+}
+.form-status.error {
+  display: block;
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fee2e2;
+}
+
+/* =========================
+   SCROLL REVEAL ANIMATIONS
+========================= */
+.reveal-init {
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity 0.8s cubic-bezier(0.5, 0, 0, 1),
+    transform 0.8s cubic-bezier(0.5, 0, 0, 1);
+}
+
+.reveal-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsivitas Galeri */
+@media (max-width: 768px) {
+  .preview-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.btn-container {
+  display: flex; /* Mengaktifkan mode flex */
+  justify-content: center; /* Menjaga tombol tetap di tengah */
+  gap: 15px; /* Memberikan jarak antar elemen sebesar 15px */
+  margin-top: 25px; /* Tambahan jarak dari teks di atasnya */
+}
+
+@media (max-width: 480px) {
+  .btn-container {
+    flex-direction: column; /* Tombol akan bertumpuk ke bawah jika layar HP terlalu kecil */
+    align-items: center;
+  }
+}
