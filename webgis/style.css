@@ -119,8 +119,6 @@ body {
   }
 }
 
-Opsional: Jika ingin tetap muncul sebagai overlay kecil di mobile */
-/*
 @media (max-width: 480px) {
   .sidebar {
     display: block;
@@ -135,3 +133,4 @@ Opsional: Jika ingin tetap muncul sebagai overlay kecil di mobile */
     opacity: 0.95;
   }
 }
+
