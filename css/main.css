@@ -1,272 +1,243 @@
 /* =====================================================
-    LONTARA — LAYOUT & NAVIGATION (Final Centered Version)
-   ===================================================== */
+   LONTARA — MAIN / HOMEPAGE SPECIFIC
+   Gaya Visual Khusus untuk Halaman Beranda
+===================================================== */
 
-/* --- GLOBAL FIXES --- */
-html {
-  scroll-behavior: smooth;
+/* =========================
+   HERO SECTION
+========================= */
+
+.hero {
+  padding: 160px 0 100px;
+  background: var(--bg-light);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
 }
 
-body {
-  overflow-x: hidden;
-  width: 100%;
+/* Pola Grid Halus - Identitas Intelijen Spasial */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--accent) 0.5px, transparent 0.5px),
+    linear-gradient(90deg, var(--accent) 0.5px, transparent 0.5px);
+  background-size: 50px 50px;
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+/* Efek Cahaya Gradien Lembut di Latar Belakang */
+.hero::after {
+  content: "";
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(
+    circle,
+    rgba(0, 184, 169, 0.05) 0%,
+    transparent 70%
+  );
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.hero-content {
+  text-align: center;
+  position: relative;
+  z-index: 10;
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+.hero h1 {
+  font-size: 3.2rem;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 28px;
+  color: var(--primary);
+  letter-spacing: -1px;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  margin-bottom: 40px;
+  line-height: 1.7;
+}
+
+.hero-buttons {
+  display: flex;
+  justify-content: center; /* Menjaga kesimetrisan tombol */
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 120px 0 80px;
+  }
+  .hero h1 {
+    font-size: 2.4rem;
+  }
+  .hero p {
+    font-size: 1.1rem;
+  }
+  .hero-buttons {
+    gap: 12px;
+  }
+}
+
+/* =========================
+   WEBGIS INTERACTIVE SECTION
+========================= */
+
+.webgis-section {
+  padding: 100px 0;
+  background-color: white;
+  border-top: 1px solid var(--border);
   position: relative;
 }
 
-/* --- CONTAINER --- */
-.container {
-  max-width: var(--container);
-  margin: 0 auto;
-  padding: 0 28px;
+.webgis-container {
   width: 100%;
+  height: 650px; /* Tinggi optimal untuk visualisasi peta desktop */
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.12); /* Efek elevasi modern */
+  background: #1e1e2f; /* Menyesuaikan latar belakang WebGIS Anda */
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
-/* --- HEADER & DESKTOP NAV --- */
-.header {
-  position: sticky;
-  top: 0;
-  z-index: 2000;
-  background: rgba(255, 255, 255, 0.98);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border);
+.webgis-container:hover {
+  box-shadow: 0 40px 80px -15px rgba(0, 0, 0, 0.18);
+}
+
+.webgis-iframe {
   width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
 }
 
-.nav-container {
-  height: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-}
-
-.logo {
-  flex: 1;
-  display: flex;
-  justify-content: flex-start;
-}
-
-.logo img {
-  height: 35px;
-  width: auto;
-}
-
-/* Navigasi Tengah (Desktop) */
-.nav {
+/* Petunjuk interaksi peta untuk pengguna */
+.webgis-hint {
+  text-align: center;
+  margin-top: 25px;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-style: italic;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 32px;
-  flex: 2;
-}
-
-.nav a {
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--text-main);
-  transition: 0.3s;
-  text-decoration: none;
-}
-
-.nav a:hover,
-.nav a.active {
-  color: var(--accent);
-}
-
-.nav a.active {
-  border-bottom: 2px solid var(--accent);
-  padding-bottom: 5px;
-}
-
-/* --- DROPDOWN (DESKTOP) --- */
-@media (min-width: 769px) {
-  .has-dropdown:hover .dropdown {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-  }
-  .dropdown {
-    position: absolute;
-    top: 30px;
-    left: 50%;
-    transform: translateX(-50%) translateY(10px);
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 15px;
-    min-width: 200px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    opacity: 0;
-    visibility: hidden;
-    transition: 0.3s;
-  }
-  .dropdown a {
-    display: block;
-    padding: 8px 12px;
-    font-size: 0.9rem;
-    border-bottom: none !important;
-  }
-}
-
-/* --- NAV CTA --- */
-.nav-item-cta {
-  margin-left: 20px;
-}
-.nav-link-cta {
-  background: var(--primary);
-  color: white !important;
-  padding: 12px 30px;
-  border-radius: 8px;
-  font-weight: 700;
-  transition: 0.3s ease;
-  border-bottom: none !important;
-}
-.nav-link-cta:hover {
-  background: var(--primary-dark);
-  transform: translateY(-2px);
-}
-
-/* --- MOBILE TOGGLE & OVERLAY --- */
-.nav-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(6px);
-  z-index: 1000;
-  opacity: 0;
-  visibility: hidden;
-  transition: 0.4s;
-}
-.nav-overlay.active {
-  opacity: 1;
-  visibility: visible;
-}
-
-.nav-toggle {
-  display: none;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  flex-direction: column;
-  gap: 6px;
-  z-index: 2200;
-}
-.nav-toggle span {
-  width: 28px;
-  height: 2.5px;
-  background: var(--primary);
-  border-radius: 2px;
-  transition: 0.3s;
-}
-/* Animasi Hamburger ke X */
-.nav-toggle.active span:nth-child(1) {
-  transform: translateY(8.5px) rotate(45deg);
-}
-.nav-toggle.active span:nth-child(2) {
-  opacity: 0;
-}
-.nav-toggle.active span:nth-child(3) {
-  transform: translateY(-8.5px) rotate(-45deg);
-}
-
-/* --- RESPONSIVE / MOBILE NAV (RATA TENGAH) --- */
-@media (max-width: 768px) {
-  .nav-toggle {
-    display: flex;
-  }
-
-  .nav {
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 300px; /* Sesuai gambar Anda */
-    height: 100vh;
-    background: white;
-    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
-    transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    z-index: 2100;
-
-    /* MODIFIKASI RATA TENGAH */
-    flex-direction: column;
-    justify-content: center; /* Rata tengah secara Vertikal */
-    align-items: center; /* Rata tengah secara Horizontal */
-    text-align: center;
-    padding: 0; /* Hapus padding agar tidak offset */
-    gap: 25px; /* Jarak antar item menu */
-  }
-
-  .nav.show {
-    right: 0;
-  }
-
-  .nav-item {
-    width: 100%;
-  }
-
-  .nav a {
-    font-size: 1.25rem; /* Ukuran teks lebih besar di mobile */
-    padding: 10px 0;
-    display: inline-block;
-  }
-
-  .nav a.active {
-    border-bottom: none;
-    color: var(--accent);
-  }
-
-  /* Dropdown Mobile */
-  .dropdown {
-    max-height: 0;
-    overflow: hidden;
-    background: #f9f9f9;
-    transition: 0.3s ease-in-out;
-    width: 100%;
-  }
-  .has-dropdown.active .dropdown {
-    max-height: 300px;
-    padding: 10px 0;
-  }
-
-  /* CTA Mobile */
-  .nav-item-cta {
-    margin-left: 0;
-    margin-top: 20px;
-    width: 80%; /* Lebar tombol di tengah */
-  }
-  .nav-link-cta {
-    display: block;
-    width: 100%;
-  }
-}
-
-/* --- GRID SYSTEM --- */
-.grid-4,
-.grid-3,
-.grid-2 {
-  display: grid;
-  gap: 30px;
-}
-.grid-4 {
-  grid-template-columns: repeat(4, 1fr);
-}
-.grid-3 {
-  grid-template-columns: repeat(3, 1fr);
-}
-.grid-2 {
-  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
 }
 
 @media (max-width: 992px) {
-  .grid-4,
-  .grid-3 {
-    grid-template-columns: repeat(2, 1fr);
+  .webgis-container {
+    height: 500px;
   }
 }
-@media (max-width: 480px) {
-  .grid-4,
-  .grid-3,
-  .grid-2 {
-    grid-template-columns: 1fr;
+
+@media (max-width: 768px) {
+  .webgis-container {
+    height: 450px;
+  }
+  .webgis-section {
+    padding: 70px 0;
+  }
+}
+
+/* =========================
+   HOMEPAGE CTA BLOCK
+========================= */
+
+.cta {
+  padding: 120px 0;
+  background: var(--primary);
+  color: white;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Dekorasi Visual Lingkaran Spasial */
+.cta::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.05) 0%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.cta::after {
+  content: "";
+  position: absolute;
+  bottom: -20%;
+  left: -5%;
+  width: 300px;
+  height: 300px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.cta-content {
+  position: relative;
+  z-index: 5;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.cta h2 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: white;
+  line-height: 1.2;
+}
+
+.cta p {
+  font-size: 1.15rem;
+  margin-bottom: 40px;
+  opacity: 0.85;
+  line-height: 1.6;
+}
+
+/* Tombol kontras khusus untuk area gelap CTA */
+.cta .btn-primary {
+  background: white;
+  color: var(--primary) !important;
+}
+
+.cta .btn-primary:hover {
+  background: var(--bg-light);
+  transform: translateY(-4px);
+}
+
+@media (max-width: 768px) {
+  .cta {
+    padding: 90px 20px;
+  }
+  .cta h2 {
+    font-size: 2rem;
+  }
+  .cta p {
+    font-size: 1rem;
   }
 }
