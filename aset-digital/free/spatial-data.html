@@ -111,14 +111,6 @@
   </head>
 
   <body>
-    <!-- ===============================
-     NAV OVERLAY (GLOBAL SYSTEM)
-================================ -->
-    <div class="nav-overlay" id="nav-overlay"></div>
-
-    <!-- ===============================
-     HEADER (STANDARD LONTARA)
-================================ -->
     <header class="header" id="header">
       <div class="progress-bar" id="progress-bar"></div>
 
@@ -135,48 +127,41 @@
         </div>
 
         <nav class="nav" id="nav-menu">
-          <button class="nav-close" id="nav-close" aria-label="Tutup Menu">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <line x1="18" y1="6" x2="6" y2="18"></line>
-              <line x1="6" y1="6" x2="18" y2="18"></line>
-            </svg>
-          </button>
-
           <div class="nav-item">
             <a href="../../layanan/layanan.html">Layanan</a>
           </div>
+
           <div class="nav-item">
             <a href="../../portofolio/portofolio.html">Portofolio</a>
           </div>
+
           <div class="nav-item">
             <a href="../../artikel/artikel.html">Artikel</a>
           </div>
+
           <div class="nav-item">
             <a href="../../publikasi/publikasi.html">Publikasi</a>
           </div>
+
           <div class="nav-item">
-            <a href="../aset-digital.html" class="active">Aset Digital</a>
+            <a href="../../aset-digital/aset-digital.html">Aset Digital</a>
           </div>
+
           <div class="nav-item">
             <a href="../../tentang/tentang.html">Tentang</a>
           </div>
 
-          <div class="nav-item nav-item-cta">
-            <a href="../../kontak/kontak.html" class="nav-link-cta">Kontak</a>
-          </div>
+          <a href="../../kontak/kontak.html" class="nav-cta">Kontak</a>
         </nav>
 
-        <div class="nav-actions"></div>
-
-        <button class="nav-toggle" id="nav-toggle" aria-label="Buka Menu">
-          <span></span><span></span><span></span>
+        <button
+          class="nav-toggle"
+          id="nav-toggle"
+          aria-label="Toggle navigation"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
         </button>
       </div>
     </header>
@@ -337,3 +322,4 @@
     <script src="../../js/main.js"></script>
   </body>
 </html>
+
