@@ -1,105 +1,98 @@
 /* ======================================================
-    LONTARA — MAIN CORE
-    Navigation Logic, Global Orchestration & Reveal Animations
-   ====================================================== */
+   LONTARA — MAIN CORE
+   Navigation Logic, Global Orchestration & WebGIS Sync
+====================================================== */
 
 document.addEventListener("DOMContentLoaded", function () {
   /* ===============================
-      1. SISTEM NAVIGASI MOBILE
+      MOBILE NAVIGATION SYSTEM
   =============================== */
   const navToggle = document.getElementById("nav-toggle");
   const navMenu = document.getElementById("nav-menu");
-  const navClose = document.getElementById("nav-close");
-  const navOverlay = document.getElementById("nav-overlay");
 
-  /**
-   * Fungsi untuk membuka menu mobile.
-   * Menampilkan sidebar, mengaktifkan overlay, dan mengunci scroll.
-   */
+  // Create Overlay secara dinamis untuk efek blur/gelap saat menu buka
+  const overlay = document.createElement("div");
+  overlay.classList.add("nav-overlay");
+  document.body.appendChild(overlay);
+
   if (navToggle) {
+    // Toggle Menu
     navToggle.addEventListener("click", () => {
-      if (navMenu) navMenu.classList.add("show");
-      if (navOverlay) navOverlay.classList.add("show");
-      // Mencegah scroll latar belakang agar navigasi stabil
-      document.body.style.overflow = "hidden";
+      navToggle.classList.toggle("active");
+      navMenu.classList.toggle("show");
+      overlay.classList.toggle("active");
+    });
+
+    // Close on Overlay Click
+    overlay.addEventListener("click", () => {
+      closeMobileMenu();
     });
   }
 
-  /**
-   * Fungsi untuk menutup menu mobile.
-   * Menghapus class 'show' agar klik kembali berfungsi normal.
-   */
-  const closeMobileMenu = () => {
+  function closeMobileMenu() {
+    if (navToggle) navToggle.classList.remove("active");
     if (navMenu) navMenu.classList.remove("show");
-    if (navOverlay) navOverlay.classList.remove("show");
-    // Mengembalikan fungsi scroll normal
-    document.body.style.overflow = "auto";
-  };
+    overlay.classList.remove("active");
+  }
 
-  // Event listener untuk menutup menu (X, Overlay, atau Link diklik)
-  if (navClose) navClose.addEventListener("click", closeMobileMenu);
-  if (navOverlay) navOverlay.addEventListener("click", closeMobileMenu);
+  /* ===============================
+      MOBILE DROPDOWN ACCORDION
+  =============================== */
+  const dropdownLinks = document.querySelectorAll(".has-dropdown > a");
 
-  // Otomatis tutup menu jika link di dalam navigasi diklik (penting untuk mobile)
-  const navLinksList = document.querySelectorAll(".nav a");
-  navLinksList.forEach((link) => {
-    link.addEventListener("click", () => {
+  dropdownLinks.forEach((link) => {
+    link.addEventListener("click", function (e) {
+      // Logic khusus Mobile (< 768px) agar dropdown bisa diklik
       if (window.innerWidth <= 768) {
-        closeMobileMenu();
+        e.preventDefault();
+        this.parentElement.classList.toggle("active");
       }
     });
   });
 
   /* ===============================
-      2. DETEKSI HALAMAN AKTIF
+      ACTIVE LINK DETECTION
   =============================== */
-  /**
-   * Memberikan class 'active' pada menu sesuai URL saat ini.
-   * Menangani path root, beranda.html, dan file dalam sub-folder.
-   */
-  const currentPath = window.location.pathname;
+  const currentURL = window.location.href;
+  const navLinks = document.querySelectorAll(".nav a");
 
-  navLinksList.forEach((link) => {
-    const linkPath = link.getAttribute("href");
-    if (!linkPath) return;
-
-    // Normalisasi path untuk pencocokan (menghapus ../ agar sinkron di sub-folder)
-    const normalizedLink = linkPath.replace("../", "");
-
-    if (
-      (linkPath !== "beranda.html" && currentPath.includes(normalizedLink)) ||
-      (currentPath.endsWith("beranda.html") && linkPath === "beranda.html") ||
-      (currentPath === "/" &&
-        (linkPath === "beranda.html" || linkPath === "index.html"))
-    ) {
+  navLinks.forEach((link) => {
+    // Memberikan class active jika URL cocok dengan link
+    if (link.href === currentURL) {
       link.classList.add("active");
     }
   });
 
   /* ===============================
-      3. STICKY HEADER SCROLL
-  ============================== */
-  const header = document.getElementById("header");
+      SMOOTH SCROLL ANCHORING
+  =============================== */
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener("click", function (e) {
+      const targetId = this.getAttribute("href");
+      if (targetId === "#") return;
 
-  window.addEventListener("scroll", () => {
-    if (header) {
-      if (window.scrollY > 50) {
-        header.classList.add("shrink"); // Memberikan efek visual saat scroll
-      } else {
-        header.classList.remove("shrink");
+      const target = document.querySelector(targetId);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+
+        // Tutup menu mobile jika link anchor diklik
+        if (navMenu && navMenu.classList.contains("show")) {
+          closeMobileMenu();
+        }
       }
-    }
+    });
   });
 
   /* ===============================
-      4. GLOBAL REVEAL ORCHESTRATOR
+      SCROLL REVEAL ORCHESTRATOR
   =============================== */
-  /**
-   * Intersection Observer untuk animasi muncul konten secara elegan.
-   * Dioptimalkan untuk elemen WebGIS dan kartu riset Lontara.
-   */
+  // Mendaftarkan elemen, termasuk kontainer WebGIS agar muncul dengan animasi
   const revealElements = document.querySelectorAll(
-    ".section, .card, .hero-content, .reveal-init, .webgis-container, .founder-image-container",
+    ".section, .card, .hero-content, .reveal-init, .webgis-container",
   );
 
   const observerOptions = {
@@ -107,20 +100,21 @@ document.addEventListener("DOMContentLoaded", function () {
     rootMargin: "0px 0px -50px 0px",
   };
 
-  const revealObserver = new IntersectionObserver((entries) => {
+  const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add("reveal-active");
-        revealObserver.unobserve(entry.target); // Animasi hanya berjalan satu kali untuk performa
+        // Berhenti mengobservasi setelah elemen muncul (opsional)
+        // observer.unobserve(entry.target);
       }
     });
   }, observerOptions);
 
   revealElements.forEach((el) => {
-    // Inisialisasi state awal (transparan) jika belum ada di HTML
+    // Tambahkan class awal reveal-init jika belum ada di HTML
     if (!el.classList.contains("reveal-init")) {
       el.classList.add("reveal-init");
     }
-    revealObserver.observe(el);
+    observer.observe(el);
   });
 });
