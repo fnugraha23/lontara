@@ -25,24 +25,48 @@
 
     <style>
       /* Pengaturan Iframe WebGIS di Beranda */
-      .webgis-section {
-        padding: 100px 0;
-        background-color: var(--bg-light);
-      }
-      .webgis-container {
-        width: 100%;
-        height: 650px;
-        border-radius: var(--radius);
-        overflow: hidden;
-        border: 1px solid var(--border);
-        box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.12);
-        background: #1e1e2f;
-      }
-      .webgis-iframe {
-        width: 100%;
-        height: 100%;
-        border: none;
-      }
+  .webgis-section {
+    padding: 100px 0;
+    background-color: var(--bg-light);
+    /* Membuat semua teks di dalamnya rata tengah */
+    text-align: center; 
+  }
+
+  .container {
+    max-width: 1200px; /* Sesuaikan dengan lebar maksimal desain Anda */
+    margin: 0 auto;    /* Mengetengahkan kontainer utama */
+    padding: 0 20px;
+  }
+
+  .webgis-container {
+    width: 100%;
+    max-width: 1000px; /* Memberi batas lebar agar tidak terlalu melar */
+    margin: 30px auto; /* "auto" di kanan-kiri akan membuatnya rata tengah */
+    height: 650px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.12);
+    background: #1e1e2f;
+  }
+
+  /* Tambahkan ini agar teks subtitle tidak terlalu lebar ke samping */
+  .section-subtitle {
+    max-width: 700px;
+    margin: 0 auto 20px auto; 
+  }
+
+  .webgis-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  .webgis-hint {
+    margin-top: 15px;
+    font-size: 0.9rem;
+    color: #666; /* Contoh warna abu-abu */
+  }
 
       @media (max-width: 768px) {
         .webgis-container {
@@ -131,32 +155,32 @@
         </div>
       </section>
 
-      <section class="webgis-section">
-        <div class="container">
-          <h2 class="section-title">WEBGIS Interaktif</h2>
-          <p class="section-subtitle">
-            Live Preview: Integrasi data spasial Sub DAS Tanralili secara
-            aktual. Gunakan fitur interaktif untuk menganalisis atribut tutupan
-            lahan dan geologi.
-          </p>
+<section class="webgis-section">
+  <div class="container">
+    <h2 class="section-title">WEBGIS Interaktif</h2>
+    <p class="section-subtitle">
+      Live Preview: Integrasi data spasial Sub DAS Tanralili secara
+      aktual. Gunakan fitur interaktif untuk menganalisis atribut tutupan
+      lahan dan geologi.
+    </p>
 
-          <div class="webgis-container reveal-init">
-            <iframe
-              src="webgis/webgis.html"
-              title="WebGIS Sub DAS Tanralili"
-              class="webgis-iframe"
-              loading="lazy"
-            ></iframe>
-          </div>
+    <div class="webgis-container reveal-init">
+      <iframe
+        src="webgis/webgis.html"
+        title="WebGIS Sub DAS Tanralili"
+        class="webgis-iframe"
+        loading="lazy"
+      ></iframe>
+    </div>
 
-          <div class="webgis-hint reveal-init">
-            <p>
-              * Klik pada poligon peta untuk memunculkan panel informasi atribut
-              di sisi kiri layar.
-            </p>
-          </div>
-        </div>
-      </section>
+    <div class="webgis-hint reveal-init">
+      <p>
+        * Klik pada poligon peta untuk memunculkan panel informasi atribut
+        di sisi kiri layar.
+      </p>
+    </div>
+  </div>
+</section>
 
       <section class="section">
         <div class="container">
@@ -233,5 +257,6 @@
     <script src="js/main.js"></script>
   </body>
 </html>
+
 
 
