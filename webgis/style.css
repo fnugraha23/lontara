@@ -1,68 +1,137 @@
+/* =====================================================
+    WEBGIS DAS - STYLESHEET (Responsive Ready)
+   ===================================================== */
+
 body {
   margin: 0;
-  font-family: "Segoe UI", sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden; /* Mencegah scroll pada body utama */
 }
 
 .container {
   display: flex;
   height: 100vh;
+  width: 100vw;
 }
 
+/* --- SIDEBAR --- */
 .sidebar {
   width: 320px;
   background: #1e1e2f;
   color: white;
-  padding: 20px;
+  padding: 25px;
   overflow-y: auto;
+  flex-shrink: 0; /* Mencegah sidebar menciut di desktop */
+  display: flex;
+  flex-direction: column;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+  z-index: 1001;
 }
 
 .sidebar h1 {
-  margin-bottom: 0;
+  margin: 0;
+  font-size: 24px;
+  color: #fff;
 }
 
 .sidebar h2 {
   margin-top: 5px;
   font-weight: normal;
   font-size: 18px;
-  color: #ccc;
+  color: #00b8a9; /* Menggunakan warna aksen Lontara */
 }
 
 .author {
-  font-size: 14px;
+  font-size: 13px;
   color: #aaa;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
+  font-style: italic;
 }
 
+/* --- MAP --- */
 #map {
   flex: 1;
+  height: 100%;
+  width: 100%;
 }
 
+/* --- COMPONENTS --- */
 #legend {
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 
 #legend h4 {
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   border-bottom: 1px solid #444;
   padding-bottom: 5px;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .legend-item {
   display: flex;
   align-items: center;
   font-size: 13px;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
 .legend-color {
-  width: 15px;
-  height: 15px;
-  margin-right: 8px;
+  width: 16px;
+  height: 16px;
+  margin-right: 10px;
+  border-radius: 2px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .info-panel {
   background: #2a2a40;
-  padding: 10px;
-  border-radius: 6px;
+  padding: 15px;
+  border-radius: 8px;
   font-size: 13px;
+  line-height: 1.6;
+  border: 1px solid #3f3f5a;
+}
+
+.info-panel h3 {
+  margin-top: 0;
+  font-size: 14px;
+  color: #00b8a9;
+  border-bottom: 1px solid #3f3f5a;
+  padding-bottom: 8px;
+  margin-bottom: 10px;
+}
+
+/* =====================================================
+    RESPONSIVE LOGIC (OTOMATIS MENGHILANG)
+   ===================================================== */
+
+@media (max-width: 768px) {
+  /* Panel otomatis menghilang pada layar HP/Tablet */
+  .sidebar {
+    display: none;
+  }
+
+  /* Peta mengambil seluruh layar */
+  #map {
+    width: 100vw;
+    height: 100vh;
+  }
+}
+
+Opsional: Jika ingin tetap muncul sebagai overlay kecil di mobile */
+/*
+@media (max-width: 480px) {
+  .sidebar {
+    display: block;
+    position: absolute;
+    bottom: 20px;
+    left: 10px;
+    right: 10px;
+    width: auto;
+    height: auto;
+    max-height: 30vh;
+    border-radius: 12px;
+    opacity: 0.95;
+  }
 }
