@@ -17,31 +17,74 @@
 }
 
 /* =========================
-   NAVIGATION & HEADER
+   SEARCH BAR NAVIGATION
 ========================= */
-.nav {
+.nav-search {
   display: flex;
   align-items: center;
-  justify-content: center; /* Inti dari perataan tengah */
-  flex: 1;
-  gap: clamp(10px, 2.5vw, 30px);
 }
 
-/* Tombol Kontak Hijau Lontara */
-.nav-link-cta {
-  background-color: #123b3a !important;
-  color: white !important;
-  padding: 10px 24px;
-  border-radius: 8px;
-  font-weight: 700;
-  text-decoration: none;
+#search-form {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  padding: 8px 36px 8px 16px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: var(--bg-light);
+  font-family: inherit;
+  font-size: 0.9rem;
+  color: var(--text-main);
   transition: var(--transition);
-  display: inline-block;
+  width: 130px; /* Lebar default yang aman */
 }
 
-.nav-link-cta:hover {
-  background-color: var(--accent) !important;
-  transform: translateY(-2px);
+/* Animasi memanjang saat search bar diklik */
+.search-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  width: 170px; /* Lebar maksimal ditahan di 170px agar tidak mendorong logo */
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.search-btn {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: var(--transition);
+}
+
+.search-btn:hover {
+  color: var(--accent);
+  transform: scale(1.1);
+}
+
+/* Responsivitas untuk tampilan HP */
+@media (max-width: 768px) {
+  .nav-search {
+    width: 100%;
+    justify-content: center;
+    margin: 10px 0;
+  }
+  #search-form {
+    width: 100%;
+  }
+  .search-input {
+    width: 100%;
+  }
+  .search-input:focus {
+    width: 100%;
+  }
 }
 
 /* =========================
@@ -114,6 +157,20 @@
   }
 }
 
+.btn-container {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+@media (max-width: 480px) {
+  .btn-container {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
 /* =========================
    CARDS
 ========================= */
@@ -172,6 +229,12 @@
   color: var(--primary);
   text-align: center;
   background: white;
+}
+
+@media (max-width: 768px) {
+  .preview-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* =========================
@@ -240,25 +303,4 @@
 .reveal-active {
   opacity: 1;
   transform: translateY(0);
-}
-
-/* Responsivitas Galeri */
-@media (max-width: 768px) {
-  .preview-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-.btn-container {
-  display: flex; /* Mengaktifkan mode flex */
-  justify-content: center; /* Menjaga tombol tetap di tengah */
-  gap: 15px; /* Memberikan jarak antar elemen sebesar 15px */
-  margin-top: 25px; /* Tambahan jarak dari teks di atasnya */
-}
-
-@media (max-width: 480px) {
-  .btn-container {
-    flex-direction: column; /* Tombol akan bertumpuk ke bawah jika layar HP terlalu kecil */
-    align-items: center;
-  }
 }
