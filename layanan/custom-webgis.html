@@ -18,6 +18,77 @@
     <link rel="stylesheet" href="../css/main.css" />
 
     <style>
+      /* =========================================
+         STYLING KHUSUS SEARCH BAR & WEBGIS
+         ========================================= */
+
+      /* Search Bar UI */
+      .nav-search {
+        display: flex;
+        align-items: center;
+      }
+
+      #search-form {
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
+
+      .search-input {
+        padding: 8px 36px 8px 16px;
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        background: var(--bg-light);
+        font-family: inherit;
+        font-size: 0.9rem;
+        color: var(--text-main);
+        transition: var(--transition);
+        width: 160px; /* Lebar default desktop */
+      }
+
+      .search-input:focus {
+        outline: none;
+        border-color: var(--accent);
+        width: 220px; /* Memanjang saat diklik */
+        box-shadow: 0 0 0 3px var(--accent-soft);
+      }
+
+      .search-btn {
+        position: absolute;
+        right: 12px;
+        background: none;
+        border: none;
+        color: var(--text-muted);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        transition: var(--transition);
+      }
+
+      .search-btn:hover {
+        color: var(--accent);
+        transform: scale(1.1);
+      }
+
+      @media (max-width: 768px) {
+        .nav-search {
+          width: 100%;
+          justify-content: center;
+          margin: 10px 0;
+        }
+        #search-form {
+          width: 100%;
+        }
+        .search-input {
+          width: 100%;
+        }
+        .search-input:focus {
+          width: 100%;
+        }
+      }
+      
       /* Header Layanan dengan Background Gradient */
       .service-header {
         padding: 180px 0 80px;
@@ -174,7 +245,34 @@
           <div class="nav-item">
             <a href="../tentang/tentang.html">Tentang</a>
           </div>
-
+          
+          <div class="nav-search">
+            <form id="search-form" action="search/" method="GET">
+              <input
+                type="text"
+                name="q"
+                placeholder="Cari layanan, artikel..."
+                class="search-input"
+                required
+              />
+              <button type="submit" class="search-btn" aria-label="Cari">
+                <svg
+                  viewBox="0 0 24 24"
+                  width="18"
+                  height="18"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+              </button>
+            </form>
+          </div>
+          
           <a href="../kontak/kontak.html" class="nav-cta">Kontak</a>
         </nav>
 
@@ -338,4 +436,5 @@
     <script src="../js/main.js"></script>
   </body>
 </html>
+
 
