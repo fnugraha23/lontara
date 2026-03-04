@@ -16,6 +16,32 @@
     <link rel="stylesheet" href="/css/main.css" />
 
     <style>
+      /* Pengaturan Iframe WebGIS di Beranda */
+      .webgis-section {
+        padding: 100px 0;
+        background-color: var(--bg-light);
+        /* Membuat semua teks di dalamnya rata tengah */
+        text-align: center;
+      }
+
+      .container {
+        max-width: 1200px; /* Sesuaikan dengan lebar maksimal desain Anda */
+        margin: 0 auto; /* Mengetengahkan kontainer utama */
+        padding: 0 20px;
+      }
+
+      .webgis-container {
+        width: 100%;
+        max-width: 1000px; /* Memberi batas lebar agar tidak terlalu melar */
+        margin: 30px auto; /* "auto" di kanan-kiri akan membuatnya rata tengah */
+        height: 650px;
+        border-radius: var(--radius);
+        overflow: hidden;
+        border: 1px solid var(--border);
+        box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.12);
+        background: #1e1e2f;
+      }
+      
       /* --- PENYESUAIAN HEADER: RATA TENGAH & KONTAK HIJAU --- */
       .nav-container {
         display: flex;
@@ -174,7 +200,34 @@
           <div class="nav-item">
             <a href="tentang/tentang.html">Tentang</a>
           </div>
-
+          
+          <div class="nav-search">
+            <form id="search-form" action="search/" method="GET">
+              <input
+                type="text"
+                name="q"
+                placeholder="Cari layanan, artikel..."
+                class="search-input"
+                required
+              />
+              <button type="submit" class="search-btn" aria-label="Cari">
+                <svg
+                  viewBox="0 0 24 24"
+                  width="18"
+                  height="18"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+              </button>
+            </form>
+          </div>
+          
           <a href="kontak/kontak.html" class="nav-cta">Kontak</a>
         </nav>
 
@@ -223,6 +276,7 @@
     <script src="/js/main.js"></script>
   </body>
 </html>
+
 
 
 
