@@ -3,32 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Platform Analisis Citra Satelit | LontaraGeo</title>
+    <title>LontaraGeo Engine | GEE Analysis Platform</title>
+
+    <link rel="icon" type="image/png" href="../../../assets/images/favicon.png" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css"
-    />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css" />
 
     <style>
       /* =========================================
-           Tema & Variabel Warna Lontara
-           ========================================= */
+         Tema & Variabel Warna Lontara
+         ========================================= */
       :root {
         --primary: #123b3a;
         --accent: #00b8a9;
@@ -38,13 +28,10 @@
         --text-muted: #64748b;
         --border: #e2e8f0;
         --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        --radius: 12px;
       }
 
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
 
       body {
         font-family: "Manrope", sans-serif;
@@ -55,60 +42,22 @@
         overflow: hidden;
       }
 
-      /* Custom Scrollbar */
-      ::-webkit-scrollbar {
-        width: 6px;
-      }
-      ::-webkit-scrollbar-track {
-        background: var(--bg-light);
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #cbd5e1;
-        border-radius: 4px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: #94a3b8;
-      }
-
-      /* 1. Header (Navbar) */
+      /* Navbar */
       .topbar {
         background-color: white;
         border-bottom: 1px solid var(--border);
-        padding: 12px 24px;
+        padding: 0 24px;
         display: flex;
         justify-content: space-between;
         align-items: center;
         height: 60px;
         z-index: 1000;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
       }
-      .topbar-brand {
-        font-size: 1.25rem;
-        font-weight: 800;
-        color: var(--primary);
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-      .badge-beta {
-        background: rgba(0, 184, 169, 0.15);
-        color: var(--accent);
-        padding: 3px 10px;
-        font-size: 0.7rem;
-        border-radius: 12px;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        font-weight: 800;
-      }
+      .topbar-brand { font-weight: 800; color: var(--primary); display: flex; align-items: center; gap: 10px; text-decoration: none; }
 
-      /* 2. Container Utama */
-      .main-container {
-        display: flex;
-        height: calc(100vh - 60px);
-        width: 100%;
-      }
+      .main-container { display: flex; height: calc(100vh - 60px); width: 100%; }
 
-      /* 3. Panel Sidebar */
+      /* Sidebar */
       .sidebar {
         width: 380px;
         background-color: white;
@@ -116,698 +65,244 @@
         display: flex;
         flex-direction: column;
         z-index: 10;
-        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
         overflow-y: auto;
       }
 
-      .panel-header {
-        padding: 20px 24px;
-        border-bottom: 1px solid var(--border);
-        background-color: var(--bg-light);
-        position: sticky;
-        top: 0;
-        z-index: 10;
-      }
-      .panel-header h2 {
-        font-size: 1.1rem;
-        color: var(--primary);
-        font-weight: 800;
-      }
-      .panel-header p {
-        font-size: 0.85rem;
-        color: var(--text-muted);
-        margin-top: 4px;
-        line-height: 1.4;
+      .panel-header { padding: 20px 24px; border-bottom: 1px solid var(--border); background-color: var(--bg-light); }
+      .panel-header h2 { font-size: 1.1rem; color: var(--primary); font-weight: 800; }
+
+      .form-section { padding: 20px 24px; border-bottom: 1px solid var(--border); }
+      .form-group { margin-bottom: 18px; }
+
+      label { display: block; font-size: 0.8rem; font-weight: 800; color: var(--text-main); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+      select, input[type="date"], input[type="range"], input[type="number"] {
+        width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 8px; font-family: inherit; font-size: 0.9rem;
       }
 
-      .form-section {
-        padding: 20px 24px;
-        border-bottom: 1px solid var(--border);
-      }
-      .form-group {
-        margin-bottom: 16px;
-      }
-      .form-group:last-child {
-        margin-bottom: 0;
-      }
+      .checkbox-group { display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 0.85rem; margin-top: 10px; }
 
-      label {
-        display: flex;
-        justify-content: space-between;
-        font-size: 0.85rem;
-        font-weight: 700;
-        color: var(--text-main);
-        margin-bottom: 8px;
-      }
-
-      /* Input Controls */
-      select,
-      input[type="date"],
-      input[type="range"] {
-        width: 100%;
-        padding: 10px 12px;
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        font-family: inherit;
-        font-size: 0.9rem;
-        color: var(--text-main);
-        transition: 0.3s;
-        background-color: var(--bg-light);
-        cursor: pointer;
-      }
-      select:focus,
-      input[type="date"]:focus {
-        outline: none;
-        border-color: var(--accent);
-        background-color: white;
-        box-shadow: 0 0 0 3px rgba(0, 184, 169, 0.1);
-      }
-
-      /* Checkbox Custom */
-      .checkbox-group {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        cursor: pointer;
-        font-size: 0.85rem;
-        color: var(--text-muted);
-        font-weight: 600;
-        margin-top: 10px;
-      }
-      .checkbox-group input {
-        width: 16px;
-        height: 16px;
-        accent-color: var(--accent);
-        cursor: pointer;
-      }
-
-      .range-value {
-        color: var(--accent);
-        font-weight: 800;
-      }
-
-      /* Tombol Aksi */
-      .btn-group {
-        display: flex;
-        gap: 10px;
-        margin-top: 20px;
-      }
+      /* Buttons */
+      .btn-group { display: flex; gap: 10px; margin-top: 25px; }
       .btn {
-        padding: 12px;
-        border-radius: 8px;
-        font-family: inherit;
-        font-weight: 700;
-        font-size: 0.9rem;
-        cursor: pointer;
-        transition: 0.3s;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 8px;
-        border: none;
+        padding: 14px; border-radius: 10px; font-family: inherit; font-weight: 800; cursor: pointer; border: none; transition: 0.3s;
+        display: flex; justify-content: center; align-items: center; gap: 10px;
       }
-      .btn-process {
-        flex-grow: 1;
-        background-color: var(--primary);
-        color: white;
-      }
-      .btn-process:hover:not(:disabled) {
-        background-color: var(--accent);
-        transform: translateY(-2px);
-        box-shadow: var(--shadow-md);
-      }
-      .btn-process:disabled {
-        background-color: #cbd5e1;
-        cursor: not-allowed;
-      }
+      .btn-process { flex-grow: 1; background-color: var(--primary); color: white; }
+      .btn-process:hover:not(:disabled) { background-color: var(--accent); transform: translateY(-2px); }
+      .btn-process:disabled { background-color: #cbd5e1; cursor: not-allowed; }
+      .btn-clear { background-color: #fee2e2; color: var(--danger); width: 50px; }
 
-      .btn-clear {
-        background-color: #fee2e2;
-        color: var(--danger);
-        width: 45px;
-      }
-      .btn-clear:hover {
-        background-color: #fca5a5;
-      }
+      /* Map Area */
+      .map-container { flex-grow: 1; position: relative; }
+      #map { height: 100%; width: 100%; z-index: 1; }
 
-      /* Loader Icon */
-      .loader {
-        display: none;
-        border: 2px solid rgba(255, 255, 255, 0.3);
-        border-radius: 50%;
-        border-top: 2px solid white;
-        width: 16px;
-        height: 16px;
-        animation: spin 1s linear infinite;
-      }
-      @keyframes spin {
-        0% {
-          transform: rotate(0deg);
-        }
-        100% {
-          transform: rotate(360deg);
-        }
-      }
-
-      /* 4. Area Peta & Overlay */
-      .map-container {
-        flex-grow: 1;
-        position: relative;
-      }
-      #map {
-        height: 100%;
-        width: 100%;
-        background-color: #e5e5e5;
-        z-index: 1;
-      }
-
-      /* Loading Overlay Map */
+      /* Overlays & UI Info */
       .map-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(255, 255, 255, 0.7);
-        backdrop-filter: blur(2px);
-        z-index: 1000;
-        display: none;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+        position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.7);
+        z-index: 1000; display: none; flex-direction: column; justify-content: center; align-items: center; backdrop-filter: blur(2px);
       }
-      .map-overlay .spinner {
-        width: 40px;
-        height: 40px;
-        border: 4px solid var(--border);
-        border-top: 4px solid var(--accent);
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-      }
-      .map-overlay p {
-        margin-top: 15px;
-        font-weight: 700;
-        color: var(--primary);
-        font-size: 1.1rem;
-      }
-
-      /* Hint Box */
-      .aoi-hint {
-        background-color: var(--bg-light);
-        border: 1px dashed #94a3b8;
-        color: var(--text-muted);
-        padding: 12px;
-        border-radius: 8px;
-        font-size: 0.85rem;
-        margin-bottom: 16px;
-        line-height: 1.5;
-        transition: 0.3s;
-      }
-      .aoi-hint.active {
-        background-color: #ecfdf5;
-        border-color: var(--accent);
-        color: #065f46;
-      }
-
-      /* Koordinat & Legenda di Peta */
-      .map-coordinate {
-        position: absolute;
-        bottom: 20px;
-        right: 20px;
-        z-index: 1000;
-        background: rgba(255, 255, 255, 0.9);
-        padding: 5px 10px;
-        border-radius: 6px;
-        font-size: 0.75rem;
-        font-weight: 600;
-        box-shadow: var(--shadow-md);
-        pointer-events: none;
-      }
+      .spinner { width: 40px; height: 40px; border: 4px solid #f3f3f3; border-top: 4px solid var(--accent); border-radius: 50%; animation: spin 1s linear infinite; }
+      @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
       .map-legend {
-        position: absolute;
-        bottom: 30px;
-        left: 20px;
-        z-index: 1000;
-        background: rgba(255, 255, 255, 0.95);
-        padding: 15px;
-        border-radius: 8px;
-        box-shadow: var(--shadow-md);
-        display: none;
-        width: 200px;
+        position: absolute; bottom: 30px; left: 20px; z-index: 1000; background: white; padding: 15px;
+        border-radius: 8px; box-shadow: var(--shadow-md); display: none; width: 220px;
       }
-      .map-legend h4 {
-        font-size: 0.85rem;
-        margin-bottom: 10px;
-        color: var(--primary);
-      }
-      .legend-bar {
-        width: 100%;
-        height: 15px;
-        border-radius: 4px;
-        background: linear-gradient(
-          to right,
-          #d7191c,
-          #fdae61,
-          #ffffbf,
-          #a6d96a,
-          #1a9641
-        );
-        margin-bottom: 5px;
-      }
-      .legend-labels {
-        display: flex;
-        justify-content: space-between;
-        font-size: 0.75rem;
-        font-weight: 700;
-        color: var(--text-muted);
+      .legend-bar { width: 100%; height: 15px; border-radius: 4px; margin: 8px 0; }
+
+      #resultMetadata {
+        margin-top: 20px; padding: 15px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; display: none; font-size: 0.8rem;
       }
 
-      /* Toast Notification */
-      .toast {
-        position: fixed;
-        top: 80px;
-        right: 20px;
-        background: var(--primary);
-        color: white;
-        padding: 12px 20px;
-        border-radius: 8px;
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        font-size: 0.9rem;
-        font-weight: 600;
-        z-index: 2000;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        transform: translateX(150%);
-        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      .aoi-hint {
+        padding: 12px; border-radius: 8px; border: 1px dashed var(--text-muted); font-size: 0.85rem; margin-bottom: 15px; transition: 0.3s;
       }
-      .toast.show {
-        transform: translateX(0);
+      .aoi-hint.active { border-color: var(--accent); background: #f0fdfa; color: var(--primary); }
+
+      @media (max-width: 768px) {
+        .main-container { flex-direction: column; }
+        .sidebar { width: 100%; height: 50%; }
       }
     </style>
   </head>
   <body>
     <nav class="topbar">
-      <div class="topbar-brand">
-        <i class="fa-solid fa-earth-asia"></i> LontaraGeo
-        <span class="badge-beta">Engine</span>
-      </div>
-      <div>
-        <a
-          href="#"
-          style="
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            transition: 0.3s;
-          "
-          onmouseover="this.style.color = 'var(--accent)'"
-          onmouseout="this.style.color = 'var(--text-muted)'"
-        >
-          <i class="fa-solid fa-book"></i> Dokumentasi API
-        </a>
+      <a href="../../../beranda.html" class="topbar-brand">
+        <i class="fa-solid fa-earth-asia"></i> LontaraGeo <span class="badge-beta">v1.0</span>
+      </a>
+      <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">
+        Sub-DAS Tanralili Analysis System
       </div>
     </nav>
 
     <div class="main-container">
       <aside class="sidebar">
         <div class="panel-header">
-          <h2>Parameter Analisis</h2>
-          <p>
-            Tentukan area, waktu, dan jenis indeks spektral untuk pemrosesan
-            citra on-the-fly.
-          </p>
+          <h2>Parameter Konfigurasi</h2>
+          <p>Atur parameter untuk memproses citra satelit via Google Earth Engine secara real-time.</p>
         </div>
 
         <div class="form-section">
           <div class="aoi-hint" id="aoiStatus">
-            <strong
-              ><i class="fa-solid fa-draw-polygon"></i> 1. Area of Interest
-              (AOI)</strong
-            ><br />
-            Gunakan tool di peta untuk menggambar batas area analisis Anda.
+            <strong>1. Tentukan AOI</strong><br>Gunakan ikon poligon di peta untuk menggambar area analisis.
           </div>
 
           <div class="form-group">
-            <label for="satelliteSelect">Satelit Resolusi Menengah</label>
+            <label>Pilih Satelit</label>
             <select id="satelliteSelect">
-              <option value="COPERNICUS/S2_SR_HARMONIZED">
-                Sentinel-2 (Resolusi 10m)
-              </option>
-              <option value="LANDSAT/LC08/C02/T1_L2">
-                Landsat 8 (Resolusi 30m)
-              </option>
-              <option value="LANDSAT/LC09/C02/T1_L2">
-                Landsat 9 (Resolusi 30m)
-              </option>
+              <option value="COPERNICUS/S2_SR_HARMONIZED">Sentinel-2 (10m Resolution)</option>
+              <option value="LANDSAT/LC08/C02/T1_L2">Landsat 8 OLI/TIRS</option>
+              <option value="LANDSAT/LC09/C02/T1_L2">Landsat 9 OLI-2</option>
             </select>
           </div>
         </div>
 
         <div class="form-section">
           <div class="form-group">
-            <label for="startDate"
-              >Tanggal Mulai <i class="fa-regular fa-calendar"></i
-            ></label>
-            <input type="date" id="startDate" value="2023-01-01" />
-          </div>
-          <div class="form-group">
-            <label for="endDate"
-              >Tanggal Akhir <i class="fa-regular fa-calendar"></i
-            ></label>
-            <input type="date" id="endDate" value="2023-12-31" />
-          </div>
-          <div class="form-group" style="margin-top: 20px">
-            <label for="cloudCover">
-              Batas Tutupan Awan
-              <span class="range-value" id="cloudValue">15%</span>
-            </label>
-            <input
-              type="range"
-              id="cloudCover"
-              min="0"
-              max="100"
-              value="15"
-              oninput="
-                document.getElementById('cloudValue').innerText =
-                  this.value + '%'
-              "
-            />
+            <label>Rentang Waktu</label>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+              <input type="date" id="startDate" value="2024-01-01">
+              <input type="date" id="endDate" value="2024-12-31">
+            </div>
           </div>
 
-          <div class="form-group" style="margin-top: 15px">
-            <label class="checkbox-group">
-              <input type="checkbox" id="cloudMask" checked /> Terapkan Cloud
-              Masking Otomatis
-            </label>
-            <label class="checkbox-group">
-              <input type="checkbox" id="waterMask" /> Masking Area Perairan
-              (Water Body)
-            </label>
+          <div class="form-group">
+            <label>Maksimal Tutupan Awan (<span id="cloudValue">20%</span>)</label>
+            <input type="range" id="cloudCover" min="0" max="100" value="20" oninput="document.getElementById('cloudValue').innerText = this.value + '%'">
           </div>
+
+          <label class="checkbox-group">
+            <input type="checkbox" id="cloudMask" checked> Cloud Masking (Otomatis)
+          </label>
         </div>
 
-        <div class="form-section" style="border-bottom: none; flex-grow: 1">
+        <div class="form-section" style="border-bottom: none;">
           <div class="form-group">
-            <label for="indexSelect">Jenis Analisis Indeks</label>
+            <label>Metode Analisis</label>
             <select id="indexSelect">
-              <option
-                value="NDVI"
-                data-colors="#d7191c,#fdae61,#ffffbf,#a6d96a,#1a9641"
-                data-min="-1"
-                data-max="1"
-              >
-                NDVI (Kerapatan Vegetasi)
-              </option>
-              <option
-                value="EVI"
-                data-colors="#d7191c,#fdae61,#ffffbf,#a6d96a,#1a9641"
-                data-min="-1"
-                data-max="1"
-              >
-                EVI (Enhanced Vegetation Index)
-              </option>
-              <option
-                value="NDWI"
-                data-colors="#d73027,#f46d43,#fdae61,#fee090,#e0f3f8,#abd9e9,#74add1,#4575b4"
-                data-min="-1"
-                data-max="1"
-              >
-                NDWI (Indeks Kelembapan/Air)
-              </option>
-              <option
-                value="NDBI"
-                data-colors="#2c7bb6,#abd9e9,#ffffbf,#fdae61,#d7191c"
-                data-min="-1"
-                data-max="1"
-              >
-                NDBI (Indeks Kawasan Bangun)
-              </option>
-              <option value="TRUE_COLOR" data-colors="" data-min="" data-max="">
-                Citra Asli (True Color)
-              </option>
+              <option value="NDVI" data-colors="#d7191c, #fdae61, #ffffbf, #a6d96a, #1a9641">NDVI (Vegetation Index)</option>
+              <option value="EVI" data-colors="#d7191c, #fdae61, #ffffbf, #a6d96a, #1a9641">EVI (Enhanced Vegetation)</option>
+              <option value="NDWI" data-colors="#d73027, #f46d43, #fdae61, #fee090, #abd9e9, #4575b4">NDWI (Water Index)</option>
+              <option value="TRUE_COLOR">True Color (Citra Asli)</option>
             </select>
           </div>
 
-          <div class="btn-group">
-            <button id="btnProcess" class="btn btn-process" disabled>
-              <div class="loader" id="processLoader"></div>
-              <i class="fa-solid fa-satellite" id="btnIcon"></i>
-              <span id="btnText">Pilih AOI Dulu</span>
-            </button>
-            <button id="btnClear" class="btn btn-clear" title="Hapus Area">
-              <i class="fa-solid fa-trash-can"></i>
-            </button>
+          <button id="btnProcess" class="btn btn-process" disabled>
+            <i class="fa-solid fa-satellite"></i> <span id="btnText">Pilih AOI Terlebih Dahulu</span>
+          </button>
+          
+          <button id="btnClear" class="btn btn-clear" style="margin-top: 10px; width: 100%;" title="Bersihkan Area">
+            <i class="fa-solid fa-trash-can"></i> Reset Peta
+          </button>
+
+          <div id="resultMetadata">
+            <strong style="display: block; margin-bottom: 5px; color: #166534;">📊 Metadata Citra</strong>
+            <p>Satelit: <span id="resSatellite">-</span></p>
+            <p>Akuisisi: <span id="resDate">-</span></p>
+            <p>Awan Riil: <span id="resCloud">-</span></p>
           </div>
         </div>
       </aside>
 
       <div class="map-container">
         <div id="map"></div>
-
         <div class="map-overlay" id="mapOverlay">
           <div class="spinner"></div>
-          <p id="overlayText">Menghubungkan ke Google Earth Engine...</p>
+          <p style="margin-top: 15px; font-weight: 700; color: var(--primary);">Memproses di Google Server...</p>
         </div>
-
         <div class="map-legend" id="mapLegend">
-          <h4 id="legendTitle">Legenda NDVI</h4>
+          <h4 id="legendTitle" style="font-size: 0.8rem; margin-bottom: 5px;">Legenda</h4>
           <div class="legend-bar" id="legendBar"></div>
-          <div class="legend-labels">
-            <span id="legendMin">-1</span>
-            <span>0</span>
-            <span id="legendMax">1</span>
+          <div style="display: flex; justify-content: space-between; font-size: 0.7rem; font-weight: 800; color: var(--text-muted);">
+            <span>Rendah</span>
+            <span>Tinggi</span>
           </div>
         </div>
-
-        <div class="map-coordinate" id="coords">Lat: 0.0000 | Lng: 0.0000</div>
       </div>
-    </div>
-
-    <div class="toast" id="toastBox">
-      <i class="fa-solid fa-circle-check"></i>
-      <span id="toastMsg">Proses berhasil!</span>
     </div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
-
+    
+    <script src="js/api.js"></script>
+    
     <script>
       // ==========================================
-      // 1. INISIASI PETA & BASEMAPS
+      // MAP INITIALIZATION (Sub-DAS Tanralili)
       // ==========================================
-      const map = L.map("map", { zoomControl: false }).setView(
-        [-2.5489, 118.0148],
-        5,
-      );
+      const map = L.map("map", { zoomControl: false }).setView([-5.15, 119.65], 11);
+      
       L.control.zoom({ position: "topright" }).addTo(map);
-      L.control.scale({ imperial: false, position: "bottomright" }).addTo(map);
 
-      // Layer Peta Dasar
-      const osmLayer = L.tileLayer(
-        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-        { attribution: "&copy; OpenStreetMap" },
-      );
-      const cartoLayer = L.tileLayer(
-        "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
-        { attribution: "&copy; CARTO" },
-      ).addTo(map);
-      const satelliteLayer = L.tileLayer(
-        "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-        { attribution: "&copy; Esri" },
-      );
+      const cartoLayer = L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png").addTo(map);
+      const satelliteLayer = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}");
 
-      const baseMaps = {
-        "Peta Terang (Carto)": cartoLayer,
-        "Satelit (Esri)": satelliteLayer,
-        "Jalan (OSM)": osmLayer,
-      };
-      L.control.layers(baseMaps, null, { position: "topright" }).addTo(map);
+      L.control.layers({ "Peta Terang": cartoLayer, "Satelit": satelliteLayer }, null, { position: "topright" }).addTo(map);
 
-      // ==========================================
-      // 2. FITUR DRAW (MENGGAMBAR POLIGON)
-      // ==========================================
+      // Drawing Tools Logic
       const drawnItems = new L.FeatureGroup();
       map.addLayer(drawnItems);
-      let resultLayer = null; // Menyimpan layer hasil GEE nantinya
 
       const drawControl = new L.Control.Draw({
-        position: "topleft",
-        edit: { featureGroup: drawnItems },
-        draw: {
-          polygon: {
-            allowIntersection: false,
-            // PERBAIKAN: Menambahkan fillOpacity: 0 agar bolong
-            shapeOptions: { color: "var(--accent)", weight: 3, fillOpacity: 0 },
-          },
-          rectangle: {
-            // PERBAIKAN: Menambahkan fillOpacity: 0 agar bolong
-            shapeOptions: { color: "var(--accent)", weight: 3, fillOpacity: 0 },
-          },
-          polyline: false,
-          circle: false,
-          marker: false,
-          circlemarker: false,
+        position: 'topleft',
+        draw: { 
+          polygon: { allowIntersection: false, shapeOptions: { color: '#00b8a9', weight: 4 } },
+          rectangle: { shapeOptions: { color: '#00b8a9', weight: 4 } },
+          circle: false, marker: false, circlemarker: false, polyline: false 
         },
+        edit: { featureGroup: drawnItems }
       });
       map.addControl(drawControl);
 
-      let currentAOI = null;
+      let gGELayer = null;
 
-      // ==========================================
-      // 3. EVENT HANDLERS
-      // ==========================================
-
-      // Track Mouse Koordinat
-      map.on("mousemove", function (e) {
-        document.getElementById("coords").innerText =
-          `Lat: ${e.latlng.lat.toFixed(4)} | Lng: ${e.latlng.lng.toFixed(4)}`;
-      });
-
-      // Event saat AOI digambar
+      // Event: AOI Created
       map.on(L.Draw.Event.CREATED, function (e) {
         drawnItems.clearLayers();
-        if (resultLayer) map.removeLayer(resultLayer); // Bersihkan hasil lama
-        document.getElementById("mapLegend").style.display = "none";
-
         const layer = e.layer;
-
-        // Memastikan layer yang baru dibuat tetap transparan
-        layer.setStyle({ fillOpacity: 0 });
-
         drawnItems.addLayer(layer);
-        currentAOI = layer.toGeoJSON();
-
-        // Zoom ke area yang digambar
-        map.fitBounds(layer.getBounds());
-
-        // Aktifkan UI
+        
+        // Simpan koordinat ke window agar bisa diakses api.js
+        window.currentAOI = layer.toGeoJSON();
+        
         document.getElementById("btnProcess").disabled = false;
-        document.getElementById("btnText").innerText = "Proses Analisis GEE";
-
-        const hint = document.getElementById("aoiStatus");
-        hint.classList.add("active");
-        hint.innerHTML =
-          "<strong><i class='fa-solid fa-circle-check'></i> AOI Terpilih</strong><br>Area analisis siap diproses ke server.";
+        document.getElementById("btnText").innerText = "MULAI ANALISIS GEE";
+        document.getElementById("aoiStatus").classList.add("active");
+        document.getElementById("aoiStatus").innerHTML = "<strong>✅ AOI Siap!</strong><br>Klik tombol analisis untuk memproses.";
       });
 
-      // Event tombol Hapus (Clear)
-      document
-        .getElementById("btnClear")
-        .addEventListener("click", function () {
-          drawnItems.clearLayers();
-          if (resultLayer) map.removeLayer(resultLayer);
-          currentAOI = null;
-          document.getElementById("btnProcess").disabled = true;
-          document.getElementById("btnText").innerText = "Pilih AOI Dulu";
-          document.getElementById("mapLegend").style.display = "none";
+      // Clear Map
+      document.getElementById("btnClear").addEventListener("click", () => {
+        drawnItems.clearLayers();
+        if(gGELayer) map.removeLayer(gGELayer);
+        window.currentAOI = null;
+        document.getElementById("btnProcess").disabled = true;
+        document.getElementById("btnText").innerText = "Pilih AOI Terlebih Dahulu";
+        document.getElementById("aoiStatus").classList.remove("active");
+        document.getElementById("resultMetadata").style.display = "none";
+        document.getElementById("mapLegend").style.display = "none";
+      });
 
-          const hint = document.getElementById("aoiStatus");
-          hint.classList.remove("active");
-          hint.innerHTML =
-            "<strong><i class='fa-solid fa-draw-polygon'></i> 1. Area of Interest (AOI)</strong><br>Gunakan tool di peta untuk menggambar batas area.";
-        });
+      /**
+       * Fungsi Global yang dipanggil oleh api.js saat data berhasil diterima
+       */
+      window.renderGEELayer = function(tileUrl) {
+        if(gGELayer) map.removeLayer(gGELayer);
+        
+        gGELayer = L.tileLayer(tileUrl, {
+          attribution: 'Google Earth Engine',
+          opacity: 0.85
+        }).addTo(map);
 
-      // ==========================================
-      // 4. PROSES KE BACKEND GEE (REAL FETCH API)
-      // ==========================================
-      function showToast(message) {
-        const toast = document.getElementById("toastBox");
-        document.getElementById("toastMsg").innerText = message;
-        toast.classList.add("show");
-        setTimeout(() => toast.classList.remove("show"), 3500);
-      }
-
-      function updateLegend(indexType, selectElement) {
-        const legendDiv = document.getElementById("mapLegend");
-        if (indexType === "TRUE_COLOR") {
-          legendDiv.style.display = "none";
-          return;
+        // Update Legenda
+        const select = document.getElementById("indexSelect");
+        const colors = select.options[select.selectedIndex].dataset.colors;
+        if(colors) {
+          document.getElementById("legendBar").style.background = `linear-gradient(to right, ${colors})`;
+          document.getElementById("mapLegend").style.display = "block";
         }
-
-        const option = selectElement.options[selectElement.selectedIndex];
-        const colors = option.getAttribute("data-colors");
-
-        document.getElementById("legendTitle").innerText =
-          `Legenda ${indexType}`;
-        document.getElementById("legendBar").style.background =
-          `linear-gradient(to right, ${colors})`;
-        legendDiv.style.display = "block";
-      }
-
-      document
-        .getElementById("btnProcess")
-        .addEventListener("click", async function () {
-          if (!currentAOI) return;
-
-          // 1. Ambil Parameter
-          const indexType = document.getElementById("indexSelect").value;
-          const params = {
-            // Mengambil array koordinat dari object GeoJSON
-            aoi: currentAOI.geometry.coordinates,
-            satellite: document.getElementById("satelliteSelect").value,
-            startDate: document.getElementById("startDate").value,
-            endDate: document.getElementById("endDate").value,
-            cloudCover: document.getElementById("cloudCover").value,
-            indexType: indexType,
-            cloudMask: document.getElementById("cloudMask").checked,
-            waterMask: document.getElementById("waterMask").checked,
-          };
-
-          // 2. UI State: Loading
-          this.disabled = true;
-          document.getElementById("btnIcon").style.display = "none";
-          document.getElementById("processLoader").style.display = "block";
-          document.getElementById("btnText").innerText = "Menghubungi GEE...";
-
-          const mapOverlay = document.getElementById("mapOverlay");
-          mapOverlay.style.display = "flex";
-
-          console.log("Mengirim payload ke Backend:", params);
-
-          try {
-            // 3. MENGHUBUNGI BACKEND FLASK SECARA NYATA
-            const response = await fetch(
-              "http://127.0.0.1:5000/api/process-image",
-              {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(params),
-              },
-            );
-
-            const data = await response.json();
-
-            if (data.status === "success" && data.tile_url) {
-              // Hapus layer lama jika ada
-              if (resultLayer) map.removeLayer(resultLayer);
-
-              // 4. Tambahkan Citra Satelit (Tile Layer) dari Google Earth Engine
-              resultLayer = L.tileLayer(data.tile_url, {
-                attribution: "Google Earth Engine",
-                pane: "overlayPane",
-              }).addTo(map);
-
-              // Update Legenda & Notifikasi
-              updateLegend(indexType, document.getElementById("indexSelect"));
-              showToast(`Pemrosesan ${indexType} berhasil dirender!`);
-            } else {
-              throw new Error(data.error || "Gagal memproses data di server.");
-            }
-          } catch (error) {
-            console.error("Error Detail:", error);
-            alert("Terjadi kesalahan sistem: " + error.message);
-          } finally {
-            // 5. Kembalikan UI ke awal
-            this.disabled = false;
-            document.getElementById("processLoader").style.display = "none";
-            document.getElementById("btnIcon").style.display = "block";
-            document.getElementById("btnText").innerText = "Proses Ulang";
-            mapOverlay.style.display = "none";
-          }
-        });
+      };
     </script>
   </body>
 </html>
