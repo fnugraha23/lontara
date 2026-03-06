@@ -5,10 +5,10 @@
    ========================================================================== */
 
 document.addEventListener("DOMContentLoaded", function () {
-  // --- PERBAIKAN 1: URL HARUS SESUAI DENGAN ENDPOINT DI app.py ---
-  const API_URL = "http://localhost:5000/api/process-image";
+  // --- PERBAIKAN: MENGGUNAKAN URL PRODUKSI DARI KOYEB ---
+  const API_URL = "https://historical-eleanor-lontara-2cc788bd.koyeb.app/api/process-image";
 
-  // --- PERBAIKAN 2: MATIKAN MOCK MODE AGAR TERHUBUNG KE PYTHON ---
+  // --- MATIKAN MOCK MODE AGAR TERHUBUNG KE PYTHON ---
   const USE_MOCK_API = false;
 
   const btnProcess = document.getElementById("btnProcess");
@@ -22,16 +22,14 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    // --- PERBAIKAN 3: SESUAIKAN PAYLOAD & NAMA VARIABLE ---
+    // Menyiapkan Payload Data untuk gee_modules.py
     const payloadData = {
-      // Pastikan format koordinat benar untuk ee.Geometry.Polygon
       aoi: window.currentAOI.geometry.coordinates,
       satellite: document.getElementById("satelliteSelect").value,
       startDate: document.getElementById("startDate").value,
       endDate: document.getElementById("endDate").value,
       cloudCover: parseInt(document.getElementById("cloudCover").value),
       indexType: document.getElementById("indexSelect").value,
-      // Tambahkan parameter default yang diminta oleh gee_modules.py
       cloudMask: document.getElementById("cloudMask")
         ? document.getElementById("cloudMask").checked
         : true,
@@ -41,9 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     if (new Date(payloadData.startDate) > new Date(payloadData.endDate)) {
-      alert(
-        "Kesalahan: Tanggal mulai tidak boleh lebih besar dari tanggal akhir.",
-      );
+      alert("Kesalahan: Tanggal mulai tidak boleh lebih besar dari tanggal akhir.");
       return;
     }
 
@@ -57,8 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
         await new Promise((resolve) => setTimeout(resolve, 3500));
         responseData = {
           status: "success",
-          tile_url:
-            "https://earthengine.googleapis.com/v1alpha/mock-tiles/{z}/{x}/{y}",
+          tile_url: "https://earthengine.googleapis.com/v1alpha/mock-tiles/{z}/{x}/{y}",
           metadata: {
             satelliteName: getSatelliteNameUI(payloadData.satellite),
             acquisitionDate: "28 Agustus 2023, 10:24 WITA",
@@ -67,13 +62,13 @@ document.addEventListener("DOMContentLoaded", function () {
           },
         };
       } else {
-        console.log("🚀 Mengirim request ke Backend API:", API_URL);
+        console.log("🚀 Mengirim request ke Backend Koyeb:", API_URL);
 
         const response = await fetch(API_URL, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Accept: "application/json",
+            "Accept": "application/json",
           },
           body: JSON.stringify(payloadData),
         });
@@ -84,7 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
           throw new Error(
             responseData.error ||
               responseData.message ||
-              "Gagal memproses data.",
+              "Gagal memproses data dari Earth Engine."
           );
         }
       }
@@ -93,19 +88,18 @@ document.addEventListener("DOMContentLoaded", function () {
       if (responseData.status === "success") {
         console.log("✅ Analisis Berhasil!", responseData);
 
-        // Pastikan menggunakan nama properti 'tile_url' sesuai gee_modules.py
+        // Render layer GEE ke peta Leaflet/Mapbox
         if (window.renderGEELayer && responseData.tile_url) {
           window.renderGEELayer(responseData.tile_url);
         }
 
-        // Jika ada metadata, perbarui panel (opsional karena GEE sering tidak mengirim metadata di awal)
+        // Perbarui Panel Informasi Hasil
         if (responseData.metadata) {
           updateResultPanel(responseData.metadata);
         } else {
-          // Fallback metadata jika backend belum mengirim data lengkap
           updateResultPanel({
             satelliteName: getSatelliteNameUI(payloadData.satellite),
-            acquisitionDate: "Real-time GEE Render",
+            acquisitionDate: "Hasil Analisis GEE",
             cloudCoverActual: payloadData.cloudCover + "% (Max)",
             crs: "EPSG:4326",
           });
@@ -113,7 +107,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     } catch (error) {
       console.error("❌ Kesalahan Proses:", error);
-      alert("Terjadi kesalahan:\n" + error.message);
+      alert("Terjadi kesalahan pada server:\n" + error.message);
     } finally {
       setLoadingState(false);
     }
