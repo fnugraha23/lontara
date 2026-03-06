@@ -28,7 +28,18 @@
           CUSTOM STYLING SHOWCASE LONTARAGEO
           ========================================= */
 
-      /* Hero Section Styling */
+      /* Search Bar UI di Header */
+      .nav-search { display: flex; align-items: center; }
+      #search-form { position: relative; display: flex; align-items: center; }
+      .search-input {
+        padding: 8px 36px 8px 16px; border: 1px solid var(--border); border-radius: 20px;
+        background: var(--bg-light); font-family: inherit; font-size: 0.9rem;
+        transition: var(--transition); width: 160px;
+      }
+      .search-input:focus { outline: none; border-color: var(--accent); width: 220px; box-shadow: 0 0 0 3px var(--accent-soft); }
+      .search-btn { position: absolute; right: 12px; background: none; border: none; color: var(--text-muted); cursor: pointer; display: flex; align-items: center; }
+
+      /* Hero Section Styling (image_6c7948) */
       .hero-product {
         padding: 180px 0 100px;
         background: linear-gradient(to bottom, #f8fafc, #f1f5f9);
@@ -36,139 +47,71 @@
         border-bottom: 1px solid var(--border);
       }
 
-      /* Tombol Kembali (Sesuai image_6c7948.png) */
+      /* Tombol Kembali Premium */
       .breadcrumb-back {
-        background-color: #123b3a !important;
-        color: white !important;
-        padding: 12px 28px;
-        border-radius: 12px;
-        font-size: 0.95rem;
-        display: inline-flex;
-        align-items: center;
-        gap: 12px;
-        text-decoration: none;
-        transition: 0.3s ease;
-        font-weight: 700;
-        margin-bottom: 35px;
+        background-color: #123b3a !important; color: white !important;
+        padding: 12px 28px; border-radius: 12px; font-size: 0.95rem;
+        display: inline-flex; align-items: center; gap: 12px; text-decoration: none;
+        font-weight: 700; transition: 0.3s ease; margin-bottom: 30px;
         box-shadow: 0 4px 15px rgba(18, 59, 58, 0.2);
       }
-      .breadcrumb-back:hover {
-        background-color: var(--accent) !important;
-        transform: translateY(-2px);
-      }
+      .breadcrumb-back:hover { background-color: var(--accent) !important; transform: translateY(-2px); }
 
-      /* Badge Konteks (Sesuai image_6c7948.png) */
+      /* Badge Konservasi */
       .konservasi-badge {
-        display: inline-block;
-        background: rgba(0, 184, 169, 0.1);
-        color: var(--accent);
-        padding: 8px 24px;
-        border-radius: 30px;
-        font-size: 0.85rem;
-        font-weight: 800;
-        letter-spacing: 2px;
-        margin-bottom: 25px;
-        text-transform: uppercase;
+        display: inline-block; background: rgba(0, 184, 169, 0.1); color: var(--accent);
+        padding: 8px 24px; border-radius: 30px; font-size: 0.85rem;
+        font-weight: 800; letter-spacing: 2px; margin-bottom: 25px; text-transform: uppercase;
       }
 
-      /* Tombol Aksi Hero (Sesuai image_6de989.png) */
-      .btn-hero-group {
-        display: flex;
-        gap: 20px;
-        justify-content: center;
-        flex-wrap: wrap;
-        margin-top: 10px;
-      }
+      /* Tombol Aksi Hero (image_6de989) */
+      .btn-hero-group { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 10px; }
       .btn-full-custom {
-        background-color: #123b3a !important;
-        color: white !important;
-        padding: 16px 36px;
-        border-radius: 14px;
-        font-weight: 700;
-        text-decoration: none;
-        transition: 0.3s;
-        border: 2px solid #123b3a;
+        background-color: #123b3a !important; color: white !important; padding: 16px 36px;
+        border-radius: 14px; font-weight: 700; text-decoration: none; transition: 0.3s; border: 2px solid #123b3a;
       }
       .btn-outline-custom {
-        background-color: transparent !important;
-        color: #123b3a !important;
-        padding: 16px 36px;
-        border-radius: 14px;
-        font-weight: 700;
-        text-decoration: none;
-        transition: 0.3s;
-        border: 2px solid #123b3a;
+        background-color: transparent !important; color: #123b3a !important; padding: 16px 36px;
+        border-radius: 14px; font-weight: 700; text-decoration: none; transition: 0.3s; border: 2px solid #123b3a;
       }
-      .btn-full-custom:hover { background-color: var(--accent) !important; border-color: var(--accent); color: white !important; }
-      .btn-outline-custom:hover { background-color: #f1f5f9 !important; }
+      .btn-full-custom:hover { background-color: var(--accent) !important; border-color: var(--accent); }
 
-      /* Tech Stack & Fitur Spacing (Sesuai image_6dd26a.png) */
+      /* Tech Stack Tags (image_628f64) */
       .tech-stack-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-        gap: 15px;
-        margin-top: 40px;
-        margin-bottom: 60px; /* Jarak aman ke Fitur Unggulan */
+        display: flex; gap: 12px; flex-wrap: wrap; margin-top: 40px; margin-bottom: 60px; /* Spasi diperbaiki */
       }
-
       .tech-item {
-        padding: 14px;
-        background: white;
-        border: 1px solid var(--border);
-        border-radius: 12px;
-        text-align: center;
-        font-size: 0.9rem;
-        font-weight: 700;
-        color: var(--primary);
-        box-shadow: var(--shadow-sm);
+        padding: 12px 24px; background: white; border: 1px solid var(--border); border-radius: 12px;
+        text-align: center; font-size: 0.9rem; font-weight: 700; color: var(--primary);
+        box-shadow: var(--shadow-sm); transition: 0.3s;
       }
+      .tech-item:hover { transform: translateY(-3px); border-color: var(--accent); }
 
+      /* Methodology Box (image_6dd26a) */
       .methodology-box {
-        background: white;
-        padding: 45px;
-        border-radius: 20px;
-        border-left: 6px solid var(--accent);
-        box-shadow: var(--shadow-md);
-        margin-top: 10px;
+        background: white; padding: 45px; border-radius: 20px; border-left: 6px solid var(--accent);
+        box-shadow: var(--shadow-md); margin-top: 10px;
       }
 
-      /* Container Iframe Aplikasi */
+      /* Iframe Display */
       .app-display-window {
-        margin-top: 60px;
-        border-radius: 24px;
-        overflow: hidden;
+        margin-top: 60px; border-radius: 24px; overflow: hidden;
         box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
-        border: 1px solid var(--border);
-        height: 750px;
-        background: white;
+        border: 1px solid var(--border); height: 750px; background: white;
       }
       .app-iframe { width: 100%; height: 100%; border: none; }
 
-      /* Perbaikan Section CTA Sebelum Footer */
+      /* Section CTA Premium (Baru) */
       .section-cta-premium {
-        background-color: #123b3a !important;
-        color: white !important;
-        padding: 100px 0;
-        text-align: center;
-        margin-top: 80px;
+        background-color: #123b3a !important; color: white !important;
+        text-align: center; padding: 120px 0; margin-top: 80px;
       }
-      .btn-cta-premium {
-        background-color: white !important;
-        color: #123b3a !important;
-        padding: 18px 45px;
-        border-radius: 14px;
-        font-weight: 800;
-        display: inline-block;
-        text-decoration: none;
-        transition: 0.3s;
-        font-size: 1.1rem;
-        margin-top: 30px;
+      .btn-cta-white {
+        background-color: white !important; color: #123b3a !important;
+        padding: 18px 45px; border-radius: 12px; font-weight: 800;
+        display: inline-block; text-decoration: none; transition: 0.3s; font-size: 1.1rem;
       }
-      .btn-cta-premium:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-        background-color: #f8fafc !important;
-      }
+      .btn-cta-white:hover { transform: translateY(-4px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
 
       @media (max-width: 768px) {
         .hero-product { padding: 150px 0 60px; }
@@ -191,6 +134,14 @@
           <div class="nav-item"><a href="../portofolio.html">Portofolio</a></div>
           <div class="nav-item"><a href="../../artikel/artikel.html">Artikel</a></div>
           <div class="nav-item"><a href="../../tentang/tentang.html">Tentang</a></div>
+          
+          <div class="nav-search">
+            <form id="search-form" action="../../search/" method="GET">
+              <input type="text" name="q" placeholder="Cari inovasi..." class="search-input" required />
+              <button type="submit" class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </form>
+          </div>
+          
           <a href="../../kontak/kontak.html" class="nav-cta">Kontak</a>
         </nav>
       </div>
@@ -201,22 +152,19 @@
         <div class="container">
           <a href="../portofolio.html" class="breadcrumb-back">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-              <line x1="19" y1="12" x2="5" y2="12"></line>
-              <polyline points="12 19 5 12 12 5"></polyline>
-            </svg>
-            Kembali ke Portofolio
+              <path d="M19 12H5M12 19l-7-7 7-7"/></svg> Kembali ke Portofolio
           </a>
           <br />
-          <div class="konservasi-badge">Konservasi Tanah & Air</div>
+          <div class="konservasi-badge reveal-init">Konservasi Tanah & Air</div>
 
-          <h1 style="font-size: 3.5rem; color: var(--primary); font-weight: 800; margin-bottom: 20px; line-height: 1.1;">
+          <h1 class="reveal-init" style="font-size: 3.5rem; color: var(--primary); font-weight: 800; margin-bottom: 20px; line-height: 1.1;">
             LontaraGeo Engine:<br />Otomasi Analisis Spasial
           </h1>
-          <p style="max-width: 800px; margin: 0 auto 40px; color: var(--text-muted); font-size: 1.25rem; line-height: 1.8;">
-            Otomasi pemrosesan citra satelit Sentinel-2 dan Landsat secara <i>real-time</i> melalui <b>Google Earth Engine</b> untuk mendukung pengelolaan Sub-DAS Tanralili yang presisi.
+          <p class="reveal-init" style="max-width: 800px; margin: 0 auto 40px; color: var(--text-muted); font-size: 1.25rem; line-height: 1.8;">
+            Integrasi <b>Google Earth Engine API</b> untuk pemrosesan citra satelit Sentinel-2 secara <i>real-time</i> guna mendukung pengelolaan Sub-DAS Tanralili yang presisi.
           </p>
           
-          <div class="btn-hero-group">
+          <div class="btn-hero-group reveal-init">
             <a href="frontend/index.html" target="_blank" class="btn-full-custom">Buka Layar Penuh (Fullscreen)</a>
             <a href="#demo" class="btn-outline-custom">Pelajari Metodologi</a>
           </div>
@@ -226,15 +174,12 @@
       <section class="section">
         <div class="container">
           <div class="grid-2 align-start" style="gap: 80px">
-            <div>
+            <div class="reveal-init">
               <h2 class="section-title" style="text-align: left; margin-bottom: 25px">Metodologi & Inovasi</h2>
               <p style="color: var(--text-muted); line-height: 1.8; margin-bottom: 20px;">
-                Sebagai mahasiswa pascasarjana Ilmu Tanah di <b>IPB University</b>, saya mengembangkan platform ini untuk memecahkan hambatan efisiensi dalam pengolahan data spasial riset saya mengenai <b>Kinerja Sub-DAS Tanralili</b> di Sulawesi Selatan.
+                Sebagai mahasiswa pascasarjana Ilmu Tanah di <b>IPB University</b>, saya mengembangkan platform ini untuk memecahkan hambatan efisiensi dalam pengolahan data spasial riset saya mengenai <b>Kinerja Sub-DAS Tanralili</b>.
               </p>
-              <p style="color: var(--text-muted); line-height: 1.8">
-                Sistem memanfaatkan <b>Python Flask</b> untuk menjembatani parameter input pengguna langsung ke infrastruktur <i>cloud processing</i> Google. Fitur utama mencakup <b>Cloud Masking</b> otomatis dan perhitungan indeks vegetasi (NDVI/EVI) tanpa beban komputasi lokal.
-              </p>
-
+              
               <div class="tech-stack-grid">
                 <div class="tech-item">Python Flask</div>
                 <div class="tech-item">GEE API</div>
@@ -244,26 +189,26 @@
               </div>
             </div>
 
-            <div class="methodology-box">
+            <div class="methodology-box reveal-init">
               <h3 style="color: var(--primary); margin-bottom: 25px; font-size: 1.5rem;">Fitur Unggulan</h3>
               <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 20px;">
                 <li style="display: flex; gap: 15px">
                   <span style="color: var(--accent); font-weight: 900; font-size: 1.1rem;">01.</span>
-                  <span><b>Pemrosesan Tanpa Beban:</b> Seluruh komputasi berat dilakukan di server Google, menjaga performa perangkat pengguna tetap optimal.</span>
+                  <span><b>Pemrosesan Tanpa Beban:</b> Seluruh komputasi berat dilakukan di server Google secara <i>cloud-based</i>.</span>
                 </li>
                 <li style="display: flex; gap: 15px">
                   <span style="color: var(--accent); font-weight: 900; font-size: 1.1rem;">02.</span>
-                  <span><b>Dinamis AOI:</b> Penentuan Area of Interest (AOI) melalui alat gambar poligon interaktif untuk analisis lokal yang akurat.</span>
+                  <span><b>Dinamis AOI:</b> Penentuan Area of Interest melalui alat gambar poligon interaktif untuk analisis lokal.</span>
                 </li>
                 <li style="display: flex; gap: 15px">
                   <span style="color: var(--accent); font-weight: 900; font-size: 1.1rem;">03.</span>
-                  <span><b>Filter Temporal:</b> Memungkinkan perbandingan indeks kesehatan tutupan lahan antar periode waktu secara instan.</span>
+                  <span><b>Filter Temporal:</b> Memungkinkan perbandingan indeks kesehatan lahan antar periode secara instan.</span>
                 </li>
               </ul>
             </div>
           </div>
 
-          <div id="demo" style="margin-top: 100px">
+          <div id="demo" class="reveal-init" style="margin-top: 100px">
             <h2 class="section-title">Aplikasi WebGIS Interaktif</h2>
             <div class="app-display-window">
               <iframe src="frontend/index.html" class="app-iframe" title="LontaraGeo Engine Demo"></iframe>
@@ -272,15 +217,13 @@
         </div>
       </section>
 
-      <section class="section-cta-premium">
+      <section class="section-cta-premium reveal-init">
         <div class="container">
-          <h2 class="reveal-init" style="font-size: 2.5rem; margin-bottom: 20px; color: white;">Siap Menerapkan Intelijen Spasial?</h2>
-          <p class="reveal-init" style="font-size: 1.2rem; opacity: 0.9; max-width: 700px; margin: 0 auto; color: white;">
-            Integrasikan alur kerja otomatisasi Google Earth Engine ke dalam proyek atau instansi Anda untuk pengambilan keputusan berbasis data yang lebih cepat.
+          <h2 style="font-size: 2.5rem; margin-bottom: 20px;">Siap Menerapkan Intelijen Spasial?</h2>
+          <p style="font-size: 1.2rem; opacity: 0.9; max-width: 700px; margin: 0 auto;">
+            Diskusikan kebutuhan integrasi otomatisasi Google Earth Engine untuk pengambilan keputusan berbasis data di instansi Anda.
           </p>
-          <div class="reveal-init">
-            <a href="../../kontak/kontak.html" class="btn-cta-premium">Jadwalkan Konsultasi Sekarang</a>
-          </div>
+          <a href="../../kontak/kontak.html" class="btn-cta-white">Jadwalkan Konsultasi Sekarang</a>
         </div>
       </section>
     </main>
@@ -288,12 +231,10 @@
     <footer class="footer">
       <div class="container footer-container">
         <div>
-          <h4 style="color: var(--primary); margin-bottom: 10px;">Lontara</h4>
+          <h4>Lontara</h4>
           <p style="font-size: 0.9rem; color: var(--text-muted)">Soil Science & Geomorphology Studio.</p>
         </div>
-        <div>
-          <p style="font-size: 0.9rem; color: var(--text-muted)">&copy; 2026 Lontara. Seluruh Hak Cipta Dilindungi.</p>
-        </div>
+        <div><p style="font-size: 0.9rem; color: var(--text-muted)">&copy; 2026 Lontara. All Rights Reserved.</p></div>
       </div>
     </footer>
 
