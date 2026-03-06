@@ -15,8 +15,8 @@
 
     <style>
       /* =========================================
-         Tema & Variabel Warna Lontara
-         ========================================= */
+          Tema & Variabel Warna Lontara
+          ========================================= */
       :root {
         --primary: #123b3a;
         --accent: #00b8a9;
@@ -80,7 +80,7 @@
         background-color: var(--bg-light); transition: 0.3s;
       }
 
-      /* PERBAIKAN TOMBOL (SESUAI image_6d629f.png) */
+      /* TOMBOL (SESUAI image_6d629f.png) */
       .btn-group { display: flex; gap: 12px; margin-top: 20px; }
       
       .btn {
@@ -91,7 +91,6 @@
       .btn-process { flex-grow: 1; background-color: var(--primary); color: white; }
       .btn-process:disabled { background-color: #cbd5e1; color: white; cursor: not-allowed; }
       
-      /* Tombol hapus dengan background merah muda sesuai image_6d629f.png */
       .btn-clear { background-color: #fee2e2; color: var(--danger); width: 50px; flex-shrink: 0; }
       .btn-clear:hover { background-color: #fca5a5; }
 
@@ -120,7 +119,7 @@
       <a href="../../../beranda.html" class="topbar-brand">
         <i class="fa-solid fa-earth-asia"></i> LontaraGeo <span class="badge-beta">Engine</span>
       </a>
-      <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">Platform Analisis Sub-DAS Tanralili</div>
+      <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">Platform Analisis Citra Satelit</div>
     </nav>
 
     <div class="main-container">
@@ -152,23 +151,9 @@
               <input type="date" id="endDate" value="2024-12-31">
             </div>
           </div>
-          <div class="form-group" style="margin-top: 20px">
-            <label for="cloudCover">
-              Batas Tutupan Awan
-              <span class="range-value" id="cloudValue">15%</span>
-            </label>
-            <input
-              type="range"
-              id="cloudCover"
-              min="0"
-              max="100"
-              value="15"
-              oninput="
-                document.getElementById('cloudValue').innerText =
-                  this.value + '%'
-              "
-            />
-            
+          <div class="form-group">
+            <label>Tutupan Awan (<span id="cloudValue" style="color: var(--accent)">20%</span>)</label>
+            <input type="range" id="cloudCover" min="0" max="100" value="20" oninput="document.getElementById('cloudValue').innerText = this.value + '%'">
           </div>
         </div>
 
@@ -224,13 +209,40 @@
     <script src="js/api.js"></script>
     
     <script>
-      // Inisiasi Peta Sub-DAS Tanralili
-      const map = L.map("map", { zoomControl: false }).setView([-5.15, 119.65], 11);
+      // ==========================================
+      // 1. INISIASI PETA - ZOOM KE INDONESIA
+      // ==========================================
+      const map = L.map("map", { zoomControl: false }).setView([-2.5489, 118.0148], 5);
       L.control.zoom({ position: "topright" }).addTo(map);
       
-      const cartoLayer = L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png").addTo(map);
-      const satelliteLayer = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}");
-      L.control.layers({ "Terang": cartoLayer, "Satelit": satelliteLayer }, null, { position: "topright" }).addTo(map);
+      // ==========================================
+      // 2. DAFTAR BASEMAP LENGKAP
+      // ==========================================
+      const osmLayer = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { 
+          attribution: "&copy; OpenStreetMap" 
+      });
+      const cartoLayer = L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", { 
+          attribution: "&copy; CARTO" 
+      }).addTo(map);
+      const satelliteLayer = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", { 
+          attribution: "&copy; Esri" 
+      });
+      const streetLayer = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}", { 
+          attribution: "&copy; Esri" 
+      });
+      const darkLayer = L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", { 
+          attribution: "&copy; CARTO" 
+      });
+
+      const baseMaps = {
+        "Peta Terang (Carto)": cartoLayer,
+        "Satelit (Esri)": satelliteLayer,
+        "Jalan (OSM)": osmLayer,
+        "Street Map (Esri)": streetLayer,
+        "Dark Mode (Carto)": darkLayer
+      };
+      
+      L.control.layers(baseMaps, null, { position: "topright" }).addTo(map);
 
       // Drawing Tools
       const drawnItems = new L.FeatureGroup();
@@ -285,4 +297,3 @@
     </script>
   </body>
 </html>
-
