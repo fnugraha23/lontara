@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="LontaraGeo Engine - Inovasi pemrosesan citra satelit otomatis menggunakan Google Earth Engine untuk analisis Sub-DAS Tanralili."
+    />
+    <title>LontaraGeo Engine | Portofolio Lontara</title>
+
+    <link rel="icon" type="image/png" href="../../assets/images/favicon.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/layout.css" />
+    <link rel="stylesheet" href="../../css/components.css" />
+    <link rel="stylesheet" href="../../css/main.css" />
+
+    <style>
+      /* =========================================
+          CUSTOM STYLING SHOWCASE LONTARAGEO
+          ========================================= */
+
+      /* Search Bar UI di Header */
+      .nav-search { display: flex; align-items: center; }
+      #search-form { position: relative; display: flex; align-items: center; }
+      .search-input {
+        padding: 8px 36px 8px 16px; border: 1px solid var(--border); border-radius: 20px;
+        background: var(--bg-light); font-family: inherit; font-size: 0.9rem;
+        transition: var(--transition); width: 160px;
+      }
+      .search-input:focus { outline: none; border-color: var(--accent); width: 220px; box-shadow: 0 0 0 3px var(--accent-soft); }
+      .search-btn { position: absolute; right: 12px; background: none; border: none; color: var(--text-muted); cursor: pointer; display: flex; align-items: center; }
+
+      /* Hero Section Styling (image_6c7948) */
+      .hero-product {
+        padding: 180px 0 100px;
+        background: linear-gradient(to bottom, #f8fafc, #f1f5f9);
+        text-align: center;
+        border-bottom: 1px solid var(--border);
+      }
+
+      /* Tombol Kembali Premium */
+      .breadcrumb-back {
+        background-color: #123b3a !important; color: white !important;
+        padding: 12px 28px; border-radius: 12px; font-size: 0.95rem;
+        display: inline-flex; align-items: center; gap: 12px; text-decoration: none;
+        font-weight: 700; transition: 0.3s ease; margin-bottom: 30px;
+        box-shadow: 0 4px 15px rgba(18, 59, 58, 0.2);
+      }
+      .breadcrumb-back:hover { background-color: var(--accent) !important; transform: translateY(-2px); }
+
+      /* Badge Konservasi */
+      .konservasi-badge {
+        display: inline-block; background: rgba(0, 184, 169, 0.1); color: var(--accent);
+        padding: 8px 24px; border-radius: 30px; font-size: 0.85rem;
+        font-weight: 800; letter-spacing: 2px; margin-bottom: 25px; text-transform: uppercase;
+      }
+
+      /* Tombol Aksi Hero (image_6de989) */
+      .btn-hero-group { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 10px; }
+      .btn-full-custom {
+        background-color: #123b3a !important; color: white !important; padding: 16px 36px;
+        border-radius: 14px; font-weight: 700; text-decoration: none; transition: 0.3s; border: 2px solid #123b3a;
+      }
+      .btn-outline-custom {
+        background-color: transparent !important; color: #123b3a !important; padding: 16px 36px;
+        border-radius: 14px; font-weight: 700; text-decoration: none; transition: 0.3s; border: 2px solid #123b3a;
+      }
+      .btn-full-custom:hover { background-color: var(--accent) !important; border-color: var(--accent); }
+
+      /* Tech Stack Tags (image_628f64) */
+      .tech-stack-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 15px;
+        margin-top: 40px;
+        margin-bottom: 60px; /* Jarak ekstra ke Fitur Unggulan */
+      }
+      .tech-item {
+        padding: 12px 24px; background: white; border: 1px solid var(--border); border-radius: 12px;
+        text-align: center; font-size: 0.9rem; font-weight: 700; color: var(--primary);
+        box-shadow: var(--shadow-sm); transition: 0.3s;
+      }
+      .tech-item:hover { transform: translateY(-3px); border-color: var(--accent); }
+
+      /* Methodology Box (image_6dd26a) */
+      .methodology-box {
+        background: white; padding: 45px; border-radius: 20px; border-left: 6px solid var(--accent);
+        box-shadow: var(--shadow-md); margin-top: 10px;
+      }
+
+      /* Iframe Display */
+      .app-display-window {
+        margin-top: 60px; border-radius: 24px; overflow: hidden;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+        border: 1px solid var(--border); height: 750px; background: white;
+      }
+      .app-iframe { width: 100%; height: 100%; border: none; }
+
+      /* Section CTA Premium (Baru) */
+      .section-cta-premium {
+        background-color: #123b3a !important; color: white !important;
+        text-align: center; padding: 120px 0; margin-top: 80px;
+      }
+      .btn-cta-white {
+        background-color: white !important; color: #123b3a !important;
+        padding: 18px 45px; border-radius: 12px; font-weight: 800;
+        display: inline-block; text-decoration: none; transition: 0.3s; font-size: 1.1rem;
+      }
+      .btn-cta-white:hover { transform: translateY(-4px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+
+      @media (max-width: 768px) {
+        .hero-product { padding: 150px 0 60px; }
+        .app-display-window { height: 500px; }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="header" id="header">
+      <div class="progress-bar" id="progress-bar"></div>
+
+      <div class="container nav-container">
+        <div class="logo">
+          <a href="../../beranda.html">
+            <img
+              src="../../assets/images/logo.png"
+              alt="Lontara Logo"
+              width="120"
+              height="38"
+            />
+          </a>
+        </div>
+
+        <nav class="nav" id="nav-menu">
+          <div class="nav-item">
+            <a href="../../layanan/layanan.html">Layanan</a>
+          </div>
+          <div class="nav-item">
+            <a href="../../portofolio/portofolio.html">Portofolio</a>
+          </div>
+          <div class="nav-item">
+            <a href="../../artikel/artikel.html">Artikel</a>
+          </div>
+          <div class="nav-item">
+            <a href="../../publikasi/publikasi.html">Publikasi</a>
+          </div>
+          <div class="nav-item">
+            <a href="../../aset-digital/aset-digital.html">Aset Digital</a>
+          </div>
+          <div class="nav-item">
+            <a href="../../tentang/tentang.html">Tentang</a>
+          </div>
+
+          <div class="nav-search">
+            <form id="search-form" action="../../search/" method="GET">
+              <input
+                type="text"
+                name="q"
+                placeholder="Cari layanan, artikel..."
+                class="search-input"
+                required
+              />
+              <button type="submit" class="search-btn" aria-label="Cari">
+                <svg
+                  viewBox="0 0 24 24"
+                  width="18"
+                  height="18"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+              </button>
+            </form>
+          </div>
+
+          <a href="../../kontak/kontak.html" class="nav-cta">Kontak</a>
+        </nav>
+
+        <button
+          class="nav-toggle"
+          id="nav-toggle"
+          aria-label="Toggle navigation"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero-product">
+        <div class="container">
+          <a href="../portofolio.html" class="breadcrumb-back">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+              <path d="M19 12H5M12 19l-7-7 7-7"/></svg> Kembali ke Portofolio
+          </a>
+          <br />
+          <div class="konservasi-badge reveal-init">Konservasi Tanah & Air</div>
+
+          <h1 class="reveal-init" style="font-size: 3.5rem; color: var(--primary); font-weight: 800; margin-bottom: 20px; line-height: 1.1;">
+            LontaraGeo Engine:<br />Otomasi Analisis Spasial
+          </h1>
+          <p class="reveal-init" style="max-width: 800px; margin: 0 auto 40px; color: var(--text-muted); font-size: 1.25rem; line-height: 1.8;">
+            Integrasi <b>Google Earth Engine API</b> untuk pemrosesan citra satelit Sentinel-2 secara <i>real-time</i> guna mendukung pengelolaan Sub-DAS Tanralili yang presisi.
+          </p>
+          
+          <div class="btn-hero-group reveal-init">
+            <a href="frontend/index.html" target="_blank" class="btn-full-custom">Buka Layar Penuh (Fullscreen)</a>
+            <a href="#demo" class="btn-outline-custom">Pelajari Metodologi</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="centered-content">
+            <div class="reveal-init">
+              <h2 class="section-title" style="margin-bottom: 25px">Metodologi & Inovasi</h2>
+              <p style="color: var(--text-muted); line-height: 1.8; margin-bottom: 20px;">
+                Sebagai mahasiswa pascasarjana Ilmu Tanah di <b>IPB University</b>, saya membangun platform ini untuk memecahkan hambatan efisiensi dalam pengolahan data spasial riset saya mengenai <b>Kinerja Sub-DAS Tanralili</b>. 
+              </p>
+              <p style="color: var(--text-muted); line-height: 1.8;">
+                Sistem memanfaatkan <b>Python Flask</b> untuk menjembatani parameter input pengguna langsung ke infrastruktur <i>cloud processing</i> Google. Fitur utama mencakup <b>Cloud Masking</b> otomatis dan perhitungan indeks vegetasi (NDVI/EVI) tanpa beban komputasi lokal.
+              </p>
+              
+              <div class="tech-stack-grid">
+                <div class="tech-item">Python Flask</div>
+                <div class="tech-item">GEE API</div>
+                <div class="tech-item">Koyeb Cloud</div>
+                <div class="tech-item">Leaflet JS</div>
+                <div class="tech-item">Data Science</div>
+              </div>
+            </div>
+
+            <div class="methodology-box reveal-init">
+              <h3 style="color: var(--primary); margin-bottom: 25px; font-size: 1.5rem;">Fitur Unggulan</h3>
+              <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 20px;">
+                <li style="display: flex; gap: 15px">
+                  <span style="color: var(--accent); font-weight: 900; font-size: 1.1rem;">01.</span>
+                  <span><b>Pemrosesan Tanpa Beban:</b> Seluruh komputasi berat dilakukan di server Google secara <i>cloud-based</i>.</span>
+                </li>
+                <li style="display: flex; gap: 15px">
+                  <span style="color: var(--accent); font-weight: 900; font-size: 1.1rem;">02.</span>
+                  <span><b>Dinamis AOI:</b> Penentuan Area of Interest melalui alat gambar poligon interaktif untuk analisis lokal.</span>
+                </li>
+                <li style="display: flex; gap: 15px">
+                  <span style="color: var(--accent); font-weight: 900; font-size: 1.1rem;">03.</span>
+                  <span><b>Filter Temporal:</b> Memungkinkan perbandingan indeks kesehatan lahan antar periode secara instan.</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div id="demo" class="reveal-init" style="margin-top: 100px">
+            <h2 class="section-title">Aplikasi WebGIS Interaktif</h2>
+            <div class="app-display-window">
+              <iframe src="frontend/index.html" class="app-iframe" title="LontaraGeo Engine Demo"></iframe>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-cta-premium reveal-init">
+        <div class="container">
+          <h2 style="font-size: 2.5rem; margin-bottom: 20px; color: white;">Siap Menerapkan Intelijen Spasial?</h2>
+          <p style="font-size: 1.2rem; opacity: 0.9; max-width: 700px; margin: 0 auto; color: white;">
+            Integrasikan otomatisasi Google Earth Engine ke dalam alur kerja riset Anda untuk pengambilan keputusan berbasis data yang lebih cepat.
+          </p>
+          <div style="margin-top: 40px;">
+            <a href="../../kontak/kontak.html" class="btn-cta-white" style="background: white; color: #123b3a; padding: 18px 45px; border-radius: 12px; font-weight: 800; text-decoration: none; display: inline-block;">Jadwalkan Konsultasi Sekarang</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-container">
+        <div>
+          <h4>Lontara</h4>
+          <p style="font-size: 0.9rem; color: var(--text-muted)">Soil Science & Geomorphology Studio.</p>
+        </div>
+        <div><p style="font-size: 0.9rem; color: var(--text-muted)">&copy; 2026 Lontara. All Rights Reserved.</p></div>
+      </div>
+    </footer>
+
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/animation.js"></script>
+    <script src="../../js/main.js"></script>
+  </body>
+</html>

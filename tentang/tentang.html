@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Tentang Lontara - Visi, misi, dan keahlian kami dalam membangun sistem intelijen lingkungan dan tata ruang berbasis sains hidrologi."
+    />
+    <title>Tentang | Lontara</title>
+
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/layout.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/main.css" />
+
+    <style>
+      /* =========================================
+         STYLING KHUSUS SEARCH BAR & WEBGIS
+         ========================================= */
+
+      /* Search Bar UI */
+      .nav-search {
+        display: flex;
+        align-items: center;
+      }
+
+      #search-form {
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
+
+      .search-input {
+        padding: 8px 36px 8px 16px;
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        background: var(--bg-light);
+        font-family: inherit;
+        font-size: 0.9rem;
+        color: var(--text-main);
+        transition: var(--transition);
+        width: 160px; /* Lebar default desktop */
+      }
+
+      .search-input:focus {
+        outline: none;
+        border-color: var(--accent);
+        width: 220px; /* Memanjang saat diklik */
+        box-shadow: 0 0 0 3px var(--accent-soft);
+      }
+
+      .search-btn {
+        position: absolute;
+        right: 12px;
+        background: none;
+        border: none;
+        color: var(--text-muted);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        transition: var(--transition);
+      }
+
+      .search-btn:hover {
+        color: var(--accent);
+        transform: scale(1.1);
+      }
+
+      @media (max-width: 768px) {
+        .nav-search {
+          width: 100%;
+          justify-content: center;
+          margin: 10px 0;
+        }
+        #search-form {
+          width: 100%;
+        }
+        .search-input {
+          width: 100%;
+        }
+        .search-input:focus {
+          width: 100%;
+        }
+      }      
+      /* --- HERO SECTION --- */
+      .hero-about {
+        padding: 180px 0 100px;
+        background: linear-gradient(to bottom, #f8fafc, #f1f5f9);
+        text-align: center;
+        border-bottom: 1px solid var(--border);
+      }
+      .hero-about h1 {
+        font-size: 3.2rem;
+        margin-bottom: 24px;
+        color: var(--primary);
+        font-weight: 800;
+        line-height: 1.2;
+      }
+      .hero-about p {
+        font-size: 1.25rem;
+        color: var(--text-muted);
+        max-width: 800px;
+        margin: 0 auto;
+        line-height: 1.7;
+      }
+
+      /* --- VISI MISI SEPARATED CARDS (GRID) --- */
+      .vm-wrapper-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+        max-width: 1100px;
+        margin: -60px auto 100px; /* Menarik kartu ke atas untuk overlap Hero */
+        position: relative;
+        z-index: 10;
+      }
+
+      .vm-card {
+        background: white;
+        border: 1px solid var(--border);
+        border-radius: 32px;
+        padding: 60px;
+        box-shadow: 0 40px 80px rgba(0, 0, 0, 0.05);
+        text-align: center;
+        transition: 0.3s ease;
+        height: 100%;
+      }
+
+      .vm-card:hover {
+        transform: translateY(-8px);
+        border-color: var(--accent);
+      }
+
+      .vm-card h2 {
+        color: var(--accent);
+        margin-bottom: 20px;
+        font-weight: 800;
+        font-size: 2rem;
+      }
+
+      .vm-card p {
+        color: var(--text-muted);
+        line-height: 1.8;
+        font-size: 1.1rem;
+      }
+
+      /* --- FOUNDER SECTION --- */
+      .founder-section {
+        display: grid;
+        grid-template-columns: 1fr 1.5fr;
+        gap: 80px;
+        align-items: center;
+        padding-bottom: 120px;
+      }
+
+      .founder-image-container {
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+      }
+
+      .founder-image-container img {
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: cover;
+      }
+
+      .founder-badge {
+        display: inline-block;
+        padding: 8px 16px;
+        background: rgba(18, 184, 169, 0.1);
+        color: var(--accent);
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+      }
+
+      .founder-text {
+        text-align: center;
+      }
+
+      .founder-text h2 {
+        font-size: 2.8rem;
+        margin-bottom: 25px;
+        color: var(--primary);
+        font-weight: 800;
+      }
+
+      @media (max-width: 992px) {
+        .vm-wrapper-grid,
+        .founder-section {
+          grid-template-columns: 1fr;
+        }
+        .vm-card {
+          padding: 40px 20px;
+        }
+        .vm-wrapper-grid {
+          margin-top: -40px;
+          padding: 0 20px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="nav-overlay" id="nav-overlay"></div>
+
+    <header class="header" id="header">
+      <div class="progress-bar" id="progress-bar"></div>
+
+      <div class="container nav-container">
+        <div class="logo">
+          <a href="../beranda.html">
+            <img
+              src="../assets/images/logo.png"
+              alt="Lontara Logo"
+              width="120"
+              height="38"
+            />
+          </a>
+        </div>
+
+        <nav class="nav" id="nav-menu">
+          <div class="nav-item">
+            <a href="../layanan/layanan.html">Layanan</a>
+          </div>
+          <div class="nav-item">
+            <a href="../portofolio/portofolio.html">Portofolio</a>
+          </div>
+          <div class="nav-item">
+            <a href="../artikel/artikel.html">Artikel</a>
+          </div>
+          <div class="nav-item">
+            <a href="../publikasi/publikasi.html">Publikasi</a>
+          </div>
+          <div class="nav-item">
+            <a href="../aset-digital/aset-digital.html">Aset Digital</a>
+          </div>
+          <div class="nav-item">
+            <a href="../tentang/tentang.html">Tentang</a>
+          </div>
+          <div class="nav-search">
+            <form id="search-form" action="../search/" method="GET">
+              <input
+                type="text"
+                name="q"
+                placeholder="Cari layanan, artikel..."
+                class="search-input"
+                required
+              />
+              <button type="submit" class="search-btn" aria-label="Cari">
+                <svg
+                  viewBox="0 0 24 24"
+                  width="18"
+                  height="18"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+              </button>
+            </form>
+          </div>          
+          <a href="../kontak/kontak.html" class="nav-cta">Kontak</a>
+        </nav>
+
+        <button
+          class="nav-toggle"
+          id="nav-toggle"
+          aria-label="Toggle navigation"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <section class="hero-about">
+        <div class="container">
+          <h1 class="reveal-init">
+            Menjembatani Sains Lahan & Teknologi Spasial
+          </h1>
+          <p class="reveal-init">
+            Lontara adalah studio pemodelan lingkungan yang berdedikasi
+            mentransformasi pengambilan keputusan tata ruang berbasis data
+            prediktif dan rekayasa cerdas.
+          </p>
+        </div>
+      </section>
+
+      <div class="container">
+        <div class="vm-wrapper-grid">
+          <div class="vm-card reveal-init">
+            <h2>Visi Kami</h2>
+            <p>
+              Menjadi pelopor infrastruktur data spasial dalam pengelolaan
+              lingkungan hidup, memastikan setiap kebijakan didasarkan pada
+              perhitungan ekologis yang presisi.
+            </p>
+          </div>
+          <div class="vm-card reveal-init">
+            <h2>Misi Kami</h2>
+            <p>
+              Menyediakan alat rekayasa data dan dasbor WebGIS yang transparan
+              untuk membantu evaluasi kesesuaian lahan serta mitigasi risiko
+              hidrologi.
+            </p>
+          </div>
+        </div>
+
+        <section class="founder-section">
+          <div class="founder-image-container reveal-init">
+            <img src="../assets/images/foto-pribadi.jpeg" alt="Fajar Nugraha" />
+          </div>
+
+          <div class="founder-text reveal-init">
+            <span class="founder-badge">Founder & Lead Engineer</span>
+            <h2>Fajar Nugraha</h2>
+            <p>
+              Lontara lahir dari visi bahwa sains lingkungan membutuhkan
+              rekayasa teknologi untuk solusi nyata. Kami fokus pada
+              pengembangan sistem pendukung keputusan yang akurat.
+            </p>
+            <p>
+              Berlatar belakang <strong>Ilmu Tanah</strong> dari
+              <strong>Universitas Hasanuddin</strong> dan pascasarjana di
+              <strong>IPB University</strong>, Fajar menggabungkan kepakaran
+              hidrologi dengan otomasi Python dan Spatial Machine Learning.
+            </p>
+
+            <div
+              style="
+                margin-top: 40px;
+                display: flex;
+                gap: 15px;
+                justify-content: center;
+                flex-wrap: wrap;
+              "
+            >
+              <a
+                href="../kontak/kontak.html"
+                class="btn-primary"
+                style="
+                  padding: 15px 40px;
+                  border-radius: 12px;
+                  text-decoration: none;
+                  font-weight: 800;
+                "
+                >Hubungi Saya</a
+              >
+              <a
+                href="https://linkedin.com/in/fajar-nugraha23"
+                target="_blank"
+                class="btn-secondary"
+                style="
+                  padding: 15px 40px;
+                  border-radius: 12px;
+                  text-decoration: none;
+                  font-weight: 800;
+                "
+                >LinkedIn</a
+              >
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-container">
+        <div>
+          <h4 style="margin-bottom: 10px">Lontara</h4>
+          <p style="font-size: 0.9rem; color: var(--text-muted)">
+            Environmental & Land Intelligence Studio.
+          </p>
+        </div>
+        <div>
+          <p style="font-size: 0.9rem; color: var(--text-muted)">
+            &copy; 2026 Lontara. Hak Cipta Dilindungi.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../js/utils.js"></script>
+    <script src="../js/animation.js"></script>
+    <script src="../js/main.js"></script>
+  </body>
+</html>
+
+

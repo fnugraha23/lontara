@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Sistem Informasi Spasial Kinerja Sub-DAS Tanralili - Platform interaktif pemetaan tutupan lahan dan simulasi hidrologi."
+    />
+    <title>WebGIS Kinerja Sub-DAS | Lontara</title>
+
+    <link rel="icon" type="image/png" href="../../assets/images/favicon.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/layout.css" />
+    <link rel="stylesheet" href="../../css/components.css" />
+    <link rel="stylesheet" href="../../css/main.css" />
+
+    <style>
+      /* =========================================
+         STYLING KHUSUS SEARCH BAR & WEBGIS
+         ========================================= */
+
+      /* Search Bar UI */
+      .nav-search {
+        display: flex;
+        align-items: center;
+      }
+
+      #search-form {
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
+
+      .search-input {
+        padding: 8px 36px 8px 16px;
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        background: var(--bg-light);
+        font-family: inherit;
+        font-size: 0.9rem;
+        color: var(--text-main);
+        transition: var(--transition);
+        width: 160px;
+      }
+
+      .search-input:focus {
+        outline: none;
+        border-color: var(--accent);
+        width: 220px;
+        box-shadow: 0 0 0 3px var(--accent-soft);
+      }
+
+      .search-btn {
+        position: absolute;
+        right: 12px;
+        background: none;
+        border: none;
+        color: var(--text-muted);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        transition: var(--transition);
+      }
+
+      .search-btn:hover {
+        color: var(--accent);
+        transform: scale(1.1);
+      }
+
+      @media (max-width: 768px) {
+        .nav-search {
+          width: 100%;
+          justify-content: center;
+          margin: 10px 0;
+        }
+        #search-form,
+        .search-input,
+        .search-input:focus {
+          width: 100%;
+        }
+      }
+
+      /* Hero Product dengan Background Gradient */
+      .hero-product {
+        padding: 180px 0 100px;
+        background: linear-gradient(to bottom, #f8fafc, #f1f5f9);
+        text-align: center;
+        border-bottom: 1px solid var(--border);
+      }
+
+      /* Tombol Kembali dengan Style Tombol Kontak */
+      .breadcrumb-back {
+        background-color: var(--primary);
+        color: white !important;
+        padding: 10px 24px;
+        border-radius: 10px;
+        font-size: 0.9rem;
+        margin-bottom: 35px;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+        transition: 0.3s ease;
+        font-weight: 700;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+      .breadcrumb-back:hover {
+        background-color: var(--accent);
+        transform: translateY(-2px);
+      }
+
+      .product-badge {
+        display: inline-block;
+        background: rgba(0, 184, 169, 0.1);
+        color: var(--accent);
+        padding: 6px 16px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 800;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+      }
+
+      /* Grid Fitur */
+      .card {
+        background: white;
+        padding: 40px;
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+        transition: var(--transition);
+        height: 100%;
+        text-align: left;
+      }
+      .card:hover {
+        transform: translateY(-8px);
+        border-color: var(--accent);
+        box-shadow: var(--shadow-lg);
+      }
+      .card h3 {
+        color: var(--primary);
+        margin-bottom: 15px;
+        font-size: 1.4rem;
+      }
+      .card p {
+        color: var(--text-muted);
+        line-height: 1.6;
+      }
+
+      /* Ikon Kustom di dalam Card */
+      .icon-container {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background-color: rgba(0, 184, 169, 0.1);
+        color: var(--accent);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+
+      /* SINKRONISASI CTA HIJAU FOREST */
+      .section-cta-green {
+        background-color: #123b3a !important;
+        color: white !important;
+        text-align: center;
+        padding: 100px 0;
+      }
+      .btn-cta-white {
+        background-color: white !important;
+        color: #123b3a !important;
+        padding: 16px 40px;
+        border-radius: 8px;
+        font-weight: 800;
+        display: inline-block;
+        text-decoration: none;
+        transition: 0.3s;
+      }
+
+      .section-title {
+        text-align: center;
+        max-width: 700px;
+        margin: 0 auto 40px;
+        line-height: 1.3;
+        color: var(--primary);
+      }
+      .section-subtitle {
+        text-align: center;
+        max-width: 700px;
+        margin: 0 auto 40px;
+        line-height: 1.6;
+        color: #666;
+      }
+
+      /* WebGIS Iframe Container */
+      .webgis-container {
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: var(--shadow-lg);
+        height: 600px;
+        border: 1px solid var(--border);
+        margin-bottom: 20px;
+      }
+      .webgis-iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+      .webgis-hint {
+        text-align: center;
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        font-style: italic;
+      }
+
+      @media (max-width: 768px) {
+        .hero-product {
+          padding: 150px 0 60px;
+        }
+        .hero-product h1 {
+          font-size: 2.2rem;
+        }
+        .webgis-container {
+          height: 400px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="header" id="header">
+      <div class="progress-bar" id="progress-bar"></div>
+
+      <div class="container nav-container">
+        <div class="logo">
+          <a href="../../beranda.html">
+            <img
+              src="../../assets/images/logo.png"
+              alt="Lontara Logo"
+              width="120"
+              height="38"
+            />
+          </a>
+        </div>
+
+        <nav class="nav" id="nav-menu">
+          <div class="nav-item">
+            <a href="../../layanan/layanan.html">Layanan</a>
+          </div>
+          <div class="nav-item">
+            <a href="../../portofolio/portofolio.html">Portofolio</a>
+          </div>
+          <div class="nav-item">
+            <a href="../../artikel/artikel.html">Artikel</a>
+          </div>
+          <div class="nav-item">
+            <a href="../../publikasi/publikasi.html">Publikasi</a>
+          </div>
+          <div class="nav-item">
+            <a href="../../aset-digital/aset-digital.html">Aset Digital</a>
+          </div>
+          <div class="nav-item">
+            <a href="../../tentang/tentang.html">Tentang</a>
+          </div>
+
+          <div class="nav-search">
+            <form id="search-form" action="../../search/" method="GET">
+              <input
+                type="text"
+                name="q"
+                placeholder="Cari layanan, artikel..."
+                class="search-input"
+                required
+              />
+              <button type="submit" class="search-btn" aria-label="Cari">
+                <svg
+                  viewBox="0 0 24 24"
+                  width="18"
+                  height="18"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+              </button>
+            </form>
+          </div>
+
+          <a href="../../kontak/kontak.html" class="nav-cta">Kontak</a>
+        </nav>
+
+        <button
+          class="nav-toggle"
+          id="nav-toggle"
+          aria-label="Toggle navigation"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero-product">
+        <div class="container">
+          <a href="../portofolio.html" class="breadcrumb-back">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="3"
+            >
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            Kembali ke Portofolio
+          </a>
+          <br />
+          <span class="product-badge">Konservasi Tanah & Air</span>
+          <h1
+            style="font-size: 3rem; margin-bottom: 24px; color: var(--primary)"
+          >
+            Sistem Informasi Spasial<br />Kinerja Sub-DAS Tanralili
+          </h1>
+          <p
+            style="
+              font-size: 1.15rem;
+              color: var(--text-muted);
+              max-width: 800px;
+              margin: 0 auto 40px;
+            "
+          >
+            Platform interaktif pemetaan tutupan lahan dan simulasi hidrologi.
+            Visualisasi ini memanfaatkan pendekatan
+            <strong>Machine Learning</strong> untuk mendukung arahan tata guna
+            lahan demi mewujudkan pengelolaan daerah aliran sungai yang
+            berkelanjutan.
+          </p>
+          <div
+            style="
+              display: flex;
+              gap: 15px;
+              justify-content: center;
+              flex-wrap: wrap;
+            "
+          >
+            <a href="dashboard.html" class="btn-primary" target="_blank"
+              >Buka Layar Penuh (Fullscreen)</a
+            >
+            <a href="#tentang" class="btn-secondary">Pelajari Lebih Lanjut</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="tentang" class="section">
+        <div class="container">
+          <h2 class="section-title">Mengapa Visualisasi Ini Penting?</h2>
+          <p class="section-subtitle">
+            Perubahan tata guna lahan berdampak langsung pada fluktuasi debit
+            air dan indeks kerentanan lahan. Melalui visualisasi WebGIS ini,
+            pengguna dapat mengeksplorasi data spasial secara langsung, melihat
+            hasil klasifikasi lahan, dan memahami faktor penentu tingkat potensi
+            dampak secara komprehensif dalam satu dashboard terpusat.
+          </p>
+
+          <div class="grid-3">
+            <div class="card">
+              <div class="icon-container">
+                <svg
+                  width="24"
+                  height="24"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"
+                  ></path>
+                </svg>
+              </div>
+              <h3>Data Spasial Aktual</h3>
+              <p>
+                Integrasi data spasial resolusi tinggi untuk analisis tingkat
+                kerentanan lahan yang akurat.
+              </p>
+            </div>
+
+            <div class="card">
+              <div
+                class="icon-container"
+                style="color: #2563eb; background-color: #eff6ff"
+              >
+                <svg
+                  width="24"
+                  height="24"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                </svg>
+              </div>
+              <h3>Simulasi Debit Air</h3>
+              <p>
+                Pemodelan hidrologi terintegrasi untuk memprediksi respons DAS
+                terhadap skenario perubahan tutupan lahan.
+              </p>
+            </div>
+
+            <div class="card">
+              <div
+                class="icon-container"
+                style="color: #059669; background-color: #ecfdf5"
+              >
+                <svg
+                  width="24"
+                  height="24"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"
+                  ></path>
+                  <path d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
+                </svg>
+              </div>
+              <h3>Analisis Interaktif</h3>
+              <p>
+                Dashboard dinamis yang menghubungkan interaksi peta Leaflet
+                dengan visualisasi grafik statistik secara real-time.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="webgis-section" style="padding: 40px 0 100px">
+        <div class="container">
+          <h2 class="section-title">Pratinjau Interaktif Dashboard</h2>
+          <p class="section-subtitle">
+            Integrasi data spasial Sub-DAS Tanralili secara aktual. Jelajahi
+            peta di bawah ini dan perhatikan bagaimana grafik merespons
+            informasi area.
+          </p>
+
+          <div class="webgis-container reveal-init">
+            <iframe
+              src="dashboard.html"
+              title="WebGIS Sub DAS Tanralili"
+              class="webgis-iframe"
+              loading="lazy"
+            ></iframe>
+          </div>
+
+          <div class="webgis-hint reveal-init">
+            <p>
+              * Jika tampilan terpotong, klik tombol "Buka Layar Penuh" di atas
+              untuk pengalaman yang lebih optimal.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-cta-green">
+        <div class="container">
+          <h2
+            class="reveal-init"
+            style="font-size: 2.2rem; margin-bottom: 20px"
+          >
+            Siap Menerapkan Pemodelan Serupa?
+          </h2>
+          <p
+            class="reveal-init"
+            style="font-size: 1.1rem; opacity: 0.9; margin-bottom: 30px"
+          >
+            Diskusikan kebutuhan integrasi analisis lahan dan tata air berbasis
+            intelijen spasial untuk proyek Anda.
+          </p>
+          <div class="reveal-init">
+            <a href="../../kontak/kontak.html" class="btn-cta-white"
+              >Jadwalkan Konsultasi Sekarang</a
+            >
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-container">
+        <div>
+          <h4>Lontara</h4>
+          <p style="font-size: 0.9rem; color: var(--text-muted)">
+            Environmental & Land Intelligence Studio.
+          </p>
+        </div>
+        <div>
+          <p style="font-size: 0.9rem; color: var(--text-muted)">
+            &copy; 2026 Lontara. Seluruh Hak Cipta Dilindungi.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/animation.js"></script>
+    <script src="../../js/main.js"></script>
+  </body>
+</html>
