@@ -1,0 +1,741 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Workflow GIS: Dari Data Mentah hingga Peta | LONTARA</title>
+
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/layout.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/main.css" />
+
+    <style>
+      /* =========================================
+         STYLING KHUSUS SEARCH BAR & WEBGIS
+         ========================================= */
+
+      /* Search Bar UI */
+      .nav-search {
+        display: flex;
+        align-items: center;
+      }
+
+      #search-form {
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
+
+      .search-input {
+        padding: 8px 36px 8px 16px;
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        background: var(--bg-light);
+        font-family: inherit;
+        font-size: 0.9rem;
+        color: var(--text-main);
+        transition: var(--transition);
+        width: 160px; /* Lebar default desktop */
+      }
+
+      .search-input:focus {
+        outline: none;
+        border-color: var(--accent);
+        width: 220px; /* Memanjang saat diklik */
+        box-shadow: 0 0 0 3px var(--accent-soft);
+      }
+
+      .search-btn {
+        position: absolute;
+        right: 12px;
+        background: none;
+        border: none;
+        color: var(--text-muted);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        transition: var(--transition);
+      }
+
+      .search-btn:hover {
+        color: var(--accent);
+        transform: scale(1.1);
+      }
+
+      @media (max-width: 768px) {
+        .nav-search {
+          width: 100%;
+          justify-content: center;
+          margin: 10px 0;
+        }
+        #search-form {
+          width: 100%;
+        }
+        .search-input {
+          width: 100%;
+        }
+        .search-input:focus {
+          width: 100%;
+        }
+      }
+      
+      /* Header & Layout - Konsisten dengan LONTARA branding */
+      .article-header {
+        padding: 180px 0 80px;
+        text-align: center;
+        background: linear-gradient(to bottom, #f8fafc, #f1f5f9);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .breadcrumb-back {
+        background-color: var(
+          --primary
+        ); /* Latar belakang gelap seperti tombol Kontak */
+        color: white !important; /* Teks putih wajib */
+        padding: 10px 24px;
+        border-radius: 10px; /* Sudut membulat proporsional */
+        font-size: 0.9rem;
+        margin-bottom: 35px;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+        transition: 0.3s ease;
+        font-weight: 700;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .breadcrumb-back:hover {
+        background-color: var(
+          --accent
+        ); /* Berubah warna saat kursor menunjuk */
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      .article-meta-badge {
+        color: var(--accent);
+        font-weight: 800;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        letter-spacing: 2px;
+        margin-bottom: 20px;
+        display: block;
+      }
+
+      .article-title {
+        font-size: clamp(2rem, 5vw, 2.8rem);
+        max-width: 900px;
+        margin: 0 auto 25px;
+        color: var(--primary);
+        line-height: 1.2;
+        font-weight: 800;
+      }
+
+      .reading-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 60px 24px;
+      }
+
+      .article-body {
+        font-family: "Lora", serif;
+        font-size: 1.15rem;
+        line-height: 1.9;
+        color: #2d3748;
+      }
+
+      /* Illustrasi Box General */
+      .gis-illustration {
+        background: #ffffff;
+        border: 2px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 20px;
+        margin: 40px 0;
+        text-align: center;
+      }
+
+      .illus-label {
+        font-family: "Manrope", sans-serif;
+        font-weight: 800;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        margin-bottom: 15px;
+        display: block;
+        color: var(--primary);
+      }
+
+      /* --- Animasi Workflow Diagram (SVG) --- */
+      .workflow-svg {
+        width: 100%;
+        height: auto;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      @keyframes pulseNode {
+        0%,
+        100% {
+          fill: #edf2f7;
+          stroke: #cbd5e0;
+          stroke-width: 1;
+        }
+        50% {
+          fill: rgba(49, 130, 206, 0.1);
+          stroke: #3182ce;
+          stroke-width: 2;
+        }
+      }
+
+      .wf-node {
+        fill: #edf2f7;
+        stroke: #cbd5e0;
+        stroke-width: 1;
+        transition: 0.3s ease;
+      }
+
+      /* Animasi berurutan untuk setiap langkah */
+      .wf-step-1 {
+        animation: pulseNode 3s infinite;
+        animation-delay: 0s;
+      }
+      .wf-step-2 {
+        animation: pulseNode 3s infinite;
+        animation-delay: 0.6s;
+      }
+      .wf-step-3 {
+        animation: pulseNode 3s infinite;
+        animation-delay: 1.2s;
+      }
+      .wf-step-4 {
+        animation: pulseNode 3s infinite;
+        animation-delay: 1.8s;
+      }
+      .wf-step-5 {
+        animation: pulseNode 3s infinite;
+        animation-delay: 2.4s;
+      }
+
+      .wf-text {
+        font-family: "Manrope", sans-serif;
+        font-size: 8px;
+        font-weight: 700;
+        fill: #2d3748;
+        pointer-events: none;
+      }
+      .wf-icon-label {
+        font-size: 5px;
+        fill: #718096;
+      }
+
+      /* Styling Tabel dan Konten Tambahan */
+      .comparison-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 30px 0;
+        font-family: "Manrope", sans-serif;
+        font-size: 0.95rem;
+      }
+      .comparison-table th {
+        background: var(--primary);
+        color: white;
+        padding: 15px;
+        text-align: left;
+      }
+      .comparison-table td {
+        border: 1px solid #e2e8f0;
+        padding: 15px;
+        vertical-align: top;
+      }
+
+      .highlight-box {
+        background: rgba(49, 130, 206, 0.1);
+        border-left: 4px solid #3182ce;
+        padding: 20px;
+        border-radius: 4px;
+        margin: 30px 0;
+        font-style: italic;
+      }
+
+      .section-cta-green {
+        background-color: #123b3a !important;
+        color: white !important;
+        text-align: center;
+        padding: 100px 0;
+      }
+      .btn-cta-white {
+        background-color: white !important;
+        color: #123b3a !important;
+        padding: 16px 40px;
+        border-radius: 8px;
+        font-weight: 800;
+        display: inline-block;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="header" id="header">
+      <div class="progress-bar" id="progress-bar"></div>
+
+      <div class="container nav-container">
+        <div class="logo">
+          <a href="../beranda.html">
+            <img
+              src="../assets/images/logo.png"
+              alt="Petani Galau Logo"
+              width="120"
+              height="38"
+            />
+          </a>
+        </div>
+
+        <nav class="nav" id="nav-menu">
+          <div class="nav-item">
+            <a href="../layanan/layanan.html">Layanan</a>
+          </div>
+
+          <div class="nav-item">
+            <a href="../portofolio/portofolio.html">Portofolio</a>
+          </div>
+
+          <div class="nav-item">
+            <a href="../artikel/artikel.html">Artikel</a>
+          </div>
+
+          <div class="nav-item">
+            <a href="../publikasi/publikasi.html">Publikasi</a>
+          </div>
+
+          <div class="nav-item">
+            <a href="../aset-digital/aset-digital.html">Aset Digital</a>
+          </div>
+
+          <div class="nav-item">
+            <a href="../tentang/tentang.html">Tentang</a>
+          </div>
+          
+          <div class="nav-search">
+            <form id="search-form" action="../search/" method="GET">
+              <input
+                type="text"
+                name="q"
+                placeholder="Cari layanan, artikel..."
+                class="search-input"
+                required
+              />
+              <button type="submit" class="search-btn" aria-label="Cari">
+                <svg
+                  viewBox="0 0 24 24"
+                  width="18"
+                  height="18"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+              </button>
+            </form>
+          </div>
+          
+          <a href="../kontak/kontak.html" class="nav-cta">Kontak</a>
+        </nav>
+
+        <button
+          class="nav-toggle"
+          id="nav-toggle"
+          aria-label="Toggle navigation"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <article>
+        <header class="article-header">
+          <div class="container">
+            <a href="artikel.html" class="breadcrumb-back">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="3"
+              >
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+              </svg>
+              Kembali ke Artikel
+            </a>
+            <span class="article-meta-badge">Edukasi Spasial</span>
+            <h1 class="article-title">
+              Workflow GIS: Dari Data Mentah hingga Peta
+            </h1>
+            <p style="color: var(--text-muted); font-size: 1.1rem">
+              Oleh <strong>Fajar Nugraha</strong> &middot; 6 Menit Membaca
+            </p>
+          </div>
+        </header>
+
+        <div class="reading-container">
+          <div class="article-body">
+            <p>
+              Seringkali, pemula menganggap GIS hanyalah tentang membuka
+              perangkat lunak seperti QGIS atau ArcGIS, memasukkan data, dan
+              menekan tombol untuk membuat peta. Kenyataannya, pembuatan peta
+              hanyalah puncak gunung es.
+            </p>
+            <p>
+              GIS yang sebenarnya adalah sebuah <strong>proses</strong> atau
+              <strong>alur kerja (workflow)</strong> yang sistematis. Tanpa alur
+              kerja yang benar, data yang Anda miliki—sebagus apapun—hanya akan
+              menjadi tumpukan angka tak bermakna, atau lebih buruk lagi,
+              menghasilkan peta yang menyesatkan (<em
+                >garbage in, garbage out</em
+              >).
+            </p>
+
+            <div class="gis-illustration">
+              <span class="illus-label"
+                >Diagram Alur Kerja GIS: 5 Tahap Kunci</span
+              >
+              <svg viewBox="0 0 350 100" class="workflow-svg">
+                <defs>
+                  <marker
+                    id="arrowhead"
+                    markerWidth="10"
+                    markerHeight="7"
+                    refX="0"
+                    refY="3.5"
+                    orient="auto"
+                  >
+                    <polygon points="0 0, 10 3.5, 0 7" fill="#cbd5e0" />
+                  </marker>
+                </defs>
+
+                <line
+                  x1="60"
+                  y1="50"
+                  x2="85"
+                  y2="50"
+                  stroke="#cbd5e0"
+                  stroke-width="1"
+                  marker-end="url(#arrowhead)"
+                />
+                <line
+                  x1="125"
+                  y1="50"
+                  x2="150"
+                  y2="50"
+                  stroke="#cbd5e0"
+                  stroke-width="1"
+                  marker-end="url(#arrowhead)"
+                />
+                <line
+                  x1="190"
+                  y1="50"
+                  x2="215"
+                  y2="50"
+                  stroke="#cbd5e0"
+                  stroke-width="1"
+                  marker-end="url(#arrowhead)"
+                />
+                <line
+                  x1="255"
+                  y1="50"
+                  x2="280"
+                  y2="50"
+                  stroke="#cbd5e0"
+                  stroke-width="1"
+                  marker-end="url(#arrowhead)"
+                />
+
+                <rect
+                  x="10"
+                  y="30"
+                  width="50"
+                  height="40"
+                  rx="5"
+                  class="wf-node wf-step-1"
+                />
+                <text x="35" y="52" text-anchor="middle" class="wf-text">
+                  1. INPUT
+                </text>
+                <text x="35" y="62" text-anchor="middle" class="wf-icon-label">
+                  Data Mentah
+                </text>
+
+                <rect
+                  x="90"
+                  y="30"
+                  width="50"
+                  height="40"
+                  rx="5"
+                  class="wf-node wf-step-2"
+                />
+                <text x="115" y="52" text-anchor="middle" class="wf-text">
+                  2. KELOLA
+                </text>
+                <text x="115" y="62" text-anchor="middle" class="wf-icon-label">
+                  Basis Data
+                </text>
+
+                <rect
+                  x="155"
+                  y="30"
+                  width="50"
+                  height="40"
+                  rx="5"
+                  class="wf-node wf-step-3"
+                />
+                <text x="180" y="52" text-anchor="middle" class="wf-text">
+                  3. OLAH
+                </text>
+                <text x="180" y="62" text-anchor="middle" class="wf-icon-label">
+                  Processing
+                </text>
+
+                <rect
+                  x="220"
+                  y="30"
+                  width="50"
+                  height="40"
+                  rx="5"
+                  class="wf-node wf-step-4"
+                />
+                <text x="245" y="52" text-anchor="middle" class="wf-text">
+                  4. ANALISIS
+                </text>
+                <text x="245" y="62" text-anchor="middle" class="wf-icon-label">
+                  Spasial
+                </text>
+
+                <rect
+                  x="285"
+                  y="30"
+                  width="50"
+                  height="40"
+                  rx="5"
+                  class="wf-node wf-step-5"
+                />
+                <text x="310" y="52" text-anchor="middle" class="wf-text">
+                  5. OUTPUT
+                </text>
+                <text x="310" y="62" text-anchor="middle" class="wf-icon-label">
+                  Peta/Laporan
+                </text>
+              </svg>
+              <p
+                style="
+                  font-size: 0.75rem;
+                  margin-top: 10px;
+                  line-height: 1.4;
+                  color: #718096;
+                "
+              >
+                Diagram di atas menunjukkan siklus linear sederhana. Namun dalam
+                praktiknya, alur ini seringkali berulang (iteratif), di mana
+                hasil analisis memaksa kita kembali ke tahap pengelolaan data.
+              </p>
+            </div>
+
+            <p>
+              Mari kita bedah setiap tahapan ini agar Anda memiliki panduan yang
+              jelas untuk proyek GIS Anda berikutnya.
+            </p>
+
+            <h2>Tahap 1: Tanya 'Kenapa?' & Perencanaan</h2>
+            <p>
+              Ibarat membangun rumah, Anda tidak bisa langsung menyemen bata.
+              Anda butuh cetak biru. Alur kerja GIS selalu dimulai
+              <strong>sebelum</strong> Anda menyentuh komputer.
+            </p>
+            <ul>
+              <li>
+                <strong>Definisikan Masalah:</strong> Pertanyaan spasial apa
+                yang ingin dijawab? (Misal: "Di mana lokasi terbaik untuk
+                membangun Puskesmas baru di Kecamatan A?")
+              </li>
+              <li>
+                <strong>Scope & Data:</strong> Wilayah mana yang dicakup? Data
+                apa saja yang dibutuhkan (batas desa, kepadatan penduduk, lokasi
+                Puskesmas eksisting, jaringan jalan)?
+              </li>
+            </ul>
+
+            <h2>Tahap 2: Input & Perolehan Data (Belanja Bahan)</h2>
+            <p>
+              Tahap ini adalah tentang mengumpulkan "bahan mentah". Dalam GIS,
+              data mentah ini bisa sangat beragam bentuknya dan berasal dari
+              berbagai sumber.
+            </p>
+            <div style="overflow-x: auto">
+              <table class="comparison-table">
+                <thead>
+                  <tr>
+                    <th>Sumber Data</th>
+                    <th>Contoh Data</th>
+                    <th>Format Mentah Umum</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Survei Lapangan</strong></td>
+                    <td>
+                      Titik lokasi pohon, batas kepemilikan tanah, data
+                      kuesioner penduduk.
+                    </td>
+                    <td>GPS Log (GPX), Tabel Excel (CSV), Formulir kertas.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Penginderaan Jauh</strong></td>
+                    <td>
+                      Citra Satelit (Sentinel/Landsat), Foto Udara Drone, Data
+                      Ketinggian (DEM).
+                    </td>
+                    <td>GeoTIFF, JPEG2000, LAS (LiDAR).</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Data Sekunder (Instansi)</strong></td>
+                    <td>
+                      Batar Administrasi (RBI), Jaringan Jalan, Tata Guna Lahan.
+                    </td>
+                    <td>Shapefile (SHP), GeoPackage (GPKG), KML, CAD (DXF).</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h2>Tahap 3: Pengelolaan & Pra-pengolahan (Mencuci Bahan)</h2>
+            <p>
+              Ini adalah tahap yang paling memakan waktu namun paling krusial.
+              Data mentah jarang sekali siap pakai. Mereka seringkali "kotor",
+              tidak lengkap, atau berbeda format.
+            </p>
+            <p>
+              Mahasiswa sering meremehkan tahap ini, padahal 70% waktu proyek
+              GIS dihabiskan di sini. Kegiatan utamanya meliputi:
+            </p>
+            <ul>
+              <li>
+                <strong>Validasi Geometri:</strong> Memperbaiki poligon yang
+                tumpang tindih atau garis yang tidak tersambung.
+              </li>
+              <li>
+                <strong>Penyatuan Basis Data:</strong> Menggabungkan tabel
+                atribut dari Excel ke dalam data spasial (<em>Join Table</em>).
+              </li>
+              <li>
+                <strong>Transformasi Koordinat:</strong> Memastikan semua data
+                menggunakan
+                <a href="2-koordinat-proyeksi.html"
+                  >Sistem Koordinat dan Proyeksi</a
+                >
+                yang sama agar bisa tumpang susun (overlay) dengan benar.
+              </li>
+            </ul>
+
+            <div class="highlight-box">
+              "Jika data Anda tidak tumpang susun dengan benar karena perbedaan
+              proyeksi, alur kerja Anda akan terhenti di sini dan analisis
+              berikutnya akan sia-sia."
+            </div>
+
+            <h2>Tahap 4: Analisis Spasial (Memasak)</h2>
+            <p>
+              Inilah 'otak' dari GIS. Di tahap inilah kita menggunakan algoritma
+              matematika dan logika ruang untuk mengubah data menjadi informasi.
+              Sesuai pertanyaan di Tahap 1, kita mulai mencari jawaban.
+            </p>
+            <p>Beberapa teknik analisis populer bagi mahasiswa:</p>
+            <ul>
+              <li>
+                <strong>Overlay (Tumpang Susun):</strong> Menggabungkan lapisan
+                data (misal: tanah + lereng + curah hujan) untuk menentukan
+                kesesuaian lahan.
+              </li>
+              <li>
+                <strong>Buffering (Zonasi):</strong> Membuat zona radius di
+                sekitar objek (misal: zona penyangga 500m dari sungai rawan
+                banjir).
+              </li>
+              <li>
+                <strong>Analisis Jaringan (Network):</strong> Menghitung rute
+                tercepat atau wilayah layanan (misal: rute ambulans terpendek).
+              </li>
+            </ul>
+
+            <h2>Tahap 5: Output & Visualisasi (Menghidangkan)</h2>
+            <p>
+              Semua analisis di atas tidak ada gunanya jika tidak bisa
+              dikomunikasikan. Tahap terakhir adalah mengemas hasil analisis
+              menjadi produk yang mudah dipahami oleh pengambil keputusan atau
+              publik.
+            </p>
+            <ul>
+              <li>
+                <strong>Peta Cetak/Digital:</strong> Membuat *Layout* peta
+                formal dengan legenda, skala, dan utara yang jelas.
+              </li>
+              <li>
+                <strong>Web Map/Dashboard:</strong> Menyajikan peta interaktif
+                secara online (misal: peta sebaran COVID-19).
+              </li>
+              <li>
+                <strong>Laporan Teknis:</strong> Menyertakan tabel, grafik, dan
+                narasi penjelasan hasil analisis.
+              </li>
+            </ul>
+
+            <p style="margin-top: 40px">
+              Kesimpulannya, penguasaan atas GIS bukan sekadar penguasaan
+              tombol-tombol di perangkat lunak, melainkan pemahaman mendalam
+              atas setiap tahapan alur kerja ini. Jadilah praktisi yang disiplin
+              dengan mengikuti alur kerja yang benar untuk hasil riset yang
+              akurat.
+            </p>
+          </div>
+        </div>
+      </article>
+
+      <section class="section-cta-green">
+        <div class="container">
+          <h2>Butuh Pendampingan Workflow Proyek GIS?</h2>
+          <p>
+            Kami membantu mahasiswa dan peneliti menyusun basis data dan alur
+            analisis spasial yang efisien untuk hasil riset yang valid.
+          </p>
+          <a href="../kontak/kontak.html" class="btn-cta-white"
+            >Hubungi Tim Ahli LONTARA</a
+          >
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-container">
+        <p>&copy; 2026 LONTARA. Environmental & Land Intelligence Studio.</p>
+      </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+  </body>
+</html>

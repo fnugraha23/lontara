@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Akses dataset spasial, skrip Python otomasi, dan template WebGIS eksklusif dari Lontara untuk riset dan industri."
+    />
+    <title>Aset Digital | Lontara</title>
+
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/layout.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/main.css" />
+
+    <style>
+      /* =========================================
+         STYLING KHUSUS SEARCH BAR & WEBGIS
+         ========================================= */
+
+      /* Search Bar UI */
+      .nav-search {
+        display: flex;
+        align-items: center;
+      }
+
+      #search-form {
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
+
+      .search-input {
+        padding: 8px 36px 8px 16px;
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        background: var(--bg-light);
+        font-family: inherit;
+        font-size: 0.9rem;
+        color: var(--text-main);
+        transition: var(--transition);
+        width: 160px; /* Lebar default desktop */
+      }
+
+      .search-input:focus {
+        outline: none;
+        border-color: var(--accent);
+        width: 220px; /* Memanjang saat diklik */
+        box-shadow: 0 0 0 3px var(--accent-soft);
+      }
+
+      .search-btn {
+        position: absolute;
+        right: 12px;
+        background: none;
+        border: none;
+        color: var(--text-muted);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        transition: var(--transition);
+      }
+
+      .search-btn:hover {
+        color: var(--accent);
+        transform: scale(1.1);
+      }
+
+      @media (max-width: 768px) {
+        .nav-search {
+          width: 100%;
+          justify-content: center;
+          margin: 10px 0;
+        }
+        #search-form {
+          width: 100%;
+        }
+        .search-input {
+          width: 100%;
+        }
+        .search-input:focus {
+          width: 100%;
+        }
+      }
+      
+      /* FIX: Padding Hero ditingkatkan agar judul tidak tertutup header sticky */
+      .hero-assets {
+        padding: 180px 0 100px;
+        background-color: var(--primary);
+        color: white;
+        text-align: center;
+      }
+      .hero-assets h1 {
+        font-size: 3rem;
+        margin-bottom: 20px;
+        color: white;
+      }
+
+      .resource-section-title {
+        display: flex;
+        align-items: center;
+        justify-content: center; /* Rata tengah judul seksi */
+        gap: 15px;
+        margin-bottom: 40px;
+        font-size: 1.8rem;
+        color: var(--primary);
+      }
+
+      /* Badge & Card Styles */
+      .badge-free {
+        background: rgba(0, 184, 169, 0.15);
+        color: var(--accent);
+        padding: 4px 12px;
+        border-radius: 6px;
+        font-size: 0.85rem;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+      .badge-premium {
+        background: #fff5e6;
+        color: #d97706;
+        padding: 4px 12px;
+        border-radius: 6px;
+        font-size: 0.85rem;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+
+      .resource-card {
+        background: white;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 35px;
+        transition: var(--transition);
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        text-align: center; /* Rata tengah isi kartu */
+      }
+
+      .resource-card.premium-card {
+        border: 1px solid #ffe8c2;
+        background: linear-gradient(to bottom right, #ffffff, #fffdfa);
+      }
+      .resource-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        border-color: var(--accent);
+      }
+
+      .resource-card h3 {
+        font-size: 1.35rem;
+        margin-bottom: 15px;
+        color: var(--primary);
+      }
+      .resource-card p {
+        color: var(--text-muted);
+        font-size: 0.95rem;
+        margin-bottom: 30px;
+        flex-grow: 1;
+        line-height: 1.6;
+      }
+
+      .btn-download {
+        display: inline-block;
+        padding: 12px 20px;
+        border-radius: 8px;
+        font-weight: 700;
+        text-align: center;
+        transition: var(--transition);
+        font-size: 0.9rem;
+        text-decoration: none;
+      }
+      .btn-free {
+        background: var(--bg-light);
+        color: var(--primary);
+        border: 1px solid var(--border);
+      }
+      .btn-free:hover {
+        background: var(--accent);
+        color: white !important;
+        border-color: var(--accent);
+      }
+      .btn-locked {
+        background: var(--primary);
+        color: white !important;
+      }
+
+      /* CUSTOM CTA SECTION: Forest Green sesuai permintaan */
+      .section-cta-green {
+        background-color: #123b3a !important;
+        color: white !important;
+        text-align: center;
+        padding: 100px 0;
+      }
+      .section-cta-green h2 {
+        color: white !important;
+        margin-bottom: 20px;
+      }
+      .section-cta-green p {
+        color: rgba(255, 255, 255, 0.9) !important;
+        margin-bottom: 40px;
+      }
+
+      .btn-cta-white {
+        background-color: white !important;
+        color: #123b3a !important;
+        padding: 16px 40px;
+        border-radius: 8px;
+        font-weight: 800;
+        font-size: 1.1rem;
+        display: inline-block;
+        transition: 0.3s ease;
+        text-decoration: none;
+      }
+
+      @media (max-width: 768px) {
+        .hero-assets h1 {
+          font-size: 2.2rem;
+        }
+        .hero-assets {
+          padding: 140px 0 60px;
+        }
+        .resource-section-title {
+          flex-direction: column;
+          gap: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header" id="header">
+      <div class="progress-bar" id="progress-bar"></div>
+
+      <div class="container nav-container">
+        <div class="logo">
+          <a href="../beranda.html">
+            <img
+              src="../assets/images/logo.png"
+              alt="Lontara Logo"
+              width="120"
+              height="38"
+            />
+          </a>
+        </div>
+
+        <nav class="nav" id="nav-menu">
+          <div class="nav-item">
+            <a href="../layanan/layanan.html">Layanan</a>
+          </div>
+
+          <div class="nav-item">
+            <a href="../portofolio/portofolio.html">Portofolio</a>
+          </div>
+
+          <div class="nav-item">
+            <a href="../artikel/artikel.html">Artikel</a>
+          </div>
+
+          <div class="nav-item">
+            <a href="../publikasi/publikasi.html">Publikasi</a>
+          </div>
+
+          <div class="nav-item">
+            <a href="../aset-digital/aset-digital.html">Aset Digital</a>
+          </div>
+
+          <div class="nav-item">
+            <a href="../tentang/tentang.html">Tentang</a>
+          </div>
+          
+          <div class="nav-search">
+            <form id="search-form" action="../search/" method="GET">
+              <input
+                type="text"
+                name="q"
+                placeholder="Cari layanan, artikel..."
+                class="search-input"
+                required
+              />
+              <button type="submit" class="search-btn" aria-label="Cari">
+                <svg
+                  viewBox="0 0 24 24"
+                  width="18"
+                  height="18"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+              </button>
+            </form>
+          </div>
+          
+          <a href="../kontak/kontak.html" class="nav-cta">Kontak</a>
+        </nav>
+
+        <button
+          class="nav-toggle"
+          id="nav-toggle"
+          aria-label="Toggle navigation"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero-assets">
+        <div class="container">
+          <h1 class="reveal-init">Pusat Aset Digital Lontara</h1>
+          <p
+            class="reveal-init"
+            style="
+              color: rgba(255, 255, 255, 0.85);
+              max-width: 650px;
+              margin: 0 auto;
+              font-size: 1.1rem;
+            "
+          >
+            Repositori data spasial terkurasi, skrip otomasi Python, dan
+            template WebGIS untuk mempercepat riset serta implementasi proyek
+            geospasial Anda.
+          </p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <h2 class="resource-section-title reveal-init">
+            Aset Digital <span class="badge-free">Gratis</span>
+          </h2>
+
+          <div class="grid-3 align-start">
+            <div class="resource-card reveal-init">
+              <h3>Shapefile Batas Administrasi Indonesia</h3>
+              <p>
+                Data batas administrasi dalam format shapefile (.shp) pada
+                berbagai tingkat administrasi yang dikeluarkan oleh bandan
+                informasi geospasial (BiG).
+              </p>
+              <a href="free/admin-boundaries.html" class="btn-download btn-free"
+                >Unduh Data &rarr;</a
+              >
+            </div>
+            <div class="resource-card reveal-init">
+              <h3>Shapefile Batas Daerah Aliran Sungai (DAS)</h3>
+              <p>
+                Data batas daerah aliran sungai dalam format shapefile (.shp)
+                yang dikeluarkan oleh kementian lingkungan hidup dan kehutanan
+                (KLHK).
+              </p>
+              <a href="#" class="btn-download btn-free">Coming Soon &rarr;</a>
+            </div>
+            <div class="resource-card reveal-init">
+              <h3>Raster Digital Elevation Model (DEM) SRTM 30 Meter</h3>
+              <p>
+                Data DEM SRTM dengan resolusi 30 meter, yang biasa digunakan
+                dalam berbagai analisis topografi seperti, lereng, kontur dan
+                lain-lain.
+              </p>
+              <a
+                href="https://drive.google.com/file/d/1WQfZ_0vLKo9CbHso8kCcz1GajyEU21OA/view"
+                class="btn-download btn-free"
+                >Unduh Data &rarr;</a
+              >
+            </div>
+            <div class="resource-card reveal-init">
+              <h3>Shapefile Rupa Bumi Indonesia (RBI)</h3>
+              <p>
+                Berisi berbagai data dasar seperti jalan, sungai, penggunaan
+                lahan, toponimi dan lain-lain.
+              </p>
+              <a href="#" class="btn-download btn-free">Coming Soon &rarr;</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-light">
+        <div class="container">
+          <h2 class="resource-section-title reveal-init">
+            Aset Digital <span class="badge-premium">Berbayar</span>
+          </h2>
+
+          <div class="grid-3 align-start">
+            <div class="resource-card premium-card reveal-init">
+              <h3>Toolbox Klasifikasi Kelas Lereng</h3>
+              <p>
+                Toolbox yang berguna untuk mengolah analisis data DEM hingga
+                menjadi data kelas lereng yang siap digunakan, tanpa harus
+                menggunakan banyak tools.
+              </p>
+              <a href="premium/access.html" class="btn-download btn-free"
+                >Minta Akses &rarr;</a
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-cta-green">
+        <div class="container">
+          <h2 class="reveal-init">Butuh Aset Digital Kustom?</h2>
+          <p class="reveal-init">
+            Kami dapat membantu menyediakan dataset spesifik atau membangun
+            skrip otomasi sesuai kebutuhan teknis proyek Anda.
+          </p>
+          <div class="reveal-init">
+            <a href="../kontak/kontak.html" class="btn-cta-white"
+              >Hubungi Kami Sekarang</a
+            >
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-container">
+        <div>
+          <h4 style="margin-bottom: 10px">Lontara</h4>
+          <p style="font-size: 0.9rem; color: var(--text-muted)">
+            Environmental & Land Intelligence Studio.
+          </p>
+        </div>
+        <div>
+          <p style="font-size: 0.9rem; color: var(--text-muted)">
+            &copy; 2026 Lontara. Seluruh Hak Cipta Dilindungi.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../js/utils.js"></script>
+    <script src="../js/animation.js"></script>
+    <script src="../js/main.js"></script>
+  </body>
+</html>
+
+

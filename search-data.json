@@ -1,0 +1,42 @@
+[
+  {
+    "id": "webgis-1",
+    "judul": "Pengembangan Custom WebGIS Interaktif",
+    "kategori": "Layanan",
+    "url": "/layanan/custom-webgis.html",
+    "deskripsi": "Layanan pembuatan platform WebGIS kustom untuk visualisasi data spasial, integrasi atribut lahan, dan pemetaan interaktif.",
+    "keyword": "webgis, peta interaktif, pemetaan, gis, spasial, custom"
+  },
+  {
+    "id": "porto-1",
+    "judul": "Environmental & Land Dashboard Sub DAS Tanralili",
+    "kategori": "Portofolio",
+    "url": "/portofolio/environmental-dashboard.html",
+    "deskripsi": "Dasbor analitik untuk memantau kinerja hidrologi, arahan penggunaan lahan, dan simulasi debit air di kawasan Sub DAS Tanralili.",
+    "keyword": "dashboard, tanralili, hidrologi, air, das, evaluasi"
+  },
+  {
+    "id": "porto-2",
+    "judul": "Aplikasi Evaluasi Kesesuaian Lahan Terpadu",
+    "kategori": "Portofolio",
+    "url": "/portofolio/evaluasi-lahan.html",
+    "deskripsi": "Sistem otomasi evaluasi kesesuaian lahan berbasis Python dan database SQLite untuk mengelola kriteria lahan secara efisien.",
+    "keyword": "python, sqlite, kesesuaian lahan, aplikasi, evaluasi, database, tanah"
+  },
+  {
+    "id": "artikel-1",
+    "judul": "Klasifikasi Tutupan Lahan dengan Machine Learning & GEE",
+    "kategori": "Artikel",
+    "url": "/artikel/ml-tutupan-lahan.html",
+    "deskripsi": "Panduan teknis penerapan algoritma Machine Learning di Google Earth Engine untuk identifikasi tutupan lahan otomatis.",
+    "keyword": "machine learning, ml, gee, google earth engine, tutupan lahan, remote sensing"
+  },
+  {
+    "id": "aset-1",
+    "judul": "Dataset Spasial Atribut Geologi & Tanah",
+    "kategori": "Aset Digital",
+    "url": "/aset-digital/dataset-geologi.html",
+    "deskripsi": "Kumpulan data shapefile (SHP) mencakup atribut geologi, hidrologi, dan jenis tanah yang siap digunakan untuk pemodelan spasial.",
+    "keyword": "dataset, shapefile, geologi, shp, atribut, tanah, download"
+  }
+]
