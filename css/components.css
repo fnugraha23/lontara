@@ -137,7 +137,7 @@
 
 .btn-dark:hover {
   background-color: #0f172a;
-  color: var(--accent) !important; /* Teks berubah Teal agar menyala */
+  color: var(--text-white) !important; /* Teks berubah Teal agar menyala */
   transform: translateY(-5px);
   border-color: var(--accent);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
