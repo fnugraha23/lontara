@@ -53,6 +53,20 @@ const AppShell = {
       targetUrl = "sumber-konten/beranda.html";
     }
 
+    // ==========================================
+    // PROTEKSI BARU (ANTI-ERROR SCROLL)
+    // Jika targetUrl TIDAK mengandung tanda garis miring '/'
+    // ATAU '.html', berarti ini cuma ID untuk scroll (seperti #features).
+    // Jadi, hentikan fungsi agar tidak memuat halaman error.
+    // ==========================================
+    if (
+      !targetUrl.includes("/") &&
+      !targetUrl.includes(".html") &&
+      targetUrl !== "sumber-konten/beranda.html"
+    ) {
+      return;
+    }
+
     this.fetchAndRender(targetUrl);
   },
 
